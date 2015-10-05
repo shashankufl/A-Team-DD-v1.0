@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.parse.LogInCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
@@ -29,6 +30,9 @@ public class LoginSignupActivity extends Activity {
         // Get the view from main.xml
         setContentView(R.layout.loginsignup);
         // Locate EditTexts in main.xml
+        ParseObject testObject = new ParseObject("TestObject");
+        testObject.put("foo", "bar");
+        testObject.saveInBackground();
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
 
@@ -55,13 +59,13 @@ public class LoginSignupActivity extends Activity {
                                             Welcome.class);
                                     startActivity(intent);
                                     Toast.makeText(getApplicationContext(),
-                                            "Successfully Logged in",
+                                            "Successfully Logged in to GradeUP",
                                             Toast.LENGTH_LONG).show();
                                     finish();
                                 } else {
                                     Toast.makeText(
                                             getApplicationContext(),
-                                            "No such user exist, please signup",
+                                            "Invalid credentials, please try again signup if you're a new user",
                                             Toast.LENGTH_LONG).show();
                                 }
                             }
@@ -92,7 +96,7 @@ public class LoginSignupActivity extends Activity {
                             if (e == null) {
                                 // Show a simple Toast message upon successful registration
                                 Toast.makeText(getApplicationContext(),
-                                        "Successfully Signed up, please log in.",
+                                        "Successfully Signed up, please try logging in now.",
                                         Toast.LENGTH_LONG).show();
                             } else {
                                 Toast.makeText(getApplicationContext(),
