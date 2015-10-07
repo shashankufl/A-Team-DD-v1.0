@@ -4,9 +4,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
+
 public class RegisterActivity extends AppCompatActivity {
+
+    Button registerButton;
+    EditText registerEmail;
+    EditText registerPassword;
 
     private android.support.v7.widget.Toolbar toolbar;
     @Override
@@ -16,7 +28,47 @@ public class RegisterActivity extends AppCompatActivity {
 
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
-        //getSupportActionBar().setTitle("My custom toolbar!");
+        registerEmail = (EditText)findViewById(R.id.emailTxt);
+        registerPassword = (EditText) findViewById(R.id.passwordTxt);
+        registerButton = (Button) findViewById(R.id.registerBtn);
+        // Sign up Button Click Listener
+        registerButton.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View arg0) {
+                // Retrieve the text entered from the EditText
+                String emailTxt = registerEmail.getText().toString();
+                String passwordTxt = registerPassword.getText().toString();
+
+                // Force user to fill up the form
+                if (emailTxt.equals("") && passwordTxt.equals("")) {
+                    Toast.makeText(getApplicationContext(),
+                            "Please complete the sign up form",
+                            Toast.LENGTH_LONG).show();
+
+                } else {
+                    // Save new user data into Parse.com Data Storage
+                    ParseUser user = new ParseUser();
+                    user.setUsername(emailTxt);
+                    user.setPassword(passwordTxt);
+                    user.signUpInBackground(new SignUpCallback() {
+                        public void done(ParseException e) {
+                            if (e == null) {
+                                // Show a simple Toast message upon successful registration
+                                Toast.makeText(getApplicationContext(),
+                                        "Successfully Signed up, please try logging in now.",
+                                        Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(),
+                                        "Sign up Error", Toast.LENGTH_LONG)
+                                        .show();
+                            }
+                        }
+                    });
+                }
+
+            }
+        });
+
     }
 
     @Override
