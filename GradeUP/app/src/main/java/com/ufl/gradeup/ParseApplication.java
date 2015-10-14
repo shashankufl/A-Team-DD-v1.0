@@ -1,14 +1,14 @@
-package com.example.shashank.logintest;
-
+package com.ufl.gradeup;
 import android.app.Application;
 
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseInstallation;
 import com.parse.ParseUser;
-
+/**
+ * Created by Nikhil on 10/7/2015.
+ */
 public class ParseApplication extends Application {
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -22,5 +22,4 @@ public class ParseApplication extends Application {
         ParseACL.setDefaultACL(defaultACL, true);
 
     }
-
 }
