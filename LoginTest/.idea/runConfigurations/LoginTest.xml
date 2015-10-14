@@ -2,7 +2,7 @@
   <configuration default="false" name="LoginTest" type="AndroidRunConfigurationType" factoryName="Android Application">
     <module name="app" />
     <option name="ACTIVITY_CLASS" value="com.example.shashank.logintest.MainActivity" />
-    <option name="MODE" value="specific_activity" />
+    <option name="MODE" value="default_activity" />
     <option name="DEPLOY" value="true" />
     <option name="ARTIFACT_NAME" value="" />
     <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />

@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import com.parse.LogInCallback;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
@@ -30,9 +29,7 @@ public class LoginSignupActivity extends Activity {
         // Get the view from main.xml
         setContentView(R.layout.loginsignup);
         // Locate EditTexts in main.xml
-        ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("foo", "bar");
-        testObject.saveInBackground();
+
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
 
