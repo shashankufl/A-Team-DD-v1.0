@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ufl.gradeup"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="23" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.write_external_storage" />
+
+    <permission
+        android:name="com.ufl.gradeup"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.ufl.gradeup" />
+
+    <service android:name="com.parse.PushService" />
+
+    <receiver
+        android:name="com.parse.ParsePushBroadcastReceiver"
+        android:exported="false" >
+        <intent-filter>
+            <action android:name="com.parse.push.intent.RECEIVE" />
+            <action android:name="com.parse.push.intent.DELETE" />
+            <action android:name="com.parse.push.intent.OPEN" />
+        </intent-filter>
+    </receiver>
+    <receiver
+        android:name="com.parse.GcmBroadcastReceiver"
+        android:permission="com.google.android.c2dm.permission.SEND" >
+        <intent-filter>
+            <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+            <!-- IMPORTANT: Change "com.parse.starter" to match your app's package name. -->
+            <category android:name="com.ufl.gradeup" />
+        </intent-filter>
+    </receiver>
+
+    <application
+        android:name="com.ufl.gradeup.ParseApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/gradeup_icon"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.ufl.gradeup.LoginActivity"
+            android:label="@string/title_activity_login" >
+        </activity>
+        <activity
+            android:name="com.ufl.gradeup.RegisterActivity"
+            android:label="@string/title_activity_register" >
+        </activity>
+        <activity
+            android:name="com.ufl.gradeup.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.ufl.gradeup.UserProfileActivity"
+            android:label="@string/title_activity_user_profile" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+    </application>
+
+</manifest>

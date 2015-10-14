@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\parikshitt23\Documents\GitHub\A-Team-DD-v1.0\GradeUP\app\build\intermediates\exploded-aar\com.android.support\design\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="e5c61a3169221a89654ffcaaed47bba51cf071ad">
+        <dex dex="C:\Users\parikshitt23\Documents\GitHub\A-Team-DD-v1.0\GradeUP\app\build\intermediates\pre-dexed\debug\classes-4720d77f984db23efd48e0eceed63098e3b77da6.jar" />
+    </item>
+    <item
+        jar="C:\Users\parikshitt23\Documents\GitHub\A-Team-DD-v1.0\GradeUP\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="4356e230a981d1bbf047d848b91bc0d9b7c5bacc">
+        <dex dex="C:\Users\parikshitt23\Documents\GitHub\A-Team-DD-v1.0\GradeUP\app\build\intermediates\pre-dexed\debug\classes-ccc583e74e68a61c992ce90dfedb75ac3cb57812.jar" />
+    </item>
+    <item
+        jar="C:\Users\parikshitt23\Documents\GitHub\A-Team-DD-v1.0\GradeUP\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
+        <dex dex="C:\Users\parikshitt23\Documents\GitHub\A-Team-DD-v1.0\GradeUP\app\build\intermediates\pre-dexed\debug\classes-1a1a200f164275b63fde086a4759052eb25a899a.jar" />
+    </item>
+    <item
+        jar="C:\Users\parikshitt23\Documents\GitHub\A-Team-DD-v1.0\GradeUP\app\libs\Parse-1.10.2.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="a859414011ce2c18187acc83319688e6bd340635">
+        <dex dex="C:\Users\parikshitt23\Documents\GitHub\A-Team-DD-v1.0\GradeUP\app\build\intermediates\pre-dexed\debug\Parse-1.10.2-418f87c3c204335d10a6a5af5f02254ea4731da8.jar" />
+    </item>
+    <item
+        jar="C:\Users\parikshitt23\Documents\GitHub\A-Team-DD-v1.0\GradeUP\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
+        <dex dex="C:\Users\parikshitt23\Documents\GitHub\A-Team-DD-v1.0\GradeUP\app\build\intermediates\pre-dexed\debug\classes-7ad811d3f77bc80240d2f7057b8d14b8f6dbbd3f.jar" />
+    </item>
+    <item
+        jar="C:\Users\parikshitt23\Documents\GitHub\A-Team-DD-v1.0\GradeUP\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="39ae02ce40c3ac828abbf780ce0ff5d7a28b7d6a">
+        <dex dex="C:\Users\parikshitt23\Documents\GitHub\A-Team-DD-v1.0\GradeUP\app\build\intermediates\pre-dexed\debug\classes-9bb6214758dab5dbf452331e0bb890270515455c.jar" />
+    </item>
+    <item
+        jar="C:\Users\parikshitt23\Documents\GitHub\A-Team-DD-v1.0\GradeUP\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\libs\internal_impl-23.0.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
+        <dex dex="C:\Users\parikshitt23\Documents\GitHub\A-Team-DD-v1.0\GradeUP\app\build\intermediates\pre-dexed\debug\internal_impl-23.0.1-bd719606911ab61e681fb4dbf7eb60b37741bb54.jar" />
+    </item>
+    <item
+        jar="C:\Users\parikshitt23\.gradle\caches\modules-2\files-2.1\com.github.bumptech.glide\glide\3.6.0\a7537446a030da8eb0da4c71424d16c2589f6c4a\glide-3.6.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="a7537446a030da8eb0da4c71424d16c2589f6c4a">
+        <dex dex="C:\Users\parikshitt23\Documents\GitHub\A-Team-DD-v1.0\GradeUP\app\build\intermediates\pre-dexed\debug\glide-3.6.0-d0906781dbdd0d5252fa62611102e994f8388aa3.jar" />
+    </item>
+    <item
+        jar="C:\Users\parikshitt23\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.0.1\support-annotations-23.0.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
+        <dex dex="C:\Users\parikshitt23\Documents\GitHub\A-Team-DD-v1.0\GradeUP\app\build\intermediates\pre-dexed\debug\support-annotations-23.0.1-a15f23564f7e5a7f50bdfde52b4687647360d085.jar" />
+    </item>
+    <item
+        jar="C:\Users\parikshitt23\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-android\1.2.0\6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd\bolts-android-1.2.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd">
+        <dex dex="C:\Users\parikshitt23\Documents\GitHub\A-Team-DD-v1.0\GradeUP\app\build\intermediates\pre-dexed\debug\bolts-android-1.2.0-f34f0f58dc7677a08a8bf7babb3068325d61937d.jar" />
+    </item>
+
+</items>
