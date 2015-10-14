@@ -13,4 +13,6 @@
     <string name="FieldOfStudy">"Field of Study"</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_user_profile">UserProfileActivity</string>
+    <string name="university">University</string>
+    
 </resources>

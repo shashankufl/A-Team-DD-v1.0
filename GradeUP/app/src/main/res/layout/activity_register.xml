@@ -35,7 +35,8 @@
         android:layout_alignLeft="@+id/nameTxt"
         android:layout_alignStart="@+id/nameTxt"
         android:layout_alignRight="@+id/nameTxt"
-        android:layout_alignEnd="@+id/nameTxt" />
+        android:layout_alignEnd="@+id/nameTxt"
+        android:autoText="false" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -83,8 +84,33 @@
         android:text="@string/Register"
         android:id="@+id/registerBtn"
         android:textColor="@color/buttonText"
-        android:layout_below="@+id/studyFieldTxt"
+        android:layout_below="@+id/profilePicBtn"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp" />
+        android:layout_marginTop="40dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Select Profile Picture  "
+        android:id="@+id/selectPicTxt"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/studyFieldTxt"
+        android:layout_alignLeft="@+id/studyFieldTxt"
+        android:layout_alignStart="@+id/studyFieldTxt" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Pic..."
+        android:id="@+id/profilePicBtn"
+        android:background="@color/buttonText"
+        android:layout_alignTop="@+id/selectPicTxt"
+        android:layout_alignRight="@+id/studyFieldTxt"
+        android:layout_alignEnd="@+id/studyFieldTxt"
+        android:layout_toRightOf="@+id/selectPicTxt"
+        android:layout_toEndOf="@+id/selectPicTxt"
+        android:layout_alignBottom="@+id/selectPicTxt"
+        android:onClick="onSelectPicClicked" />
 
 </RelativeLayout>
