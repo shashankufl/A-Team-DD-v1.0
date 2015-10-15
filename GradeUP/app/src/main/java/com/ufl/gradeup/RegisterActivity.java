@@ -46,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
     String regexEmail = "[a-zA-Z0-9._]+@[a-zA-Z0-9._]+\\.[A-Za-z]{2,6}";
     String regexName = "[a-zA-Z\\s]{2,32}";
     String regexPassword = "[a-zA-Z0-9^a-zA-Z0-9]{8,20}";
-    String regexFieldOfStudy = "[a-zA-Z-.\\s]{8,32}";
+    String regexFieldOfStudy = "[a-zA-Z-.\\s]{2,32}";
     ParseFile pictureFile;
 
     private android.support.v7.widget.Toolbar toolbar;
@@ -148,6 +148,20 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+        confirmPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    if (!registerPassword.getText().toString().equals(confirmPassword.getText().toString())) {
+
+                        registerButton.setEnabled(false);
+                    } else {
+                        registerButton.setEnabled(true);
+                        confirmPassword.setError(null);
+                    }
+                }
+            }
+        });
         registerFieldOfStudy.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -194,7 +208,7 @@ public class RegisterActivity extends AppCompatActivity {
                     user.setPassword(passwordTxt);
                     user.setEmail(emailTxt);
                     user.put("Name", nameTxt);
-                    user.put("University",universityTxt);
+                    user.put("University", universityTxt);
                     user.put("StudyField",fieldOfStudy);
                     user.put("ProfilePic", pictureFile);
 
