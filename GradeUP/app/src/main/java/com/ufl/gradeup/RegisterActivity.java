@@ -39,6 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText registerEmail;
     EditText registerPassword;
     EditText registerName;
+    EditText registerUniversity;
     byte[] ProfilePic;
 	EditText confirmPassword;
     EditText registerFieldOfStudy;
@@ -62,6 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerButton = (Button) findViewById(R.id.registerBtn);
         confirmPassword = (EditText) findViewById(R.id.confirmPasswordTxt);
         registerFieldOfStudy = (EditText) findViewById(R.id.studyFieldTxt);
+        registerUniversity = (EditText) findViewById(R.id.universityTxt);
 
         registerName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -176,6 +178,8 @@ public class RegisterActivity extends AppCompatActivity {
                 String emailTxt = registerEmail.getText().toString();
                 String passwordTxt = registerPassword.getText().toString();
                 String nameTxt = registerName.getText().toString();
+                String universityTxt = registerUniversity.getText().toString();
+                String fieldOfStudy = registerFieldOfStudy.getText().toString();
                 // Force user to fill up the form
                 if (emailTxt.equals("") && passwordTxt.equals("")) {
                     Toast.makeText(getApplicationContext(),
@@ -188,7 +192,10 @@ public class RegisterActivity extends AppCompatActivity {
 
                     user.setUsername(emailTxt);
                     user.setPassword(passwordTxt);
+                    user.setEmail(emailTxt);
                     user.put("Name", nameTxt);
+                    user.put("University",universityTxt);
+                    user.put("StudyField",fieldOfStudy);
                     user.put("ProfilePic", pictureFile);
 
                     user.signUpInBackground(new SignUpCallback() {
