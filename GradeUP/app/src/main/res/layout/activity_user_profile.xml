@@ -113,6 +113,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Today's Schedule"
+                android:textColor="@color/primaryColor"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
             <android.support.v7.widget.CardView
@@ -189,6 +190,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="My Study Groups"
+                android:textColor="@color/primaryColor"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
             <android.support.v7.widget.CardView
@@ -231,7 +233,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="A - Team Meeting"
+                        android:text="A - Team"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 
