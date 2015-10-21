@@ -18,6 +18,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -48,6 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
     String regexPassword = "[a-zA-Z0-9^a-zA-Z0-9]{8,20}";
     String regexFieldOfStudy = "[a-zA-Z-.\\s]{2,32}";
     ParseFile pictureFile;
+    String picName = "profilePic.png";
 
     private android.support.v7.widget.Toolbar toolbar;
     @Override
@@ -222,6 +224,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(),
                                         "Successfully Signed up, please try logging in now.",
                                         Toast.LENGTH_LONG).show();
+                                finish();
                             } else {
 
                                 Toast.makeText(getApplicationContext(),
@@ -254,7 +257,9 @@ public class RegisterActivity extends AppCompatActivity {
             //Picture address from phone storage
             Uri pictureUri = data.getData();
             try {
-                String picName = registerName.getText().toString().replaceAll("\\s","")+".png";
+                if(registerName.getText().toString().trim().length()>0){
+                    picName = registerName.getText().toString().replaceAll("\\s","")+".png";
+                }
                 Bitmap PictureBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),pictureUri);
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 PictureBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -270,6 +275,8 @@ public class RegisterActivity extends AppCompatActivity {
                         // If successful add file to user and signUpInBackground
                         if(null == e){
                             pictureUploadProgress.dismiss();
+                            TextView picTextView = (TextView) findViewById(R.id.selectPicTxt);
+                            //picTextView.setText(picName);
                             Toast.makeText(getApplicationContext(),
                                     "Picture Uploaded", Toast.LENGTH_SHORT)
                                     .show();
