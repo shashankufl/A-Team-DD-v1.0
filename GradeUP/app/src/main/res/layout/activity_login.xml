@@ -7,6 +7,14 @@
     tools:context="com.ufl.gradeup.LoginActivity"
     android:id="@+id/loginPage">
 
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+     <RelativeLayout
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content">
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,8 +32,8 @@
         android:id="@+id/emailText"
         android:hint="@string/Email"
         android:layout_marginTop="50dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
         android:layout_below="@+id/logo"
         android:drawableLeft="@mipmap/emailid_icon"
         android:layout_alignParentLeft="true"
@@ -68,4 +76,7 @@
         android:clickable="true"
         android:layout_below="@+id/LoginBtn"
         android:layout_centerHorizontal="true" />
-</RelativeLayout>
+
+    </RelativeLayout>
+    </ScrollView>
+    </RelativeLayout>
