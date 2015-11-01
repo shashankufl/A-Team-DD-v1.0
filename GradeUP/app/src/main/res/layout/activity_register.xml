@@ -10,107 +10,125 @@
         layout="@layout/app_bar"></include>
 
     <EditText
+        android:id="@+id/nameTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/nameTxt"
-        android:layout_below="@+id/app_bar"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"
+        android:layout_below="@+id/app_bar"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:hint="Name"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:drawableLeft="@mipmap/emailid_icon"
+        android:layout_marginTop="20dp"
+        android:hint="Name" />
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:layout_marginTop="20dp"
         android:id="@+id/emailTxt"
-        android:hint="@string/Email"
-        android:layout_below="@+id/nameTxt"
-        android:layout_alignLeft="@+id/nameTxt"
-        android:layout_alignStart="@+id/nameTxt"
-        android:layout_alignRight="@+id/nameTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/nameTxt"
-        android:autoText="false" />
+        android:layout_alignLeft="@+id/nameTxt"
+        android:layout_alignRight="@+id/nameTxt"
+        android:layout_alignStart="@+id/nameTxt"
+        android:layout_below="@+id/nameTxt"
+        android:drawableLeft="@mipmap/email_icon"
+        android:layout_marginTop="20dp"
+        android:autoText="false"
+        android:ems="10"
+        android:hint="@string/Email"
+        android:inputType="textEmailAddress" />
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
         android:id="@+id/passwordTxt"
-        android:hint="@string/Password"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/emailTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/emailTxt"
         android:layout_alignLeft="@+id/emailTxt"
-        android:layout_alignStart="@+id/emailTxt"
         android:layout_alignRight="@+id/emailTxt"
-        android:layout_alignEnd="@+id/emailTxt" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
+        android:layout_alignStart="@+id/emailTxt"
+        android:layout_below="@+id/emailTxt"
+        android:drawableLeft="@mipmap/password_icon"
+        android:layout_marginTop="20dp"
         android:ems="10"
-        android:id="@+id/confirmPasswordTxt"
-        android:hint="@string/ConfirmPassword"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="20dp"
-        android:layout_alignLeft="@+id/passwordTxt"
-        android:layout_alignStart="@+id/passwordTxt"
-        android:layout_alignRight="@+id/passwordTxt"
-        android:layout_alignEnd="@+id/passwordTxt" />
+        android:hint="@string/Password"
+        android:inputType="textPassword" />
 
     <EditText
+        android:id="@+id/confirmPasswordTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/studyFieldTxt"
+        android:ems="10"
+        android:hint="@string/ConfirmPassword"
+        android:inputType="textPassword"
         android:layout_marginTop="20dp"
-        android:hint="@string/FieldOfStudy"
-        android:layout_below="@+id/confirmPasswordTxt"
-        android:layout_alignRight="@+id/confirmPasswordTxt"
+        android:drawableLeft="@mipmap/password_icon"
+        android:layout_alignEnd="@+id/passwordTxt"
+        android:layout_alignLeft="@+id/passwordTxt"
+        android:layout_alignRight="@+id/passwordTxt"
+        android:layout_alignStart="@+id/passwordTxt"
+        android:layout_below="@+id/passwordTxt" />
+
+    <EditText
+        android:id="@+id/studyFieldTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/confirmPasswordTxt"
         android:layout_alignLeft="@+id/confirmPasswordTxt"
-        android:layout_alignStart="@+id/confirmPasswordTxt" />
+        android:layout_alignRight="@+id/confirmPasswordTxt"
+        android:layout_alignStart="@+id/confirmPasswordTxt"
+        android:drawableLeft="@mipmap/study_icon"
+        android:layout_below="@+id/confirmPasswordTxt"
+        android:layout_marginTop="20dp"
+        android:hint="@string/FieldOfStudy" />
 
-    <Button
+    <EditText
+        android:id="@+id/universityTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Register"
+        android:layout_alignEnd="@+id/studyFieldTxt"
+        android:layout_alignLeft="@+id/studyFieldTxt"
+        android:layout_alignRight="@+id/studyFieldTxt"
+        android:layout_alignStart="@+id/studyFieldTxt"
+        android:layout_below="@+id/studyFieldTxt"
+        android:drawableLeft="@mipmap/university_logo"
+        android:layout_marginTop="20dp"
+        android:hint="@string/university" />
+
+    <Button
         android:id="@+id/registerBtn"
-        android:textColor="@color/buttonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/profilePicBtn"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp" />
+        android:layout_marginTop="20dp"
+        android:text="@string/Register"
+        android:textColor="@color/buttonText" />
 
     <TextView
+        android:id="@+id/selectPicTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Select Profile Picture  "
-        android:id="@+id/selectPicTxt"
+        android:layout_alignLeft="@+id/universityTxt"
+        android:layout_alignStart="@+id/universityTxt"
+        android:layout_below="@+id/universityTxt"
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/studyFieldTxt"
-        android:layout_alignLeft="@+id/studyFieldTxt"
-        android:layout_alignStart="@+id/studyFieldTxt" />
+        android:text="Select Profile Picture  "
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
+        android:id="@+id/profilePicBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select Pic..."
-        android:id="@+id/profilePicBtn"
-        android:background="@color/buttonText"
-        android:layout_alignTop="@+id/selectPicTxt"
-        android:layout_alignRight="@+id/studyFieldTxt"
-        android:layout_alignEnd="@+id/studyFieldTxt"
-        android:layout_toRightOf="@+id/selectPicTxt"
-        android:layout_toEndOf="@+id/selectPicTxt"
         android:layout_alignBottom="@+id/selectPicTxt"
-        android:onClick="onSelectPicClicked" />
+        android:layout_alignEnd="@+id/studyFieldTxt"
+        android:layout_alignRight="@+id/studyFieldTxt"
+        android:layout_alignTop="@+id/selectPicTxt"
+        android:layout_toEndOf="@+id/selectPicTxt"
+        android:layout_toRightOf="@+id/selectPicTxt"
+        android:background="@color/buttonText"
+        android:onClick="onSelectPicClicked"
+        android:text="Select Pic..." />
 
 </RelativeLayout>

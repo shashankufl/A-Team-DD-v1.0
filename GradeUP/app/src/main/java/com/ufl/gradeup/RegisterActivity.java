@@ -18,6 +18,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -39,14 +40,16 @@ public class RegisterActivity extends AppCompatActivity {
     EditText registerEmail;
     EditText registerPassword;
     EditText registerName;
+    EditText registerUniversity;
     byte[] ProfilePic;
 	EditText confirmPassword;
     EditText registerFieldOfStudy;
     String regexEmail = "[a-zA-Z0-9._]+@[a-zA-Z0-9._]+\\.[A-Za-z]{2,6}";
     String regexName = "[a-zA-Z\\s]{2,32}";
     String regexPassword = "[a-zA-Z0-9^a-zA-Z0-9]{8,20}";
-    String regexFieldOfStudy = "[a-zA-Z-.\\s]{8,32}";
+    String regexFieldOfStudy = "[a-zA-Z-.\\s]{2,32}";
     ParseFile pictureFile;
+    String picName = "profilePic.png";
 
     private android.support.v7.widget.Toolbar toolbar;
     @Override
@@ -62,6 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerButton = (Button) findViewById(R.id.registerBtn);
         confirmPassword = (EditText) findViewById(R.id.confirmPasswordTxt);
         registerFieldOfStudy = (EditText) findViewById(R.id.studyFieldTxt);
+        registerUniversity = (EditText) findViewById(R.id.universityTxt);
 
         registerName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -146,6 +150,20 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+        confirmPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    if (!registerPassword.getText().toString().equals(confirmPassword.getText().toString())) {
+
+                        registerButton.setEnabled(false);
+                    } else {
+                        registerButton.setEnabled(true);
+                        confirmPassword.setError(null);
+                    }
+                }
+            }
+        });
         registerFieldOfStudy.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -176,6 +194,8 @@ public class RegisterActivity extends AppCompatActivity {
                 String emailTxt = registerEmail.getText().toString();
                 String passwordTxt = registerPassword.getText().toString();
                 String nameTxt = registerName.getText().toString();
+                String universityTxt = registerUniversity.getText().toString();
+                String fieldOfStudy = registerFieldOfStudy.getText().toString();
                 // Force user to fill up the form
                 if (emailTxt.equals("") && passwordTxt.equals("")) {
                     Toast.makeText(getApplicationContext(),
@@ -188,7 +208,10 @@ public class RegisterActivity extends AppCompatActivity {
 
                     user.setUsername(emailTxt);
                     user.setPassword(passwordTxt);
+                    user.setEmail(emailTxt);
                     user.put("Name", nameTxt);
+                    user.put("University", universityTxt);
+                    user.put("StudyField",fieldOfStudy);
                     user.put("ProfilePic", pictureFile);
 
                     user.signUpInBackground(new SignUpCallback() {
@@ -201,6 +224,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(),
                                         "Successfully Signed up, please try logging in now.",
                                         Toast.LENGTH_LONG).show();
+                                finish();
                             } else {
 
                                 Toast.makeText(getApplicationContext(),
@@ -233,7 +257,9 @@ public class RegisterActivity extends AppCompatActivity {
             //Picture address from phone storage
             Uri pictureUri = data.getData();
             try {
-                String picName = registerName.getText().toString().replaceAll("\\s","")+".png";
+                if(registerName.getText().toString().trim().length()>0){
+                    picName = registerName.getText().toString().replaceAll("\\s","")+".png";
+                }
                 Bitmap PictureBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),pictureUri);
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 PictureBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -249,6 +275,8 @@ public class RegisterActivity extends AppCompatActivity {
                         // If successful add file to user and signUpInBackground
                         if(null == e){
                             pictureUploadProgress.dismiss();
+                            TextView picTextView = (TextView) findViewById(R.id.selectPicTxt);
+                            //picTextView.setText(picName);
                             Toast.makeText(getApplicationContext(),
                                     "Picture Uploaded", Toast.LENGTH_SHORT)
                                     .show();
