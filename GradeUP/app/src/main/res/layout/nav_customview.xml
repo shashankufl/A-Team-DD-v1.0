@@ -6,16 +6,19 @@
 
     <ImageView
         android:id="@+id/navItemIcon"
-        android:padding="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:src="@mipmap/email_icon" />
 
     <TextView
         android:id="@+id/navItemText"
-        android:padding="10dp"
-        android:textSize="20sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="test" />
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:text="test"
+        android:textSize="15sp" />
+
+
 </LinearLayout>

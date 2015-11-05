@@ -45,6 +45,7 @@ public class UserProfileActivity extends AppCompatActivity {
     public static final int PICTURE_REQUEST = 20;
     ParseFile pictureFile;
     ImageView userProfilePic;
+    String name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +56,7 @@ public class UserProfileActivity extends AppCompatActivity {
         //ParseUser user = new ParseUser();
         ParseUser currentUser = ParseUser.getCurrentUser();
         String objectId = currentUser.getObjectId();
-        String name = currentUser.getString("Name");
+        name = currentUser.getString("Name");
         TextView universityTextView = (TextView) findViewById(R.id.university);
         TextView emailTextView = (TextView) findViewById(R.id.email);
         TextView fieldOfStudyTextView = (TextView) findViewById(R.id.studyField);
@@ -75,6 +76,10 @@ public class UserProfileActivity extends AppCompatActivity {
                     Bitmap profilePicBmp = BitmapFactory.decodeByteArray(data, 0, data.length);
                     userProfilePic = (ImageView) findViewById(R.id.ProfileImage);
                     userProfilePic.setImageBitmap(profilePicBmp);
+                    ImageView navProfilePic = (ImageView) findViewById(R.id.navImage);
+                    navProfilePic.setImageBitmap(profilePicBmp);
+                    TextView navTitle = (TextView) findViewById(R.id.navTitleText);
+                    navTitle.setText(name);
                     pictureUploadProgress.dismiss();
                 } else {
                     //userProfilePic.setImageBitmap(R.mipmap.xyz);
@@ -103,7 +108,6 @@ public class UserProfileActivity extends AppCompatActivity {
         NavigationDrawerFragment navDrawerFrag = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.nav_drawer_fragment);
         navDrawerFrag.setUp(R.id.nav_drawer_fragment,(DrawerLayout)findViewById(R.id.drawer_layout), profileToolbar);
     }
-
 
     //To select profile pic from Gallery
     public void onProfilePicClicked(View v){

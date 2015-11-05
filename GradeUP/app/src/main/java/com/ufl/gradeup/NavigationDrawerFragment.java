@@ -2,7 +2,9 @@ package com.ufl.gradeup;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.app.Fragment;
 //import android.support.v4.app.Fragment;
@@ -13,6 +15,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toolbar;
 
 import java.util.ArrayList;
@@ -22,7 +26,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NavigationDrawerFragment extends android.support.v4.app.Fragment {
+public class NavigationDrawerFragment extends android.support.v4.app.Fragment implements NavigationDrawerAdaptor.ClickListener{
 
     private ActionBarDrawerToggle navDrawToggle;
     private DrawerLayout navDrawerLayout;
@@ -54,6 +58,7 @@ public class NavigationDrawerFragment extends android.support.v4.app.Fragment {
         View navLayout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         navRecyclerView = (RecyclerView)navLayout.findViewById(R.id.nav_drawerList);
         adaptor = new NavigationDrawerAdaptor(getActivity(),getNavData());
+        adaptor.setClickListener(this);
         navRecyclerView.setAdapter(adaptor);
         navRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return navLayout;
@@ -61,7 +66,7 @@ public class NavigationDrawerFragment extends android.support.v4.app.Fragment {
 
     public static List<NavigationDrawerInformation> getNavData(){
         List<NavigationDrawerInformation> navData = new ArrayList<>();
-        int[] navIcons ={R.mipmap.emailid_icon,R.mipmap.emailid_icon,R.mipmap.emailid_icon,R.mipmap.emailid_icon,R.mipmap.emailid_icon,R.mipmap.emailid_icon,R.mipmap.emailid_icon};
+        int[] navIcons ={R.mipmap.navmyprofile,R.mipmap.navupdateprofile,R.mipmap.navcreategroup,R.mipmap.navjoingroup,R.mipmap.navhelp,R.mipmap.navaboutus,R.mipmap.navlogout};
         String[] navText = {"My Profile", "Update Profile", "Create Study Group", "Join Study Group","Help","About us", "Log Out"};
         for(int i= 0;i<navIcons.length&&i<navText.length;i++){
             NavigationDrawerInformation current = new NavigationDrawerInformation();
@@ -123,4 +128,12 @@ public class NavigationDrawerFragment extends android.support.v4.app.Fragment {
         return sharedPreferences.getString(prefName,defaultValue);
     }
 
+    @Override
+    public void itemClicked(View view, int position) {
+
+        //Write code for navigation using position
+        if(position==0)
+            startActivity(new Intent(getActivity(),UserProfileActivity.class));
+        //startActivity(new Intent(getActivity(),RegisterActivity.class));
+    }
 }
