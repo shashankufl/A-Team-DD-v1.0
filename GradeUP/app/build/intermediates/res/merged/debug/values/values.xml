@@ -267,7 +267,7 @@
     <dimen name="notification_subtext_size">12dp</dimen>
     <!-- From: file:/C:/Users/parikshitt23/Documents/GitHub/A-Team-DD-v1.0/GradeUP/app/src/main/res/values/dimens.xml -->
     <eat-comment/>
-    <dimen name="profileInfo_margin">15dp</dimen>
+    <dimen name="profileInfo_margin">10dp</dimen>
     <dimen name="profilePic_height">256dp</dimen>
     <!-- From: file:/C:/Users/parikshitt23/Documents/GitHub/A-Team-DD-v1.0/GradeUP/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values/values.xml -->
     <eat-comment/>
@@ -338,6 +338,7 @@
     <!-- From: file:/C:/Users/parikshitt23/Documents/GitHub/A-Team-DD-v1.0/GradeUP/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="hello_world">Hello world!</string>
+    <string name="logout">Logout</string>
     <!-- From: file:/C:/Users/parikshitt23/Documents/GitHub/A-Team-DD-v1.0/GradeUP/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values/values.xml -->
     <eat-comment/>
     <string name="status_bar_notification_info_overflow">999+</string>
@@ -346,6 +347,7 @@
     <string name="title_activity_login">Login</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_register">Register</string>
+    <string name="title_activity_update_profile">UpdateProfileActivity</string>
     <string name="title_activity_user_profile">UserProfileActivity</string>
     <string name="university">University</string>
     <!-- From: file:/C:/Users/parikshitt23/Documents/GitHub/A-Team-DD-v1.0/GradeUP/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values/values.xml -->
@@ -1408,6 +1410,17 @@
         <item name="android:dropDownItemStyle">@style/Widget.AppCompat.DropDownItem.Spinner</item>
     </style>
     <style name="Platform.Widget.AppCompat.Spinner" parent="android:Widget.Spinner"/>
+    <!-- From: file:/C:/Users/parikshitt23/Documents/GitHub/A-Team-DD-v1.0/GradeUP/app/src/main/res/values/styles.xml -->
+    <eat-comment/>
+    <style name="ProfileInfoStyle" parent="android:Widget">
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">20dp</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingRight">15dp</item>
+    </style>
+    <!-- From: file:/C:/Users/parikshitt23/Documents/GitHub/A-Team-DD-v1.0/GradeUP/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values/values.xml -->
+    <eat-comment/>
     <style name="RtlOverlay.DialogWindowTitle.AppCompat" parent="Base.DialogWindowTitle.AppCompat">
     </style>
     <style name="RtlOverlay.Widget.AppCompat.ActionBar.TitleItem" parent="android:Widget">

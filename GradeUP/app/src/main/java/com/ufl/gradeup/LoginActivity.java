@@ -44,11 +44,9 @@ public class LoginActivity extends AppCompatActivity {
                                     // If user exist and authenticated, send user to Welcome.class
                                     Intent intent = new Intent(
                                             LoginActivity.this,
-                                            UserProfileActivity.class);
+                                            UpdateProfileActivity.class);
                                     startActivity(intent);
-                                    Toast.makeText(getApplicationContext(),
-                                            "Successfully Logged in to GradeUP",
-                                            Toast.LENGTH_LONG).show();
+
                                     finish();
                                 } else {
                                     Toast.makeText(

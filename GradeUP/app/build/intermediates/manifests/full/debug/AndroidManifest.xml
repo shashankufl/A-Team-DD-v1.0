@@ -14,8 +14,8 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.write_external_storage" />
 
     <permission
         android:name="com.ufl.gradeup"
@@ -54,11 +54,13 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.ufl.gradeup.LoginActivity"
-            android:label="@string/title_activity_login" >
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.ufl.gradeup.RegisterActivity"
-            android:label="@string/title_activity_register" >
+            android:label="@string/title_activity_register"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.ufl.gradeup.MainActivity"
@@ -71,10 +73,15 @@
         </activity>
         <activity
             android:name="com.ufl.gradeup.UserProfileActivity"
-            android:label="@string/title_activity_user_profile" >
+            android:label="@string/title_activity_user_profile"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name="com.ufl.gradeup.UpdateProfileActivity"
+            android:label="@string/title_activity_update_profile" >
         </activity>
     </application>
 
