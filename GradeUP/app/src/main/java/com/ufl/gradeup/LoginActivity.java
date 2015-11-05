@@ -46,9 +46,7 @@ public class LoginActivity extends AppCompatActivity {
                                             LoginActivity.this,
                                             UserProfileActivity.class);
                                     startActivity(intent);
-                                    Toast.makeText(getApplicationContext(),
-                                            "Successfully Logged in to GradeUP",
-                                            Toast.LENGTH_LONG).show();
+
                                     finish();
                                 } else {
                                     Toast.makeText(

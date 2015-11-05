@@ -20,6 +20,7 @@
         android:layout_below="@+id/app_bar"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
+        android:drawableLeft="@mipmap/emailid_icon"
         android:layout_marginTop="20dp"
         android:hint="Name" />
 
@@ -32,6 +33,7 @@
         android:layout_alignRight="@+id/nameTxt"
         android:layout_alignStart="@+id/nameTxt"
         android:layout_below="@+id/nameTxt"
+        android:drawableLeft="@mipmap/email_icon"
         android:layout_marginTop="20dp"
         android:autoText="false"
         android:ems="10"
@@ -47,6 +49,7 @@
         android:layout_alignRight="@+id/emailTxt"
         android:layout_alignStart="@+id/emailTxt"
         android:layout_below="@+id/emailTxt"
+        android:drawableLeft="@mipmap/password_icon"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/Password"
@@ -60,6 +63,7 @@
         android:hint="@string/ConfirmPassword"
         android:inputType="textPassword"
         android:layout_marginTop="20dp"
+        android:drawableLeft="@mipmap/password_icon"
         android:layout_alignEnd="@+id/passwordTxt"
         android:layout_alignLeft="@+id/passwordTxt"
         android:layout_alignRight="@+id/passwordTxt"
@@ -74,6 +78,7 @@
         android:layout_alignLeft="@+id/confirmPasswordTxt"
         android:layout_alignRight="@+id/confirmPasswordTxt"
         android:layout_alignStart="@+id/confirmPasswordTxt"
+        android:drawableLeft="@mipmap/study_icon"
         android:layout_below="@+id/confirmPasswordTxt"
         android:layout_marginTop="20dp"
         android:hint="@string/FieldOfStudy" />
@@ -87,6 +92,7 @@
         android:layout_alignRight="@+id/studyFieldTxt"
         android:layout_alignStart="@+id/studyFieldTxt"
         android:layout_below="@+id/studyFieldTxt"
+        android:drawableLeft="@mipmap/university_logo"
         android:layout_marginTop="20dp"
         android:hint="@string/university" />
 
