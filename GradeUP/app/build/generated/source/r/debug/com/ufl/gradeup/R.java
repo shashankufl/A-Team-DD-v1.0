@@ -2326,7 +2326,7 @@ containing a value of this type.
         public static final int line3=0x7f0c0099;
         public static final int listMode=0x7f0c000b;
         public static final int list_item=0x7f0c0040;
-        public static final int logOut=0x7f0c009e;
+        public static final int logOut=0x7f0c009f;
         public static final int loginPage=0x7f0c0065;
         public static final int logo=0x7f0c0066;
         public static final int main_content=0x7f0c007c;
@@ -2408,6 +2408,8 @@ containing a value of this type.
         public static final int updateEmailTxt=0x7f0c0076;
         public static final int updateNameTxt=0x7f0c0075;
         public static final int updatePhoneTxt=0x7f0c0077;
+        public static final int updateProfile=0x7f0c009e;
+        public static final int updateProfilePicture=0x7f0c00a0;
         public static final int updateStudyFieldTxt=0x7f0c0078;
         public static final int updateUniversityTxt=0x7f0c0079;
         public static final int useLogo=0x7f0c0014;
@@ -2531,20 +2533,22 @@ containing a value of this type.
         public static final int abc_shareactionprovider_share_with_application=0x7f06000f;
         public static final int abc_toolbar_collapse_description=0x7f060010;
         public static final int action_settings=0x7f060018;
-        public static final int app_name=0x7f060019;
-        public static final int appbar_scrolling_view_behavior=0x7f06001a;
-        public static final int drawer_close=0x7f06001b;
-        public static final int drawer_open=0x7f06001c;
-        public static final int hello_blank_fragment=0x7f06001d;
-        public static final int hello_world=0x7f06001e;
-        public static final int logout=0x7f06001f;
+        public static final int action_update_profile=0x7f060019;
+        public static final int action_update_profile_picture=0x7f06001a;
+        public static final int app_name=0x7f06001b;
+        public static final int appbar_scrolling_view_behavior=0x7f06001c;
+        public static final int drawer_close=0x7f06001d;
+        public static final int drawer_open=0x7f06001e;
+        public static final int hello_blank_fragment=0x7f06001f;
+        public static final int hello_world=0x7f060020;
+        public static final int logout=0x7f060021;
         public static final int status_bar_notification_info_overflow=0x7f060011;
-        public static final int title_activity_login=0x7f060020;
-        public static final int title_activity_main=0x7f060021;
-        public static final int title_activity_register=0x7f060022;
-        public static final int title_activity_update_profile=0x7f060023;
-        public static final int title_activity_user_profile=0x7f060024;
-        public static final int university=0x7f060025;
+        public static final int title_activity_login=0x7f060022;
+        public static final int title_activity_main=0x7f060023;
+        public static final int title_activity_register=0x7f060024;
+        public static final int title_activity_update_profile=0x7f060025;
+        public static final int title_activity_user_profile=0x7f060026;
+        public static final int university=0x7f060027;
     }
     public static final class style {
         public static final int AlertDialog_AppCompat=0x7f08007c;
