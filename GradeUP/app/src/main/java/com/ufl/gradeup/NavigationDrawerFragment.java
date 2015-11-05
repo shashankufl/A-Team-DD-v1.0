@@ -8,10 +8,15 @@ import android.app.Fragment;
 //import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toolbar;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -26,6 +31,8 @@ public class NavigationDrawerFragment extends android.support.v4.app.Fragment {
     private boolean navUserLearned;
     private boolean navFromSavedInstanceState;
     private View navContainer;
+    private NavigationDrawerAdaptor adaptor;
+    private RecyclerView navRecyclerView;
 
     public NavigationDrawerFragment() {
         // Required empty public constructor
@@ -44,7 +51,27 @@ public class NavigationDrawerFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        View navLayout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        navRecyclerView = (RecyclerView)navLayout.findViewById(R.id.nav_drawerList);
+        adaptor = new NavigationDrawerAdaptor(getActivity(),getNavData());
+        navRecyclerView.setAdapter(adaptor);
+        navRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        return navLayout;
+    }
+
+    public static List<NavigationDrawerInformation> getNavData(){
+        List<NavigationDrawerInformation> navData = new ArrayList<>();
+        int[] navIcons ={R.mipmap.emailid_icon,R.mipmap.emailid_icon,R.mipmap.emailid_icon,R.mipmap.emailid_icon,R.mipmap.emailid_icon,R.mipmap.emailid_icon,R.mipmap.emailid_icon};
+        String[] navText = {"My Profile", "Update Profile", "Create Study Group", "Join Study Group","Help","About us", "Log Out"};
+        for(int i= 0;i<navIcons.length&&i<navText.length;i++){
+            NavigationDrawerInformation current = new NavigationDrawerInformation();
+            current.iconId= navIcons[i];
+            current.title=navText[i];
+            navData.add(current);
+
+        }
+        return navData;
+
     }
 
 
