@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,7 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.support.v4.app.FragmentActivity;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.GetDataCallback;
@@ -83,7 +85,7 @@ public class UserProfileActivity extends AppCompatActivity {
         //debugger;
         Toolbar profileToolbar = (Toolbar) findViewById(R.id.profileToolbar);
         setSupportActionBar(profileToolbar);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         CollapsingToolbarLayout collapsingToolbar =
@@ -98,6 +100,8 @@ public class UserProfileActivity extends AppCompatActivity {
         todaySchedule.setLayoutManager(todayScheduleManager);
 
 
+        NavigationDrawerFragment navDrawerFrag = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.nav_drawer_fragment);
+        navDrawerFrag.setUp(R.id.nav_drawer_fragment,(DrawerLayout)findViewById(R.id.drawer_layout), profileToolbar);
     }
 
 
