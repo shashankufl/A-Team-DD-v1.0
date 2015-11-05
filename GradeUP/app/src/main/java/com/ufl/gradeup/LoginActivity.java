@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
                                     // If user exist and authenticated, send user to Welcome.class
                                     Intent intent = new Intent(
                                             LoginActivity.this,
-                                            UpdateProfileActivity.class);
+                                            UserProfileActivity.class);
                                     startActivity(intent);
 
                                     finish();

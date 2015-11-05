@@ -46,6 +46,8 @@ public class UserProfileActivity extends AppCompatActivity {
     ParseFile pictureFile;
     ImageView userProfilePic;
     String name;
+    String picName = "profilePic.png";
+    ParseUser currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +56,7 @@ public class UserProfileActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         //ParseUser user = new ParseUser();
-        ParseUser currentUser = ParseUser.getCurrentUser();
+         currentUser = ParseUser.getCurrentUser();
         String objectId = currentUser.getObjectId();
         name = currentUser.getString("Name");
         TextView universityTextView = (TextView) findViewById(R.id.university);
@@ -63,6 +65,7 @@ public class UserProfileActivity extends AppCompatActivity {
         universityTextView.setText(currentUser.getString("University"));
         emailTextView.setText(currentUser.getEmail());
         fieldOfStudyTextView.setText(currentUser.getString("StudyField")+"Department");
+        userProfilePic = (ImageView) findViewById(R.id.ProfileImage);
 
         ParseFile profilePictureFile = currentUser.getParseFile("ProfilePic");
         final ProgressDialog pictureUploadProgress = new ProgressDialog(this);
@@ -74,7 +77,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
                 if (e == null) {
                     Bitmap profilePicBmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                    userProfilePic = (ImageView) findViewById(R.id.ProfileImage);
+//                    userProfilePic = (ImageView) findViewById(R.id.ProfileImage);
                     userProfilePic.setImageBitmap(profilePicBmp);
                     ImageView navProfilePic = (ImageView) findViewById(R.id.navImage);
                     navProfilePic.setImageBitmap(profilePicBmp);
@@ -106,7 +109,22 @@ public class UserProfileActivity extends AppCompatActivity {
 
 
         NavigationDrawerFragment navDrawerFrag = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.nav_drawer_fragment);
-        navDrawerFrag.setUp(R.id.nav_drawer_fragment,(DrawerLayout)findViewById(R.id.drawer_layout), profileToolbar);
+        navDrawerFrag.setUp(R.id.nav_drawer_fragment, (DrawerLayout) findViewById(R.id.drawer_layout), profileToolbar);
+
+//        userProfilePic.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onProfilePicClicked(v);
+//            }
+//        });
+
+        userProfilePic.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                onProfilePicClicked(v);
+                return false;
+            }
+        });
     }
 
     //To select profile pic from Gallery
@@ -127,34 +145,59 @@ public class UserProfileActivity extends AppCompatActivity {
             //Picture address from phone storage
             Uri pictureUri = data.getData();
             try {
-                //String picName = registerName.getText().toString().replaceAll("\\s","")+".png";
-                Bitmap PictureBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),pictureUri);
+                if(name.trim().length()>0){
+                    picName = name.replaceAll("\\s", "")+".png";
+                }
+                final Bitmap PictureBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),pictureUri);
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 PictureBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 ProfilePic = stream.toByteArray();
-                pictureFile = new ParseFile("yoda", ProfilePic);  //registerName.getText().toString().trim()+
+                pictureFile = new ParseFile(picName, ProfilePic);  //registerName.getText().toString().trim()+
                 pictureFile.saveInBackground();
                 //Progress status for image upload
                 final ProgressDialog pictureUploadProgress = new ProgressDialog(this);
                 pictureUploadProgress.setTitle("Uploading Picture...");
                 pictureUploadProgress.show();
-                pictureFile.saveInBackground(new SaveCallback() {
-                    public void done(ParseException e) {
-                        // If successful add file to user and signUpInBackground
-                        if(null == e){
+
+                ParseQuery<ParseUser> query = ParseUser.getQuery();
+                query.getInBackground(currentUser.getObjectId(), new GetCallback<ParseUser>() {
+                    @Override
+                    public void done(ParseUser parseUser, ParseException e) {
+                        if(e == null) {
                             pictureUploadProgress.dismiss();
                             Toast.makeText(getApplicationContext(),
                                     "Picture Uploaded", Toast.LENGTH_SHORT)
                                     .show();
-                            //savetoParse();
+                            currentUser.put("ProfilePic", pictureFile);
+                            userProfilePic.setImageBitmap(PictureBitmap);
+                            currentUser.saveInBackground();
+
+
                         }else{
                             Toast.makeText(getApplicationContext(),
                                     e+"", Toast.LENGTH_LONG)
                                     .show();
                         }
-
                     }
                 });
+                //                pictureFile.saveInBackground(new SaveCallback() {
+//                    public void done(ParseException e) {
+//                        // If successful add file to user and signUpInBackground
+//                        if(null == e){
+//                            pictureUploadProgress.dismiss();
+//                            Toast.makeText(getApplicationContext(),
+//                                    "Picture Uploaded", Toast.LENGTH_SHORT)
+//                                    .show();
+//                            currentUser.put("TestPic", pictureFile);
+//                            //savetoParse();
+//                        }else{
+//                            Toast.makeText(getApplicationContext(),
+//                                    e+"", Toast.LENGTH_LONG)
+//                                    .show();
+//                        }
+//
+//                    }
+//                });
 
             } catch (IOException e) {
                 e.printStackTrace();
