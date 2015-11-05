@@ -17,17 +17,18 @@ import java.util.List;
 public class NavigationDrawerAdaptor extends RecyclerView.Adapter<NavigationDrawerAdaptor.NavDrawerViewHolder> {
 
     private LayoutInflater inflater;
+    private ClickListener clickListener;
     List<NavigationDrawerInformation> navData = Collections.emptyList();
 
     public NavigationDrawerAdaptor(Context context, List<NavigationDrawerInformation> data) {
         inflater = LayoutInflater.from(context);
-        this.navData=data;
+        this.navData = data;
 
     }
 
     @Override
     public NavDrawerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view =inflater.inflate(R.layout.nav_customview, parent, false);
+        View view = inflater.inflate(R.layout.nav_customview, parent, false);
         NavDrawerViewHolder holder = new NavDrawerViewHolder(view);
         return holder;
     }
@@ -39,20 +40,36 @@ public class NavigationDrawerAdaptor extends RecyclerView.Adapter<NavigationDraw
         holder.navIcon.setImageResource(currentData.iconId);
     }
 
+    public void setClickListener(ClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
+
     @Override
     public int getItemCount() {
         return navData.size();
     }
 
-    class NavDrawerViewHolder extends RecyclerView.ViewHolder {
+    class NavDrawerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView navTitle;
         ImageView navIcon;
 
         public NavDrawerViewHolder(View itemView) {
             super(itemView);
-            navTitle= (TextView)itemView.findViewById(R.id.navItemText);
-            navIcon= (ImageView)itemView.findViewById(R.id.navItemIcon);
+            itemView.setOnClickListener(this);
+            navTitle = (TextView) itemView.findViewById(R.id.navItemText);
+            navIcon = (ImageView) itemView.findViewById(R.id.navItemIcon);
 
         }
+
+        @Override
+        public void onClick(View v) {
+            if(clickListener != null){
+                clickListener.itemClicked(v,getAdapterPosition());
+            }
+        }
+    }
+
+    public interface ClickListener {
+        public void itemClicked(View view, int position);
     }
 }
