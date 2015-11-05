@@ -164,7 +164,10 @@ public class UpdateProfileActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(),
                                         "Profile Updated",
                                         Toast.LENGTH_LONG).show();
-
+                                Intent intent = new Intent(UpdateProfileActivity.this,
+                                        UserProfileActivity.class);
+                                startActivity(intent);
+                                finish();
                             }else{
                                 Toast.makeText(getApplicationContext(),
                                         "Error",
