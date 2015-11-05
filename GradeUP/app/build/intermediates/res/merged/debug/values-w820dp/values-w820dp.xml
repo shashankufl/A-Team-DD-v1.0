@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- From: file:/C:/Users/parikshitt23/Documents/GitHub/A-Team-DD-v1.0/GradeUP/app/src/main/res/values-w820dp/dimens.xml -->
-    <eat-comment/>
-    <dimen name="activity_horizontal_margin">64dp</dimen>
-    <dimen name="detail_backdrop_height">256dp</dimen>
-    <dimen name="profileInfo_margin">10dp</dimen>
-    <dimen name="profilePic_height">256dp</dimen>
-</resources>

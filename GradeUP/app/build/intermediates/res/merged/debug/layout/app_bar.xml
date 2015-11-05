@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/primaryColor"
-    app:theme="@style/Base.ThemeOverlay.AppCompat.Dark">
-
-</android.support.v7.widget.Toolbar><!-- From: file:/C:/Users/parikshitt23/Documents/GitHub/A-Team-DD-v1.0/GradeUP/app/src/main/res/layout/app_bar.xml -->
