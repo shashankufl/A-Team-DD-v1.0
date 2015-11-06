@@ -6,11 +6,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class AddScheduleActivity extends AppCompatActivity {
-
+    private android.support.v7.widget.Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_schedule);
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(toolbar);
     }
 
     @Override
