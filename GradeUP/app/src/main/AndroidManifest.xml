@@ -85,6 +85,10 @@
             android:name=".AddScheduleActivity"
             android:label="@string/title_activity_add_schedule" >
         </activity>
+        <activity
+            android:name=".GroupHomeActivity"
+            android:label="@string/title_activity_group_home" >
+        </activity>
     </application>
 
 </manifest>
