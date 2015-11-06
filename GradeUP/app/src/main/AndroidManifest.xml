@@ -81,6 +81,10 @@
             android:name=".CreateGroupActivity"
             android:label="@string/title_activity_create_group" >
         </activity>
+        <activity
+            android:name=".AddScheduleActivity"
+            android:label="@string/title_activity_add_schedule" >
+        </activity>
     </application>
 
 </manifest>
