@@ -66,8 +66,8 @@ public class NavigationDrawerFragment extends android.support.v4.app.Fragment im
 
     public static List<NavigationDrawerInformation> getNavData(){
         List<NavigationDrawerInformation> navData = new ArrayList<>();
-        int[] navIcons ={R.mipmap.navmyprofile,R.mipmap.navupdateprofile,R.mipmap.navcreategroup,R.mipmap.navjoingroup,R.mipmap.navhelp,R.mipmap.navaboutus,R.mipmap.navlogout};
-        String[] navText = {"My Profile", "Update Profile", "Create Study Group", "Join Study Group","Help","About us", "Log Out"};
+        int[] navIcons ={R.mipmap.navmyprofile,R.mipmap.navupdateprofile,R.mipmap.navaddschedule,R.mipmap.navcreategroup,R.mipmap.navjoingroup,R.mipmap.navhelp,R.mipmap.navaboutus,R.mipmap.navlogout};
+        String[] navText = {"My Profile", "Update Profile","Add Schedule", "Create Study Group", "Join Study Group","Help","About us", "Log Out"};
         for(int i= 0;i<navIcons.length&&i<navText.length;i++){
             NavigationDrawerInformation current = new NavigationDrawerInformation();
             current.iconId= navIcons[i];
@@ -132,8 +132,12 @@ public class NavigationDrawerFragment extends android.support.v4.app.Fragment im
     public void itemClicked(View view, int position) {
 
         //Write code for navigation using position
-        if(position==0)
+        if(position==0){
             startActivity(new Intent(getActivity(),UserProfileActivity.class));
+        }else if(position==1){
+            startActivity(new Intent(getActivity(),UpdateProfileActivity.class));
+        }
+
         //startActivity(new Intent(getActivity(),RegisterActivity.class));
     }
 }

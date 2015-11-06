@@ -77,6 +77,18 @@
             android:name=".UpdateProfileActivity"
             android:label="@string/title_activity_update_profile" >
         </activity>
+        <activity
+            android:name=".CreateGroupActivity"
+            android:label="@string/title_activity_create_group" >
+        </activity>
+        <activity
+            android:name=".AddScheduleActivity"
+            android:label="@string/title_activity_add_schedule" >
+        </activity>
+        <activity
+            android:name=".GroupHomeActivity"
+            android:label="@string/title_activity_group_home" >
+        </activity>
     </application>
 
 </manifest>

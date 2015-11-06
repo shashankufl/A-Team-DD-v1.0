@@ -240,6 +240,12 @@ public class UserProfileActivity extends AppCompatActivity {
             ParseUser.logOut();
             finish();
         }
+        if (id == R.id.creategroupMenuItem) {
+            Intent intent = new Intent(UserProfileActivity.this,
+                    CreateGroupActivity.class);
+            startActivity(intent);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
