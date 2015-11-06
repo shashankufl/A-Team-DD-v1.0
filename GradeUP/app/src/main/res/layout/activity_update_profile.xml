@@ -8,89 +8,100 @@
         android:id="@+id/app_bar"
         layout="@layout/app_bar"></include>
 
-    <EditText
-    android:id="@+id/updateNameTxt"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentEnd="true"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentRight="true"
-    android:layout_alignParentStart="true"
-    android:layout_below="@+id/app_bar"
-    android:layout_marginLeft="30dp"
-    android:layout_marginRight="30dp"
-    android:layout_marginTop="20dp"
-    android:drawableLeft="@mipmap/emailid_icon"
-    android:hint="Name" />
+    <ScrollView
+        android:layout_below="@+id/app_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/updateEmailTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/updateNameTxt"
-        android:layout_alignLeft="@+id/updateNameTxt"
-        android:layout_alignRight="@+id/updateNameTxt"
-        android:layout_alignStart="@+id/updateNameTxt"
-        android:layout_below="@+id/updateNameTxt"
-        android:layout_marginTop="20dp"
-        android:autoText="false"
-        android:drawableLeft="@mipmap/email_icon"
-        android:ems="10"
-        android:hint="@string/Email"
-        android:inputType="textEmailAddress" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/updatePhoneTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/updateEmailTxt"
-        android:layout_alignLeft="@+id/updateEmailTxt"
-        android:layout_alignRight="@+id/updateEmailTxt"
-        android:layout_alignStart="@+id/updateEmailTxt"
-        android:layout_below="@+id/updateEmailTxt"
-        android:layout_marginTop="20dp"
-        android:autoText="false"
-        android:drawableLeft="@mipmap/email_icon"
-        android:ems="10"
-        android:hint="Phone"
-        android:inputType="phone" />
+            <EditText
+                android:id="@+id/updateNameTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="20dp"
+                android:drawableLeft="@mipmap/emailid_icon"
+                android:hint="Name" />
 
+            <EditText
+                android:id="@+id/updateEmailTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/updateNameTxt"
+                android:layout_alignLeft="@+id/updateNameTxt"
+                android:layout_alignRight="@+id/updateNameTxt"
+                android:layout_alignStart="@+id/updateNameTxt"
+                android:layout_below="@+id/updateNameTxt"
+                android:layout_marginTop="20dp"
+                android:autoText="false"
+                android:drawableLeft="@mipmap/email_icon"
+                android:ems="10"
+                android:hint="@string/Email"
+                android:inputType="textEmailAddress" />
 
-    <EditText
-        android:id="@+id/updateStudyFieldTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/updatePhoneTxt"
-        android:layout_alignLeft="@+id/updatePhoneTxt"
-        android:layout_alignRight="@+id/updatePhoneTxt"
-        android:layout_alignStart="@+id/updatePhoneTxt"
-        android:layout_below="@+id/updatePhoneTxt"
-        android:layout_marginTop="20dp"
-        android:drawableLeft="@mipmap/study_icon"
-        android:hint="@string/FieldOfStudy" />
+            <EditText
+                android:id="@+id/updatePhoneTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/updateEmailTxt"
+                android:layout_alignLeft="@+id/updateEmailTxt"
+                android:layout_alignRight="@+id/updateEmailTxt"
+                android:layout_alignStart="@+id/updateEmailTxt"
+                android:layout_below="@+id/updateEmailTxt"
+                android:layout_marginTop="20dp"
+                android:autoText="false"
+                android:drawableLeft="@mipmap/email_icon"
+                android:ems="10"
+                android:hint="Phone"
+                android:inputType="phone" />
 
-    <EditText
-        android:id="@+id/updateUniversityTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/updateStudyFieldTxt"
-        android:layout_alignLeft="@+id/updateStudyFieldTxt"
-        android:layout_alignRight="@+id/updateStudyFieldTxt"
-        android:layout_alignStart="@+id/updateStudyFieldTxt"
-        android:layout_below="@+id/updateStudyFieldTxt"
-        android:layout_marginTop="20dp"
-        android:drawableLeft="@mipmap/university_logo"
-        android:hint="@string/university" />
+            <EditText
+                android:id="@+id/updateStudyFieldTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/updatePhoneTxt"
+                android:layout_alignLeft="@+id/updatePhoneTxt"
+                android:layout_alignRight="@+id/updatePhoneTxt"
+                android:layout_alignStart="@+id/updatePhoneTxt"
+                android:layout_below="@+id/updatePhoneTxt"
+                android:layout_marginTop="20dp"
+                android:drawableLeft="@mipmap/study_icon"
+                android:hint="@string/FieldOfStudy" />
 
-    <Button
-        android:id="@+id/updateBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="27dp"
-        android:text="Update"
-        android:textColor="@color/buttonText" />
+            <EditText
+                android:id="@+id/updateUniversityTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/updateStudyFieldTxt"
+                android:layout_alignLeft="@+id/updateStudyFieldTxt"
+                android:layout_alignRight="@+id/updateStudyFieldTxt"
+                android:layout_alignStart="@+id/updateStudyFieldTxt"
+                android:layout_below="@+id/updateStudyFieldTxt"
+                android:layout_marginTop="20dp"
+                android:drawableLeft="@mipmap/university_logo"
+                android:hint="@string/university" />
+
+            <Button
+                android:id="@+id/updateBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="27dp"
+                android:layout_below="@+id/updateUniversityTxt"
+                android:text="Update"
+                android:textColor="@color/buttonText" />
+
+        </RelativeLayout>
+    </ScrollView>
 
 
 </RelativeLayout>
