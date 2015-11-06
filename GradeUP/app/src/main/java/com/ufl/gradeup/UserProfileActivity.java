@@ -118,17 +118,17 @@ public class UserProfileActivity extends AppCompatActivity {
 //            }
 //        });
 
-        userProfilePic.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                onProfilePicClicked(v);
-                return false;
-            }
-        });
+//        userProfilePic.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                onProfilePicClicked();
+//                return false;
+//            }
+//        });
     }
 
     //To select profile pic from Gallery
-    public void onProfilePicClicked(View v){
+    public void onProfilePicClicked(){
         Intent PicturePickerIntent = new Intent(Intent.ACTION_PICK);
 
         File pictureSource = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
@@ -170,6 +170,8 @@ public class UserProfileActivity extends AppCompatActivity {
                                     .show();
                             currentUser.put("ProfilePic", pictureFile);
                             userProfilePic.setImageBitmap(PictureBitmap);
+                            ImageView navProfilePic = (ImageView) findViewById(R.id.navImage);
+                            navProfilePic.setImageBitmap(PictureBitmap);
                             currentUser.saveInBackground();
 
 
@@ -222,13 +224,27 @@ public class UserProfileActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.updateProfile) {
+            Intent intent = new Intent(UserProfileActivity.this,
+                    UpdateProfileActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        if (id == R.id.updateProfilePicture){
+            onProfilePicClicked();
             return true;
         }
         if (id == R.id.logOut){
 
             ParseUser.logOut();
             finish();
+        }
+        if (id == R.id.creategroupMenuItem) {
+            Intent intent = new Intent(UserProfileActivity.this,
+                    CreateGroupActivity.class);
+            startActivity(intent);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
