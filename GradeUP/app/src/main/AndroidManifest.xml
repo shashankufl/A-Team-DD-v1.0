@@ -77,6 +77,10 @@
             android:name=".UpdateProfileActivity"
             android:label="@string/title_activity_update_profile" >
         </activity>
+        <activity
+            android:name=".CreateGroupActivity"
+            android:label="@string/title_activity_create_group" >
+        </activity>
     </application>
 
 </manifest>
