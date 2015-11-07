@@ -59,7 +59,7 @@ public class UserProfileActivity extends AppCompatActivity {
         TextView fieldOfStudyTextView = (TextView) findViewById(R.id.studyField);
         universityTextView.setText(currentUser.getString("University"));
         emailTextView.setText(currentUser.getEmail());
-        fieldOfStudyTextView.setText(currentUser.getString("StudyField"));
+        fieldOfStudyTextView.setText(currentUser.getString("StudyField")+"Department");
 
         ParseFile profilePictureFile = currentUser.getParseFile("ProfilePic");
         final ProgressDialog pictureUploadProgress = new ProgressDialog(this);
@@ -173,6 +173,11 @@ public class UserProfileActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+        if (id == R.id.logOut){
+
+            ParseUser.logOut();
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
