@@ -1,47 +1,41 @@
 package com.ufl.gradeup;
-
-import android.app.DatePickerDialog;
-import android.app.Dialog;
+import android.graphics.Color;
 import android.app.ProgressDialog;
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.text.format.DateFormat;
+import android.text.method.Touch;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
 
     public static final int PICTURE_REQUEST = 20;
-    public static String dobirth = "";
     Button registerButton;
     EditText registerEmail;
     EditText registerPassword;
@@ -56,69 +50,12 @@ public class RegisterActivity extends AppCompatActivity {
     String regexFieldOfStudy = "[a-zA-Z-.\\s]{2,32}";
     ParseFile pictureFile;
     String picName = "profilePic.png";
-    public static String dob;
-    ParseUser user = new ParseUser();
-    //Date picking and saving starts here ->
-    public static TextView SelectedDateView;
-    public static TextView SelectedTimeView;
-
-    public static class DatePickerFragment extends DialogFragment
-            implements DatePickerDialog.OnDateSetListener {
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-                // Use the current date as default
-            final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
-
-            // Creating new instance of DatePickerDialog
-            return new DatePickerDialog(getActivity(), this, year, month, day);
-        }
-
-        public void onDateSet(DatePicker view, int year, int month, int day) {
-            dobirth = "" + (month + 1) + "-" + day + "-" + year;
-            SelectedDateView.setText("Selected Date: " + (month + 1) + "-" + day + "-" + year);
-
-        }
-    }
-    //Date Picking and saving ends here
-
-    //Time picking and saving starts here ->
-
-    public static TimePicker timePicker;
-
-    public static class TimePickerFragment extends DialogFragment
-            implements TimePickerDialog.OnTimeSetListener {
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Using current time as default
-            final Calendar c = Calendar.getInstance();
-            int hour = c.get(Calendar.HOUR_OF_DAY);
-            int minute = c.get(Calendar.MINUTE);
-
-            // Creating new instance of TimePickerDialog
-            return new TimePickerDialog(getActivity(), this, hour, minute,
-                    DateFormat.is24HourFormat(getActivity()));
-        }
-
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            SelectedTimeView.setText("Selected Time: " + hourOfDay + " : " + minute + " hrs");
-        }
-    }
-
-
-    //Time picking and saving ends here
 
     private android.support.v7.widget.Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        SelectedDateView = (TextView) findViewById(R.id.selected_date);
-        SelectedTimeView = (TextView) findViewById(R.id.selected_time);
 
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
@@ -267,7 +204,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 } else {
                     // Save new user data into Parse.com Data Storage
-                    //ParseUser user = new ParseUser();
+                    ParseUser user = new ParseUser();
 
                     user.setUsername(emailTxt);
                     user.setPassword(passwordTxt);
@@ -276,7 +213,6 @@ public class RegisterActivity extends AppCompatActivity {
                     user.put("University", universityTxt);
                     user.put("StudyField",fieldOfStudy);
                     user.put("ProfilePic", pictureFile);
-                    user.put("DateOfBirth",dobirth);
 
                     user.signUpInBackground(new SignUpCallback() {
                         public void done(ParseException e) {
@@ -303,33 +239,6 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
     }
-
-    //Methods for the date picker
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "datePicker");
-    }
-
-    public void showTimePickerDialog(View v) {
-        DialogFragment newFragment = new TimePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "timePicker");
-    }
-
     //To select profile pic from Gallery
     public void onSelectPicClicked(View v){
         Intent PicturePickerIntent = new Intent(Intent.ACTION_PICK);
@@ -390,4 +299,25 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_register, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

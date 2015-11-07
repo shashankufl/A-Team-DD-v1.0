@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,7 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.support.v4.app.FragmentActivity;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.GetDataCallback;
@@ -43,6 +45,9 @@ public class UserProfileActivity extends AppCompatActivity {
     public static final int PICTURE_REQUEST = 20;
     ParseFile pictureFile;
     ImageView userProfilePic;
+    String name;
+    String picName = "profilePic.png";
+    ParseUser currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,15 +56,16 @@ public class UserProfileActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         //ParseUser user = new ParseUser();
-        ParseUser currentUser = ParseUser.getCurrentUser();
+         currentUser = ParseUser.getCurrentUser();
         String objectId = currentUser.getObjectId();
-        String name = currentUser.getString("Name");
+        name = currentUser.getString("Name");
         TextView universityTextView = (TextView) findViewById(R.id.university);
         TextView emailTextView = (TextView) findViewById(R.id.email);
         TextView fieldOfStudyTextView = (TextView) findViewById(R.id.studyField);
         universityTextView.setText(currentUser.getString("University"));
         emailTextView.setText(currentUser.getEmail());
         fieldOfStudyTextView.setText(currentUser.getString("StudyField")+"Department");
+        userProfilePic = (ImageView) findViewById(R.id.ProfileImage);
 
         ParseFile profilePictureFile = currentUser.getParseFile("ProfilePic");
         final ProgressDialog pictureUploadProgress = new ProgressDialog(this);
@@ -71,8 +77,12 @@ public class UserProfileActivity extends AppCompatActivity {
 
                 if (e == null) {
                     Bitmap profilePicBmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                    userProfilePic = (ImageView) findViewById(R.id.ProfileImage);
+//                    userProfilePic = (ImageView) findViewById(R.id.ProfileImage);
                     userProfilePic.setImageBitmap(profilePicBmp);
+                    ImageView navProfilePic = (ImageView) findViewById(R.id.navImage);
+                    navProfilePic.setImageBitmap(profilePicBmp);
+                    TextView navTitle = (TextView) findViewById(R.id.navTitleText);
+                    navTitle.setText(name);
                     pictureUploadProgress.dismiss();
                 } else {
                     //userProfilePic.setImageBitmap(R.mipmap.xyz);
@@ -83,7 +93,7 @@ public class UserProfileActivity extends AppCompatActivity {
         //debugger;
         Toolbar profileToolbar = (Toolbar) findViewById(R.id.profileToolbar);
         setSupportActionBar(profileToolbar);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         CollapsingToolbarLayout collapsingToolbar =
@@ -98,11 +108,27 @@ public class UserProfileActivity extends AppCompatActivity {
         todaySchedule.setLayoutManager(todayScheduleManager);
 
 
+        NavigationDrawerFragment navDrawerFrag = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.nav_drawer_fragment);
+        navDrawerFrag.setUp(R.id.nav_drawer_fragment, (DrawerLayout) findViewById(R.id.drawer_layout), profileToolbar);
+
+//        userProfilePic.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onProfilePicClicked(v);
+//            }
+//        });
+
+//        userProfilePic.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                onProfilePicClicked();
+//                return false;
+//            }
+//        });
     }
 
-
     //To select profile pic from Gallery
-    public void onProfilePicClicked(View v){
+    public void onProfilePicClicked(){
         Intent PicturePickerIntent = new Intent(Intent.ACTION_PICK);
 
         File pictureSource = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
@@ -119,34 +145,61 @@ public class UserProfileActivity extends AppCompatActivity {
             //Picture address from phone storage
             Uri pictureUri = data.getData();
             try {
-                //String picName = registerName.getText().toString().replaceAll("\\s","")+".png";
-                Bitmap PictureBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),pictureUri);
+                if(name.trim().length()>0){
+                    picName = name.replaceAll("\\s", "")+".png";
+                }
+                final Bitmap PictureBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),pictureUri);
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 PictureBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 ProfilePic = stream.toByteArray();
-                pictureFile = new ParseFile("yoda", ProfilePic);  //registerName.getText().toString().trim()+
+                pictureFile = new ParseFile(picName, ProfilePic);  //registerName.getText().toString().trim()+
                 pictureFile.saveInBackground();
                 //Progress status for image upload
                 final ProgressDialog pictureUploadProgress = new ProgressDialog(this);
                 pictureUploadProgress.setTitle("Uploading Picture...");
                 pictureUploadProgress.show();
-                pictureFile.saveInBackground(new SaveCallback() {
-                    public void done(ParseException e) {
-                        // If successful add file to user and signUpInBackground
-                        if(null == e){
+
+                ParseQuery<ParseUser> query = ParseUser.getQuery();
+                query.getInBackground(currentUser.getObjectId(), new GetCallback<ParseUser>() {
+                    @Override
+                    public void done(ParseUser parseUser, ParseException e) {
+                        if(e == null) {
                             pictureUploadProgress.dismiss();
                             Toast.makeText(getApplicationContext(),
                                     "Picture Uploaded", Toast.LENGTH_SHORT)
                                     .show();
-                            //savetoParse();
+                            currentUser.put("ProfilePic", pictureFile);
+                            userProfilePic.setImageBitmap(PictureBitmap);
+                            ImageView navProfilePic = (ImageView) findViewById(R.id.navImage);
+                            navProfilePic.setImageBitmap(PictureBitmap);
+                            currentUser.saveInBackground();
+
+
                         }else{
                             Toast.makeText(getApplicationContext(),
                                     e+"", Toast.LENGTH_LONG)
                                     .show();
                         }
-
                     }
                 });
+                //                pictureFile.saveInBackground(new SaveCallback() {
+//                    public void done(ParseException e) {
+//                        // If successful add file to user and signUpInBackground
+//                        if(null == e){
+//                            pictureUploadProgress.dismiss();
+//                            Toast.makeText(getApplicationContext(),
+//                                    "Picture Uploaded", Toast.LENGTH_SHORT)
+//                                    .show();
+//                            currentUser.put("TestPic", pictureFile);
+//                            //savetoParse();
+//                        }else{
+//                            Toast.makeText(getApplicationContext(),
+//                                    e+"", Toast.LENGTH_LONG)
+//                                    .show();
+//                        }
+//
+//                    }
+//                });
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -171,13 +224,27 @@ public class UserProfileActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.updateProfile) {
+            Intent intent = new Intent(UserProfileActivity.this,
+                    UpdateProfileActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        if (id == R.id.updateProfilePicture){
+            onProfilePicClicked();
             return true;
         }
         if (id == R.id.logOut){
 
             ParseUser.logOut();
             finish();
+        }
+        if (id == R.id.creategroupMenuItem) {
+            Intent intent = new Intent(UserProfileActivity.this,
+                    CreateGroupActivity.class);
+            startActivity(intent);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
