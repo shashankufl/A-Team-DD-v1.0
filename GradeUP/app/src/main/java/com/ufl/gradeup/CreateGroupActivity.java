@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 public class CreateGroupActivity extends AppCompatActivity {
 
     private android.support.v7.widget.Toolbar toolbar;
@@ -28,6 +29,7 @@ public class CreateGroupActivity extends AppCompatActivity {
     EditText addGroupMembers;
     ListView groupMembersListView;
     List<String> groupMemebers = new ArrayList<String>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

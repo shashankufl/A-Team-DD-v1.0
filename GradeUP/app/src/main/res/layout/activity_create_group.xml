@@ -41,12 +41,14 @@
         android:hint="Add Group Members"
         android:inputType="textEmailAddress" />
 
+
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/memberListView"
         android:layout_below="@+id/addGroupMemberTxt"
         android:layout_centerHorizontal="true" />
+
 
 
 </RelativeLayout>

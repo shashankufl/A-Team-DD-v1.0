@@ -15,12 +15,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
+
 import java.util.ArrayList;
 import java.util.List;
+
 
 
 /**
@@ -136,6 +139,9 @@ public class NavigationDrawerFragment extends android.support.v4.app.Fragment im
             startActivity(new Intent(getActivity(),UserProfileActivity.class));
         }else if(position==1){
             startActivity(new Intent(getActivity(),UpdateProfileActivity.class));
+
+        } else if(position==2){
+            startActivity(new Intent(getActivity(),AddScheduleActivity.class));
         }
 
         //startActivity(new Intent(getActivity(),RegisterActivity.class));
