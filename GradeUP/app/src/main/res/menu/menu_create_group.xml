@@ -4,4 +4,10 @@
     tools:context="com.ufl.gradeup.CreateGroupActivity">
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
+    <item
+        android:id="@+id/gotoGroupHome"
+        android:icon="@mipmap/navlogout"
+        android:title="@string/title_activity_group_home"
+        android:orderInCategory="200"
+        app:showAsAction="always"/>
 </menu>

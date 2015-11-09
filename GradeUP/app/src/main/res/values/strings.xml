@@ -25,5 +25,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_add_schedule">AddScheduleActivity</string>
     <string name="title_activity_group_home">GroupHomeActivity</string>
+    <string name="title_activity_search_group">Search For Group</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_temp">temp</string>
 
 </resources>
