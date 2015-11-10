@@ -7,10 +7,17 @@ import android.view.MenuItem;
 
 public class GroupHomeActivity extends AppCompatActivity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_home);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String value = extras.getString("new_variable_name");
+        }
     }
 
     @Override
