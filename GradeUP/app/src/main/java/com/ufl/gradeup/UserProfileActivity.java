@@ -246,6 +246,12 @@ public class UserProfileActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
         }
+        if (id == R.id.searchForGroups) {
+            Intent intent = new Intent(UserProfileActivity.this,
+                    SearchForGroupActivity.class);
+            startActivity(intent);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }

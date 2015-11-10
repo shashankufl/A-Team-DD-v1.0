@@ -89,6 +89,8 @@
             android:name=".GroupHomeActivity"
             android:label="@string/title_activity_group_home" >
         </activity>
+        <activity android:name=".SearchForGroupActivity" >
+        </activity>
     </application>
 
 </manifest>
