@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -24,19 +26,20 @@ public class SearchForGroupActivity extends AppCompatActivity {
 
     Button searchButton;
     EditText searchStringText;
-    String groupNames;
+    String groupName;
     TextView groupNameView;
-//    List<String> groupNames = new ArrayList<String>();
-//    ListView groupNamesListView;
+    List<String> groupNamesList = new ArrayList<String>();
+    ListView groupNamesListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_for_group);
-        /*final CreateGroupCustomAdapter adapter =  new CreateGroupCustomAdapter(groupNames,this);*/
+        final ArrayAdapter<String> adapter = new  ArrayAdapter<String>(SearchForGroupActivity.this, android.R.layout.simple_expandable_list_item_1, groupNamesList);
         searchButton = (Button) findViewById(R.id.searchForGroupButton);
         searchStringText = (EditText) findViewById(R.id.searchForGroupText);
-//        groupNamesListView = (ListView)findViewById(R.id.groupListView);
+        groupNameView= (TextView) findViewById(R.id.groupNameTextView);
+        groupNamesListView = (ListView)findViewById(R.id.groupListView);
         searchButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View arg0) {
@@ -50,14 +53,14 @@ public class SearchForGroupActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(),
                                         object.getString("userName"),
                                         Toast.LENGTH_LONG).show();
-//                                if (!groupNames.contains(object.getString("groupName"))) {
-//                                    groupNames.add(object.getString("groupName"));
-//                                }
-                                groupNames= object.getString("groupName");
-                                groupNameView= (TextView) findViewById(R.id.groupNameTextView);
-                                groupNameView.setText(groupNames);
+                                if (!groupNamesList.contains(object.getString("groupName"))) {
+                                    groupNamesList.add(object.getString("groupName"));
+                                }
+                                groupName = object.getString("groupName");
+
+//                                groupNameView.setText(groupName);
                             }
-//                            adapter.notifyDataSetChanged();
+                            adapter.notifyDataSetChanged();
                         }
                     }
                 });
@@ -65,14 +68,25 @@ public class SearchForGroupActivity extends AppCompatActivity {
             }
         });
 
-//        groupNamesListView.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//
-//                return false;
-//            }
-//        });
-//        groupNamesListView.setAdapter(adapter);
+
+        groupNamesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(SearchForGroupActivity.this,
+                        GroupHomeActivity.class);
+                intent.putExtra("groupName",groupName);
+                startActivity(intent);
+            }
+        });
+
+        groupNamesListView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                return false;
+            }
+        });
+        groupNamesListView.setAdapter(adapter);
 //        groupNameView.setOnClickListener(new View.OnClickListener() {
 //
 //            public void onClick(View arg0) {
