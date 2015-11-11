@@ -89,7 +89,8 @@
             android:name=".GroupHomeActivity"
             android:label="@string/title_activity_group_home" >
         </activity>
-        <activity android:name=".SearchForGroupActivity" >
+        <activity android:name=".SearchForGroupActivity"
+            android:label="@string/title_activity_search_group">
         </activity>
     </application>
 

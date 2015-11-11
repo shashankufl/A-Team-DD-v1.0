@@ -24,6 +24,7 @@ import java.util.List;
 
 public class SearchForGroupActivity extends AppCompatActivity {
 
+    private android.support.v7.widget.Toolbar searchGrpToolbar;
     Button searchButton;
     EditText searchStringText;
     String groupName;
@@ -35,10 +36,12 @@ public class SearchForGroupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_for_group);
+        searchGrpToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(searchGrpToolbar);
         final ArrayAdapter<String> adapter = new  ArrayAdapter<String>(SearchForGroupActivity.this, android.R.layout.simple_expandable_list_item_1, groupNamesList);
         searchButton = (Button) findViewById(R.id.searchForGroupButton);
         searchStringText = (EditText) findViewById(R.id.searchForGroupText);
-        groupNameView= (TextView) findViewById(R.id.groupNameTextView);
+        //groupNameView= (TextView) findViewById(R.id.groupNameTextView);
         groupNamesListView = (ListView)findViewById(R.id.groupListView);
         searchButton.setOnClickListener(new View.OnClickListener() {
 

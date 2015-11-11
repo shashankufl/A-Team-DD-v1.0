@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.ufl.gradeup.SearchForGroupActivity">
 
@@ -7,47 +8,54 @@
         android:id="@+id/app_bar"
         layout="@layout/app_bar"></include>
 
-    <EditText
-        android:id="@+id/searchForGroupText"
-        android:layout_width="wrap_content"
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/layout_searchGroup"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:autoText="false"
-        android:ems="10"
-        android:hint="Search for a Group"
-        android:inputType="textEmailAddress"
-        android:layout_below="@+id/app_bar"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="80dp">
+
+        <EditText
+            android:id="@+id/searchForGroupText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/app_bar"
+            android:autoText="false"
+            android:drawableLeft="@mipmap/groupname_icon"
+            android:ems="15"
+            android:hint="Search for a Group"
+            android:inputType="textEmailAddress" />
+    </android.support.design.widget.TextInputLayout>
+
 
     <Button
+        android:id="@+id/searchForGroupButton"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Search"
-        android:id="@+id/searchForGroupButton"
-        android:layout_alignTop="@+id/searchForGroupText"
-        android:layout_toRightOf="@+id/searchForGroupText"
-        android:layout_toEndOf="@+id/searchForGroupText" />
+        android:layout_below="@+id/layout_searchGroup"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/buttonText"
+        android:text="Search" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="?android:attr/selectableItemBackground"
-        android:onClick="gotoGroupHome"
-        android:text=""
-        android:id="@+id/groupNameTextView"
-        android:layout_below="@+id/searchForGroupButton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
     <ListView
+        android:id="@+id/groupListView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/groupListView"
-        android:layout_below="@+id/searchForGroupText"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignEnd="@+id/layout_searchGroup"
+        android:layout_alignLeft="@+id/layout_searchGroup"
+        android:layout_alignRight="@+id/layout_searchGroup"
+        android:layout_alignStart="@+id/layout_searchGroup"
+        android:layout_below="@+id/searchForGroupButton"
+        android:layout_marginTop="10dp" />
 
 
 </RelativeLayout>

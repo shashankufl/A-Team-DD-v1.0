@@ -6,65 +6,90 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.ufl.gradeup.LoginActivity">
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:src="@mipmap/gradeup_logo" />
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/emailText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/logo"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="50dp"
-        android:drawableLeft="@mipmap/emailid_icon"
-        android:ems="10"
-        android:hint="@string/Email"
-        android:inputType="textEmailAddress" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:src="@mipmap/gradeup_logo" />
 
-    <EditText
-        android:id="@+id/passwordText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/emailText"
-        android:layout_alignLeft="@+id/emailText"
-        android:layout_alignRight="@+id/emailText"
-        android:layout_alignStart="@+id/emailText"
-        android:layout_below="@+id/emailText"
-        android:layout_marginTop="20dp"
-        android:drawableLeft="@mipmap/password_icon"
-        android:ems="10"
-        android:hint="@string/Password"
-        android:inputType="textPassword" />
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/layout_userName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/logo"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="50dp">
 
-    <Button
-        android:id="@+id/LoginBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/passwordText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:text="@string/Login"
-        android:textColor="@color/buttonText" />
+                <EditText
+                    android:id="@+id/emailText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/emailid_icon"
+                    android:ems="15"
+                    android:hint="@string/Email"
+                    android:inputType="textEmailAddress" />
 
-    <TextView
-        android:id="@+id/signup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/LoginBtn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:clickable="true"
-        android:onClick="onClick"
-        android:text="Don't have an account? Sign UP" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/layout_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/layout_userName"
+                android:layout_alignLeft="@+id/layout_userName"
+                android:layout_alignRight="@+id/layout_userName"
+                android:layout_alignStart="@+id/layout_userName"
+                android:layout_below="@+id/layout_userName"
+                android:layout_marginTop="20dp">
+                <EditText
+                    android:id="@+id/passwordText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/password_icon"
+                    android:ems="15"
+                    android:hint="@string/Password"
+                    android:inputType="textPassword" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <Button
+                android:id="@+id/LoginBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layout_password"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:text="@string/Login"
+                android:textColor="@color/buttonText" />
+
+            <TextView
+                android:id="@+id/signup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/LoginBtn"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:text="Don't have an account? Sign UP" />
+        </RelativeLayout>
+
+    </ScrollView>
+
+
 </RelativeLayout>
