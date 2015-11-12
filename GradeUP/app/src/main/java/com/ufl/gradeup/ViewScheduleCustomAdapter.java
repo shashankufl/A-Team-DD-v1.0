@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
@@ -46,6 +47,15 @@ public class ViewScheduleCustomAdapter<S> extends BaseAdapter implements ListAda
         TextView listItemText = (TextView)view.findViewById(R.id.listItemString);
         listItemText.setText(list.get(position));
 
+        ImageButton deleteBtn = (ImageButton)view.findViewById(R.id.deleteListItem);
+
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                list.remove(position);
+                notifyDataSetChanged();
+            }
+        });
         return view;
     }
 

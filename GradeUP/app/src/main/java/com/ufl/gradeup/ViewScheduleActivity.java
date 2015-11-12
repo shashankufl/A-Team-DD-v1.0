@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListView;
@@ -29,8 +30,7 @@ public class ViewScheduleActivity extends AppCompatActivity {
     private android.support.v7.widget.Toolbar toolbar;
     public static TextView SelectedDateView;
     Button checkschbtn;
-    public static String sDate = "";
-    String schName;
+    public static String sDate = "",schDate;
     ListView ScheduleListView;
     ArrayList<String> schedule = new ArrayList<String>();
 
@@ -73,6 +73,7 @@ public class ViewScheduleActivity extends AppCompatActivity {
         checkschbtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View arg0) {
+                schedule.clear();//to clear contents of arraylist schedule
                 if (sDate.equals("")) {
                     Toast.makeText(getApplicationContext(),
                             "Please provide a date for your schedule",
@@ -87,14 +88,24 @@ public class ViewScheduleActivity extends AppCompatActivity {
                         public void done(List<ParseObject> nameList, ParseException e) {
                             if (e == null) {
                                 for (ParseObject object : nameList) {
-                                    String schName = "" + object.getString("Subject") + "\n" +
-                                            "From " + object.getString("Start_time") +
-                                            " To " + object.getString("End_time");
-                                    schedule.add(schName);
+                                    if (new String(object.getString("Date")).equals(sDate)) {
+                                        String schName = "" + object.getString("Subject") + "\n" +
+                                                "From " + object.getString("Start_time") +
+                                                " To " + object.getString("End_time");
+                                        schedule.add(schName);
+                                    }
                                 }
-
-                                //adapter = new ViewScheduleCustomAdapter<String>(schedule, this);
+                                adapter.notifyDataSetChanged();
                                 ScheduleListView.setAdapter(adapter);
+                                ScheduleListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                        Toast.makeText(getApplicationContext(), parent.getItemAtPosition(position) + " is selected",
+                                                Toast.LENGTH_SHORT).show();
+//                                        Intent i = new Intent(ViewScheduleActivity.this, UserProfileActivity.class);
+//                                        startActivity(i);
+                                    }
+                                });
                             } else {
                                 Log.d("error", "Error: " + e.getMessage());
                             }
