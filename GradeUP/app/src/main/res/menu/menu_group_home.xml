@@ -17,5 +17,10 @@
         android:title="Approve Requests"
         android:orderInCategory="300"
         app:showAsAction="always"/>
+    <item
+        android:id="@+id/updateGroupProfilePicture"
+        android:orderInCategory="400"
+        android:title="@string/action_update_profile_picture"
+        app:showAsAction="never" />
 
 </menu>

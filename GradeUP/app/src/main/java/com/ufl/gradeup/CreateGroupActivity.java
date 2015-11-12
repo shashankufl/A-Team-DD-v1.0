@@ -81,6 +81,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                                         }
                                     }
                                     adapter.notifyDataSetChanged();
+                                    addGroupMembers.setText("");
 //                                    Toast.makeText(getApplicationContext(),
 //                                            objects.getString(),
 //                                            Toast.LENGTH_LONG).show();
@@ -92,6 +93,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                         return true;
                     }
                 }
+
                 return false;
             }
         });
