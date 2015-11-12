@@ -6,13 +6,16 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -62,6 +65,7 @@ public class UserProfileActivity extends AppCompatActivity {
     List<String> groupNamesList = new ArrayList<String>();
     ArrayList<String> todayScheduleTitleList = new ArrayList<String>();
     ArrayList<String> todayScheduleTimeList = new ArrayList<String>();
+    SwipeRefreshLayout swipeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,8 +119,7 @@ public class UserProfileActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         getTodaySchedule();
-        //bindTodaySchedule();
-        //bindGroups();
+
 
         Toolbar profileToolbar = (Toolbar) findViewById(R.id.profileToolbar);
         setSupportActionBar(profileToolbar);
@@ -128,9 +131,13 @@ public class UserProfileActivity extends AppCompatActivity {
         collapsingToolbar.setTitle(name);
 
 
-
         NavigationDrawerFragment navDrawerFrag = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.nav_drawer_fragment);
         navDrawerFrag.setUp(R.id.nav_drawer_fragment, (DrawerLayout) findViewById(R.id.drawer_layout), profileToolbar);
+
+//        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+//        swipeLayout.setOnRefreshListener(this);
+//        swipeLayout.setColorSchemeColors(R.color.primaryColor);
+
 
 //        userProfilePic.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -147,6 +154,16 @@ public class UserProfileActivity extends AppCompatActivity {
 //            }
 //        });
     }
+
+//    @Override
+//    public void onRefresh() {
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                swipeLayout.setRefreshing(false);
+//            }
+//        }, 3000);
+//    }
 
     // //Retrieve groups from Parse
     public void getGroups() throws ParseException {
@@ -183,73 +200,107 @@ public class UserProfileActivity extends AppCompatActivity {
     //Create dynamic UI from groups
     public void bindGroups() {
         LinearLayout groupLayout = (LinearLayout) findViewById(R.id.groupsCard);
-        for (int i = 0; i < groupNamesList.size(); i++) {
+        if (groupNamesList.size() == 0) {
             TextView textView = new TextView(this);
             textView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
                     LayoutParams.WRAP_CONTENT));
-            textView.setText(groupNamesList.get(i));
-            textView.setFocusable(true);
-            textView.setClickable(true);
+            textView.setTypeface(textView.getTypeface(), Typeface.ITALIC);
+            textView.setText("Nothing to Show...");
             if (Build.VERSION.SDK_INT < 23) {
-                textView.setTextAppearance(this, android.R.style.TextAppearance_DeviceDefault_Medium);
+                textView.setTextAppearance(this, android.R.style.TextAppearance_Material_Small);
             } else {
-                textView.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Medium);
+                textView.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Small);
             }
             groupLayout.addView(textView);
-            if (i < groupNamesList.size() - 1) {
-                View view = new View(this);
-                TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, 1);
-                params.setMargins(0, 15, 0, 15);
-                view.setLayoutParams(params);
-                view.setBackgroundColor(Color.rgb(169, 169, 169));
-                groupLayout.addView(view);
+        }else{
+            for (int i = 0; i < groupNamesList.size(); i++) {
+                TextView textView = new TextView(this);
+                textView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+                        LayoutParams.WRAP_CONTENT));
+                textView.setText(groupNamesList.get(i));
+                textView.setFocusable(true);
+                textView.setClickable(true);
+                if (Build.VERSION.SDK_INT < 23) {
+                    textView.setTextAppearance(this, android.R.style.TextAppearance_DeviceDefault_Medium);
+                } else {
+                    textView.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Medium);
+                }
+                groupLayout.addView(textView);
+                if (i < groupNamesList.size() - 1) {
+                    View view = new View(this);
+                    TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, 1);
+                    params.setMargins(0, 15, 0, 15);
+                    view.setLayoutParams(params);
+                    view.setBackgroundColor(Color.rgb(169, 169, 169));
+                    groupLayout.addView(view);
+                }
             }
+
         }
+
+
     }
+
     //Create dynamic UI from today's schedule
-    public void bindTodaySchedule(){
+    public void bindTodaySchedule() {
         LinearLayout scheduleLayout = (LinearLayout) findViewById(R.id.todayScheduleCard);
-        for (int i = 0; i < todayScheduleTitleList.size(); i++) {
-            TextView titletextView = new TextView(this);
-            TextView timeTextView = new TextView(this);
-
-            titletextView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+        if (todayScheduleTitleList.size() == 0) {
+            TextView textView = new TextView(this);
+            textView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
                     LayoutParams.WRAP_CONTENT));
-            titletextView.setText(todayScheduleTitleList.get(i));
-            titletextView.setFocusable(true);
-            titletextView.setClickable(true);
-
-            timeTextView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
-                    LayoutParams.WRAP_CONTENT));
-            timeTextView.setText(todayScheduleTimeList.get(i));
-            timeTextView.setFocusable(true);
-            timeTextView.setClickable(true);
-
-
+            textView.setTypeface(textView.getTypeface(), Typeface.ITALIC);
+            textView.setText("Nothing to Show...");
             if (Build.VERSION.SDK_INT < 23) {
-                titletextView.setTextAppearance(this, android.R.style.TextAppearance_DeviceDefault_Medium);
-                timeTextView.setTextAppearance(this, android.R.style.TextAppearance_DeviceDefault_Small);
+                textView.setTextAppearance(this, android.R.style.TextAppearance_Material_Small);
             } else {
-                titletextView.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Medium);
-                timeTextView.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Small);
+                textView.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Small);
             }
+            scheduleLayout.addView(textView);
+        } else {
+            for (int i = 0; i < todayScheduleTitleList.size(); i++) {
+                TextView titletextView = new TextView(this);
+                TextView timeTextView = new TextView(this);
 
-            scheduleLayout.addView(titletextView);
-            scheduleLayout.addView(timeTextView);
+                titletextView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+                        LayoutParams.WRAP_CONTENT));
+                titletextView.setText(todayScheduleTitleList.get(i));
+                titletextView.setFocusable(true);
+                titletextView.setClickable(true);
 
-            if (i < todayScheduleTitleList.size() - 1) {
-                View view = new View(this);
-                TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, 1);
-                params.setMargins(0, 15, 0, 15);
-                view.setLayoutParams(params);
-                view.setBackgroundColor(Color.rgb(169, 169, 169));
-                scheduleLayout.addView(view);
+                timeTextView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+                        LayoutParams.WRAP_CONTENT));
+                timeTextView.setText(todayScheduleTimeList.get(i));
+                timeTextView.setFocusable(true);
+                timeTextView.setClickable(true);
+
+
+                if (Build.VERSION.SDK_INT < 23) {
+                    titletextView.setTextAppearance(this, android.R.style.TextAppearance_DeviceDefault_Medium);
+                    timeTextView.setTextAppearance(this, android.R.style.TextAppearance_DeviceDefault_Small);
+                } else {
+                    titletextView.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Medium);
+                    timeTextView.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Small);
+                }
+
+                scheduleLayout.addView(titletextView);
+                scheduleLayout.addView(timeTextView);
+
+                if (i < todayScheduleTitleList.size() - 1) {
+                    View view = new View(this);
+                    TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, 1);
+                    params.setMargins(0, 15, 0, 15);
+                    view.setLayoutParams(params);
+                    view.setBackgroundColor(Color.rgb(169, 169, 169));
+                    scheduleLayout.addView(view);
+                }
             }
         }
+
+
     }
 
     //Retrieve today's Schedule from Parse
-    public void getTodaySchedule(){
+    public void getTodaySchedule() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Schedule");
         query.whereEqualTo("User_ID", currentUser.getUsername());
         final ProgressDialog scheduleLoadProgress = new ProgressDialog(this);
@@ -261,7 +312,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 if (e == null) {
                     for (ParseObject object : nameList) {
                         if (new String(object.getString("Date")).equals("2015-11-18")) {
-                            String schName = "" + object.getString("Subject") ;
+                            String schName = "" + object.getString("Subject");
                             String schTime = object.getString("Start_time") +
                                     " to " + object.getString("End_time");
                             todayScheduleTitleList.add(schName);
