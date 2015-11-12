@@ -62,9 +62,13 @@ public class UserProfileActivity extends AppCompatActivity {
         TextView universityTextView = (TextView) findViewById(R.id.university);
         TextView emailTextView = (TextView) findViewById(R.id.email);
         TextView fieldOfStudyTextView = (TextView) findViewById(R.id.studyField);
+        TextView phoneTextView = (TextView) findViewById(R.id.phone);
         universityTextView.setText(currentUser.getString("University"));
         emailTextView.setText(currentUser.getEmail());
         fieldOfStudyTextView.setText(currentUser.getString("StudyField")+"Department");
+        if(currentUser.getString("phone")!=""){
+            phoneTextView.setText(currentUser.getString("phone"));
+        }
         userProfilePic = (ImageView) findViewById(R.id.ProfileImage);
 
         ParseFile profilePictureFile = currentUser.getParseFile("ProfilePic");
@@ -243,6 +247,12 @@ public class UserProfileActivity extends AppCompatActivity {
         if (id == R.id.creategroupMenuItem) {
             Intent intent = new Intent(UserProfileActivity.this,
                     CreateGroupActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.searchForGroups) {
+            Intent intent = new Intent(UserProfileActivity.this,
+                    SearchForGroupActivity.class);
             startActivity(intent);
             return true;
         }

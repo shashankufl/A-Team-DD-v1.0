@@ -1,5 +1,6 @@
 package com.ufl.gradeup;
 
+
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -108,6 +109,7 @@ public class AddScheduleActivity extends AppCompatActivity {
     //Time Picking and saving ends here
 
 
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_schedule);
@@ -115,7 +117,7 @@ public class AddScheduleActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ParseUser currentUser;
         currentUser = ParseUser.getCurrentUser();
-        final String userName = currentUser.getString("Name");
+        final String userName = currentUser.getString("username");
 
         addschbtn = (Button) findViewById(R.id.addschbtn);
         SelectedDateView = (TextView) findViewById(R.id.start_date);
@@ -173,6 +175,7 @@ public class AddScheduleActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");
@@ -188,3 +191,4 @@ public class AddScheduleActivity extends AppCompatActivity {
         newFragment2.show(getSupportFragmentManager(), "timePicker");
     }
 }
+

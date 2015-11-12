@@ -78,7 +78,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/profileInfo_margin"
                             android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="University of Florida"
+                            android:text=""
                             android:id="@+id/university"
                             />
 
@@ -87,7 +87,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/profileInfo_margin"
                             android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:text="MS in Computer Science (Fall 2015)"
+                            android:text=""
                             android:id="@+id/studyField"
                             />
 
@@ -96,7 +96,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/profileInfo_margin"
                             android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:text="masteryoda@gmail.com"
+                            android:text=""
                             android:id="@+id/email"
                             />
 
@@ -105,7 +105,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/profileInfo_margin"
                             android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:text="(352)-226-6361"
+                            android:text=""
                             android:id="@+id/phone"
                             />
 

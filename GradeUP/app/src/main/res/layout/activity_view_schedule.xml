@@ -1,0 +1,52 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.ufl.gradeup.AddScheduleActivity">
+
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar"></include>
+
+
+    <Button
+        android:id="@+id/datebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/app_bar"
+        android:onClick="showDatePickerDialog"
+        android:text="Select Date" />
+
+    <TextView
+        android:id="@+id/sdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/datebutton"
+        android:layout_alignTop="@+id/datebutton"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/datebutton"
+        android:layout_toRightOf="@+id/datebutton"
+        android:text="YYYY-MM-DD" />
+
+
+    <Button
+        android:id="@+id/checkschbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/end_time"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:text="View Schedule"
+        android:textColor="@color/buttonText" />
+
+    <ListView
+        android:id="@+id/scheduleListView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/checkschbtn"
+        android:clickable="true" />
+
+</RelativeLayout>

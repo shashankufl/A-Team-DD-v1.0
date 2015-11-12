@@ -19,8 +19,13 @@
         android:title="@string/action_update_profile_picture"
         app:showAsAction="never" />
     <item
+        android:id="@+id/searchForGroups"
+        android:orderInCategory="400"
+        android:title="@string/title_activity_search_group"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/creategroupMenuItem"
-        android:icon="@mipmap/navcreategroup"
+        android:icon="@mipmap/creategroup_white"
         android:title="@string/title_activity_create_group"
         android:orderInCategory="200"
         app:showAsAction="always"/>
