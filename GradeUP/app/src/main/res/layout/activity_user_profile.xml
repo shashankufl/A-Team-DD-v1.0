@@ -61,6 +61,13 @@
                 android:orientation="vertical"
                 android:paddingTop="15dp">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="My Info"
+                    android:textColor="@color/primaryColor"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
@@ -127,63 +134,60 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp">
 
+
                     <LinearLayout
                         style="@style/ProfileInfoStyle"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:id="@+id/todayScheduleCard">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Analysis of Algorithms"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="7.25AM - 8.15PM"
-                            android:textAppearance="?android:attr/textAppearanceSmall" />
+                        <!--<TextView-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="Analysis of Algorithms"-->
+                            <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
+                        <!--<TextView-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="7.25AM - 8.15PM"-->
+                            <!--android:textAppearance="?android:attr/textAppearanceSmall" />-->
 
-                        <View
-                            android:layout_width="fill_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@android:color/darker_gray"/>
+                        <!--<View-->
+                            <!--android:layout_width="fill_parent"-->
+                            <!--android:layout_height="1dp"-->
+                            <!--android:layout_marginTop="10dp"-->
+                            <!--android:layout_marginBottom="10dp"-->
+                            <!--android:background="@android:color/darker_gray"/>-->
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Software Engineering"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="11.45AM - 12.35PM"
-                            android:textAppearance="?android:attr/textAppearanceSmall" />
+                        <!--<TextView-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="Software Engineering"-->
+                            <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
+                        <!--<TextView-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="11.45AM - 12.35PM"-->
+                            <!--android:textAppearance="?android:attr/textAppearanceSmall" />-->
 
-                        <View
-                            android:layout_width="fill_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@android:color/darker_gray"/>
+                        <!--<View-->
+                            <!--android:layout_width="fill_parent"-->
+                            <!--android:layout_height="1dp"-->
+                            <!--android:layout_marginTop="10dp"-->
+                            <!--android:layout_marginBottom="10dp"-->
+                            <!--android:background="@android:color/darker_gray"/>-->
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="A - Team Meeting"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="2PM - 3PM"
-                            android:textAppearance="?android:attr/textAppearanceSmall" />
+                        <!--<TextView-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="A - Team Meeting"-->
+                            <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
+                        <!--<TextView-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="2PM - 3PM"-->
+                            <!--android:textAppearance="?android:attr/textAppearanceSmall" />-->
 
-                        <android.support.v7.widget.RecyclerView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:id="@+id/todaySchedule"
-                            />
 
 
 
@@ -206,41 +210,42 @@
 
                     <LinearLayout
                         style="@style/ProfileInfoStyle"
+                        android:id="@+id/groupsCard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Analysis of Algorithms"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                        <!--<TextView-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="Analysis of Algorithms"-->
+                            <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
 
-                        <View
-                            android:layout_width="fill_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@android:color/darker_gray"/>
+                        <!--<View-->
+                            <!--android:layout_width="fill_parent"-->
+                            <!--android:layout_height="1dp"-->
+                            <!--android:layout_marginTop="10dp"-->
+                            <!--android:layout_marginBottom="10dp"-->
+                            <!--android:background="@android:color/darker_gray"/>-->
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Software Engineering"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                        <!--<TextView-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="Software Engineering"-->
+                            <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
 
 
-                        <View
-                            android:layout_width="fill_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@android:color/darker_gray"/>
+                        <!--<View-->
+                            <!--android:layout_width="fill_parent"-->
+                            <!--android:layout_height="1dp"-->
+                            <!--android:layout_marginTop="10dp"-->
+                            <!--android:layout_marginBottom="10dp"-->
+                            <!--android:background="@android:color/darker_gray"/>-->
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="A - Team"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                        <!--<TextView-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="A - Team"-->
+                            <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
 
 
                         <android.support.v7.widget.RecyclerView

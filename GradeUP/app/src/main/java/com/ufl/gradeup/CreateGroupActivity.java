@@ -37,7 +37,7 @@ public class CreateGroupActivity extends AppCompatActivity {
     EditText addGroupMembers;
     ListView groupMembersListView;
     List<String> groupMemebers = new ArrayList<String>();
-
+    List<String> groupMemebersUsername = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +51,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         groupMembersListView = (ListView)findViewById(R.id.memberListView);
         createGroupButton= (Button) findViewById(R.id.gotoGroupHome);
         currentUser = ParseUser.getCurrentUser();
-        userName = currentUser.getString("Name");
+        userName = currentUser.getUsername();
 
         final CreateGroupCustomAdapter adapter =  new CreateGroupCustomAdapter(groupMemebers,this);
 
@@ -74,8 +74,9 @@ public class CreateGroupActivity extends AppCompatActivity {
                                         Toast.makeText(getApplicationContext(),
                                                 object.getString("Name"),
                                                 Toast.LENGTH_LONG).show();
-                                        if (!groupMemebers.contains(object.getUsername())) {
+                                        if (!groupMemebersUsername.contains(object.getUsername())) {
                                             groupMemebers.add(object.getString("Name"));
+                                            groupMemebersUsername.add(object.getUsername());
                                         }
                                     }
                                     adapter.notifyDataSetChanged();
@@ -127,10 +128,10 @@ public class CreateGroupActivity extends AppCompatActivity {
         if(id == R.id.gotoGroupHome){
 
             String nameOfGroup= groupName.getText().toString();
-            String nameOfUser= userName;
+            String usernameOfUser= userName;
             ParseObject group = new ParseObject("Groups");
             group.put("groupName", nameOfGroup);
-            group.put("userName", nameOfUser);
+            group.put("userName", usernameOfUser);
             group.put("isAdmin",1);
             group.saveInBackground();
 
@@ -138,7 +139,7 @@ public class CreateGroupActivity extends AppCompatActivity {
             {
                 group = new ParseObject("Groups");
                 group.put("groupName", nameOfGroup);
-                group.put("userName", groupMembersListView.getItemAtPosition(i).toString());
+                group.put("userName", groupMemebersUsername.get(i));
                 group.put("isAdmin",0);
                 group.saveInBackground();
             }
@@ -149,7 +150,7 @@ public class CreateGroupActivity extends AppCompatActivity {
             Intent intent = new Intent(CreateGroupActivity.this,
                     GroupHomeActivity.class);
             startActivity(intent);
-
+            finish();
             return true;
         }
 
