@@ -28,5 +28,6 @@
     <string name="title_activity_search_group">Search For Group</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_temp">temp</string>
+    <string name="title_activity_approve_request">ApproveRequestActivity</string>
 
 </resources>

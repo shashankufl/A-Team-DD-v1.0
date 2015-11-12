@@ -91,6 +91,10 @@
         </activity>
         <activity android:name=".SearchForGroupActivity" >
         </activity>
+        <activity
+            android:name=".ApproveRequestActivity"
+            android:label="@string/title_activity_approve_request" >
+        </activity>
     </application>
 
 </manifest>

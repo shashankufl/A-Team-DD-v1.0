@@ -50,9 +50,7 @@ public class SearchForGroupActivity extends AppCompatActivity {
                         if (e == null) {
                             for (ParseObject object : objects
                                     ) {
-                                Toast.makeText(getApplicationContext(),
-                                        object.getString("userName"),
-                                        Toast.LENGTH_LONG).show();
+
                                 if (!groupNamesList.contains(object.getString("groupName"))) {
                                     groupNamesList.add(object.getString("groupName"));
                                 }
