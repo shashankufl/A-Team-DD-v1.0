@@ -4,7 +4,10 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -15,7 +18,11 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
@@ -79,8 +86,8 @@ public class GroupHomeActivity extends AppCompatActivity {
                     Bitmap profilePicBmp = BitmapFactory.decodeByteArray(data, 0, data.length);
 //                    userProfilePic = (ImageView) findViewById(R.id.ProfileImage);
                     groupProfilePic.setImageBitmap(profilePicBmp);
-                    ImageView navProfilePic = (ImageView) findViewById(R.id.navImage);
-                    navProfilePic.setImageBitmap(profilePicBmp);
+                    //ImageView navProfilePic = (ImageView) findViewById(R.id.navImage);
+                    //navProfilePic.setImageBitmap(profilePicBmp);
 
                     pictureUploadProgress.dismiss();
                 } else {
@@ -88,6 +95,8 @@ public class GroupHomeActivity extends AppCompatActivity {
                 }
             }
         });
+
+        getGroupMembersList();
 
         Toolbar groupProfileToolbar = (Toolbar) findViewById(R.id.groupHomeToolbar);
         setSupportActionBar(groupProfileToolbar);
@@ -202,7 +211,7 @@ public class GroupHomeActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        getGroupMembersList();
+       // getGroupMembersList();
 
         joinMenu = menu;
         return true;
@@ -314,12 +323,63 @@ public class GroupHomeActivity extends AppCompatActivity {
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
-                for (ParseObject object : list
-                        ) {
-                    groupMembersList.add(object.getString("userName").toString());
+                if (e == null) {
+                    for (ParseObject object : list
+                            ) {
+                        if (!groupMembersList.contains(object.getString("memberName"))) {
+                            groupMembersList.add(object.getString("memberName").toString());
+                        }
+                    }
+                    bindGroupMembers();
                 }
+
+
             }
         });
+
+    }
+
+    public void bindGroupMembers(){
+
+        LinearLayout groupLayout = (LinearLayout) findViewById(R.id.membersCard);
+        if (groupMembersList.size() == 0) {
+            TextView textView = new TextView(this);
+            textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            textView.setTypeface(textView.getTypeface(), Typeface.ITALIC);
+            textView.setText("Nothing to Show...");
+            if (Build.VERSION.SDK_INT < 23) {
+                textView.setTextAppearance(this, android.R.style.TextAppearance_Material_Small);
+            } else {
+                textView.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Small);
+            }
+            groupLayout.addView(textView);
+        }else{
+            for (int i = 0; i < groupMembersList.size(); i++) {
+                TextView textView = new TextView(this);
+                textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                textView.setText("* " + groupMembersList.get(i));
+                textView.setFocusable(true);
+                textView.setClickable(true);
+                if (Build.VERSION.SDK_INT < 23) {
+                    textView.setTextAppearance(this, android.R.style.TextAppearance_DeviceDefault_Medium);
+                } else {
+                    textView.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Medium);
+                }
+                groupLayout.addView(textView);
+                if (i < groupMembersList.size() - 1) {
+                    View view = new View(this);
+                    TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, 1);
+                    params.setMargins(0, 15, 0, 15);
+                    view.setLayoutParams(params);
+                    view.setBackgroundColor(Color.rgb(169, 169, 169));
+                    groupLayout.addView(view);
+                }
+            }
+
+        }
+
 
     }
 

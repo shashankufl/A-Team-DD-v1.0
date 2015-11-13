@@ -148,6 +148,7 @@ public class CreateGroupActivity extends AppCompatActivity {
             group.put("groupName", nameOfGroup);
             group.put("userName", usernameOfUser);
             group.put("isAdmin", 1);
+            group.put("memberName", currentUser.getString("Name"));
             ParseACL acl = new ParseACL(ParseUser.getCurrentUser());
             acl.setPublicWriteAccess(true);
             acl.setPublicReadAccess(true);
@@ -164,6 +165,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                 group = new ParseObject("Groups");
                 group.put("groupName", nameOfGroup);
                 group.put("userName", groupMemebersUsername.get(i));
+                group.put("memberName", groupMemebers.get(i));
                 group.put("isAdmin",0);
                 group.saveInBackground();
             }
