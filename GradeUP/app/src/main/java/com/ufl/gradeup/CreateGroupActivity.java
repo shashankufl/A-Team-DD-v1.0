@@ -1,7 +1,12 @@
 package com.ufl.gradeup;
 
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,10 +23,13 @@ import android.widget.Toast;
 import com.parse.FindCallback;
 import com.parse.ParseACL;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +47,10 @@ public class CreateGroupActivity extends AppCompatActivity {
     ListView groupMembersListView;
     List<String> groupMemebers = new ArrayList<String>();
     List<String> groupMemebersUsername = new ArrayList<String>();
+    String groupNameString;
+    ParseFile grouppictureFile;
+    byte[] groupProfilePic;
+    String picName = "groupProfilePic.png";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +65,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         createGroupButton= (Button) findViewById(R.id.gotoGroupHome);
         currentUser = ParseUser.getCurrentUser();
         userName = currentUser.getUsername();
-
+        setDefaultGroupImage();
         final CreateGroupCustomAdapter adapter =  new CreateGroupCustomAdapter(groupMemebers,this);
 
         addGroupMembers.setOnTouchListener(new View.OnTouchListener() {
@@ -135,12 +147,17 @@ public class CreateGroupActivity extends AppCompatActivity {
             ParseObject group = new ParseObject("Groups");
             group.put("groupName", nameOfGroup);
             group.put("userName", usernameOfUser);
-            group.put("isAdmin",1);
+            group.put("isAdmin", 1);
             ParseACL acl = new ParseACL(ParseUser.getCurrentUser());
             acl.setPublicWriteAccess(true);
             acl.setPublicReadAccess(true);
+            group.put("ProfilePic",grouppictureFile);
             group.setACL(acl);
             group.saveInBackground();
+
+
+
+            groupNameString = groupName.getText().toString();
 
             for(int i=0; i < groupMembersListView.getCount(); i++)
             {
@@ -156,12 +173,42 @@ public class CreateGroupActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
             Intent intent = new Intent(CreateGroupActivity.this,
                     GroupHomeActivity.class);
+            intent.putExtra("groupName",groupNameString);
             startActivity(intent);
             finish();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setDefaultGroupImage(){
+        Resources res = getResources();
+        Drawable drawable = res.getDrawable(R.mipmap.xyz);
+        Bitmap PictureBitmap = ((BitmapDrawable)drawable).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        PictureBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        if(groupName.getText().toString().trim().length()>0){
+            picName = groupName.getText().toString().replaceAll("\\s","")+".png";
+        }
+        groupProfilePic = stream.toByteArray();
+        grouppictureFile = new ParseFile(picName, groupProfilePic);  //registerName.getText().toString().trim()+
+        grouppictureFile.saveInBackground();
+        grouppictureFile.saveInBackground(new SaveCallback() {
+            public void done(ParseException e) {
+                // If successful add file to user and signUpInBackground
+                if(null == e){
+
+                    //savetoParse();
+                }else{
+                    Toast.makeText(getApplicationContext(),
+                            e+"", Toast.LENGTH_LONG)
+                            .show();
+                }
+
+            }
+        });
+
     }
 
 
