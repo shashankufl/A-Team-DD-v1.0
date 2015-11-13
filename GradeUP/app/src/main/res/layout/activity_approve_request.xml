@@ -12,5 +12,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/pendingRequestListView"
         android:layout_centerVertical="true"
+        android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

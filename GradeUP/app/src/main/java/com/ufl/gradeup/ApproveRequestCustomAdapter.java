@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
@@ -64,12 +65,12 @@ public class ApproveRequestCustomAdapter extends BaseAdapter implements ListAdap
 
 
         TextView listItemText = (TextView)view.findViewById(R.id.list_item_string);
-        listItemText.setText(list.get(position));
+        listItemText.setText("Request From "+list.get(position).split(",")[2]);
 
         //Handle buttons and add onClickListeners
 
-        Button deleteBtn = (Button)view.findViewById(R.id.declineRequestBtn);
-        Button addBtn = (Button)view.findViewById(R.id.approveRequestBtn);
+        ImageButton deleteBtn = (ImageButton)view.findViewById(R.id.declineRequestBtn);
+        ImageButton addBtn = (ImageButton)view.findViewById(R.id.approveRequestBtn);
 
         deleteBtn.setOnClickListener(new View.OnClickListener(){
             @Override

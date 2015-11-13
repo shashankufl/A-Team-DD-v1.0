@@ -1,10 +1,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ufl.gradeup.AddScheduleActivity">
+    tools:context="com.ufl.gradeup.AddScheduleActivity"
+    android:theme="@style/ThemeOverlay.AppCompat"
+    android:touchscreenBlocksFocus="true"
+    android:focusableInTouchMode="true"
+    android:focusable="true"
+    android:contextClickable="true"
+    android:clickable="true"
+    style="@style/AppTheme.Base">
     <include
         android:id="@+id/app_bar"
         layout="@layout/app_bar"></include>
+
     <EditText
         android:id="@+id/subjectname"
         android:layout_width="wrap_content"
@@ -17,75 +25,56 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:drawableLeft="@mipmap/study_icon"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:ems="15"
         android:hint="Course Name" />
 
-    <Button
-        android:id="@+id/datebutton"
+
+    <TextView
+        android:id="@+id/start_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/subjectname"
         android:layout_alignStart="@+id/subjectname"
         android:layout_below="@+id/subjectname"
         android:onClick="showDatePickerDialog"
-        android:text="Select Date" />
-
-    <TextView
-        android:id="@+id/start_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/datebutton"
-        android:layout_alignTop="@+id/datebutton"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dp"
-        android:layout_toEndOf="@+id/datebutton"
-        android:layout_toRightOf="@+id/datebutton"
-        android:text="YYYY-MM-DD" />
-
-    <Button
-        android:id="@+id/starttimebutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/subjectname"
-        android:layout_alignStart="@+id/subjectname"
-        android:layout_below="@+id/datebutton"
-        android:onClick="showTimePickerDialog1"
-        android:text="Select Start Time" />
+        android:layout_marginTop="20dp"
+        android:text="Date                      "
+        style="@style/RtlUnderlay.Widget.AppCompat.ActionButton"
+        android:focusable="true"
+        android:contextClickable="false"
+        android:clickable="true"
+        android:textSize="@dimen/abc_floating_window_z" />
 
     <TextView
         android:id="@+id/start_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/starttimebutton"
-        android:layout_alignTop="@+id/starttimebutton"
+        android:layout_alignBottom="@+id/start_date"
+        android:layout_toEndOf="@+id/start_date"
+        android:layout_toRightOf="@+id/start_date"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dp"
-        android:layout_toEndOf="@+id/starttimebutton"
-        android:layout_toRightOf="@+id/starttimebutton"
-        android:text="HH:MM:SS" />
+        android:onClick="showTimePickerDialog1"
+        android:text="Select Start Time"
+        style="@style/RtlUnderlay.Widget.AppCompat.ActionButton"
+        android:focusable="true"
+        android:textSize="@dimen/abc_floating_window_z" />
 
-    <Button
-        android:id="@+id/endtimebutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/subjectname"
-        android:layout_alignStart="@+id/subjectname"
-        android:layout_below="@+id/start_time"
-        android:onClick="showTimePickerDialog2"
-        android:text="   Select End Time  " />
 
     <TextView
         android:id="@+id/end_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/endtimebutton"
-        android:layout_alignTop="@+id/endtimebutton"
-        android:layout_marginLeft="30dp"
+        android:layout_alignLeft="@+id/start_time"
+        android:layout_alignStart="@+id/start_time"
+        android:layout_below="@+id/start_time"
         android:layout_marginTop="10dp"
-        android:layout_toEndOf="@+id/endtimebutton"
-        android:layout_toRightOf="@+id/endtimebutton"
-        android:text="HH:MM:SS" />
+        android:onClick="showTimePickerDialog2"
+        android:text="Select End Time  "
+        style="@style/RtlUnderlay.Widget.AppCompat.ActionButton"
+        android:focusable="true"
+        android:textSize="@dimen/abc_floating_window_z" />
+
 
     <Button
         android:id="@+id/addschbtn"
@@ -93,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/end_time"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="130dp"
         android:text="Add Schedule"
         android:textColor="@color/buttonText" />
 
@@ -102,8 +91,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Repeat"
-        android:layout_below="@+id/endtimebutton"
-        android:layout_marginTop="10dp"
+        android:layout_below="@+id/end_time"
+        android:layout_marginTop="30dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
