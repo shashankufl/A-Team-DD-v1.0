@@ -46,6 +46,7 @@ public class GroupHomeActivity extends AppCompatActivity {
     private String joinOrCancel = "Join";
     private String groupName;
     private ArrayList<String> groupMembersList = new ArrayList<String>();
+    private ArrayList<String> groupUserNameList = new ArrayList<String>();
     public static final int PICTURE_REQUEST = 20;
     byte[] ProfilePic;
     ParseFile pictureFile;
@@ -84,8 +85,8 @@ public class GroupHomeActivity extends AppCompatActivity {
                     Bitmap profilePicBmp = BitmapFactory.decodeByteArray(data, 0, data.length);
 //                    userProfilePic = (ImageView) findViewById(R.id.ProfileImage);
                     groupProfilePic.setImageBitmap(profilePicBmp);
-                    //ImageView navProfilePic = (ImageView) findViewById(R.id.navImage);
-                    //navProfilePic.setImageBitmap(profilePicBmp);
+                    ImageView navProfilePic = (ImageView) findViewById(R.id.navImage);
+                    navProfilePic.setImageBitmap(profilePicBmp);
 
                     pictureUploadProgress.dismiss();
                 } else {
@@ -94,7 +95,7 @@ public class GroupHomeActivity extends AppCompatActivity {
             }
         });
 
-        getGroupMembersList();
+
 
 
         Toolbar groupProfileToolbar = (Toolbar) findViewById(R.id.groupHomeToolbar);
@@ -206,9 +207,7 @@ public class GroupHomeActivity extends AppCompatActivity {
 
         MenuItem approveRequestMenuItem = menu.findItem(R.id.approveRequestListItem);
         MenuItem joinGroupListItem = menu.findItem(R.id.joinGroupListItem);
-
-
-
+        
         try {
             approveRequestMenuItem.setVisible(isAdmin());
         } catch (ParseException e) {
@@ -216,8 +215,14 @@ public class GroupHomeActivity extends AppCompatActivity {
         }
         
         ParseUser parseUser = ParseUser.getCurrentUser();
-        joinGroupListItem.setVisible(!groupMembersList.contains(parseUser.getUsername().toString()));
 
+        //joinGroupListItem.setVisible(!groupUserNameList.contains(parseUser.getUsername()));
+        try {
+            joinGroupListItem.setVisible(!isAdmin() && !groupUserNameList.contains(parseUser.getUsername()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        int a = 1;
 
         joinMenu = menu;
         return true;
@@ -280,7 +285,6 @@ public class GroupHomeActivity extends AppCompatActivity {
                     public void done(List<ParseObject> list, ParseException e) {
                         for (ParseObject object : list
                                 ) {
-
                             object.removeAll("joinRequests", Arrays.asList(joinRequest));
                             object.saveInBackground();
                         }
@@ -334,6 +338,7 @@ public class GroupHomeActivity extends AppCompatActivity {
                             ) {
                         if (!groupMembersList.contains(object.getString("memberName"))) {
                             groupMembersList.add(object.getString("memberName").toString());
+                            groupUserNameList.add(object.getString("userName").toString());
                         }
                     }
                     bindGroupMembers();

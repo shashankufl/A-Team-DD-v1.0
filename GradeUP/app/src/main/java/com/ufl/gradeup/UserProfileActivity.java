@@ -312,7 +312,7 @@ public class UserProfileActivity extends AppCompatActivity {
             public void done(List<ParseObject> nameList, ParseException e) {
                 if (e == null) {
                     for (ParseObject object : nameList) {
-                        if (new String(object.getString("Date")).equals("2015-11-18")) {
+                        if (new String(object.getString("Date")).equals("2015-11-13")) {
                             String schName = "" + object.getString("Subject");
                             String schTime = object.getString("Start_time") +
                                     " to " + object.getString("End_time");
