@@ -1,26 +1,31 @@
 package com.ufl.gradeup;
 
-import android.app.ListActivity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
+import com.parse.ParseACL;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +43,11 @@ public class CreateGroupActivity extends AppCompatActivity {
     ListView groupMembersListView;
     List<String> groupMemebers = new ArrayList<String>();
 
+    List<String> groupMemebersUsername = new ArrayList<String>();
+    String groupNameString;
+    ParseFile grouppictureFile;
+    byte[] groupProfilePic;
+    String picName = "groupProfilePic.png";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,8 +61,9 @@ public class CreateGroupActivity extends AppCompatActivity {
         groupMembersListView = (ListView)findViewById(R.id.memberListView);
         createGroupButton= (Button) findViewById(R.id.gotoGroupHome);
         currentUser = ParseUser.getCurrentUser();
-        userName = currentUser.getString("Name");
 
+        userName = currentUser.getUsername();
+        setDefaultGroupImage();
         final CreateGroupCustomAdapter adapter =  new CreateGroupCustomAdapter(groupMemebers,this);
 
         addGroupMembers.setOnTouchListener(new View.OnTouchListener() {
@@ -71,14 +82,19 @@ public class CreateGroupActivity extends AppCompatActivity {
                                 if (e == null) {
                                     for (ParseUser object : objects
                                             ) {
-                                        Toast.makeText(getApplicationContext(),
-                                                object.getString("Name"),
-                                                Toast.LENGTH_LONG).show();
-                                        if (!groupMemebers.contains(object.getUsername())) {
+
+
+                                        if (!groupMemebersUsername.contains(object.getUsername()) && !(currentUser.getUsername() == object.getUsername())) {
                                             groupMemebers.add(object.getString("Name"));
+                                            groupMemebersUsername.add(object.getUsername());
+                                        }else{
+                                            Toast.makeText(getApplicationContext(),
+                                                    "Member does not exist please try again", Toast.LENGTH_SHORT)
+                                                    .show();
                                         }
                                     }
                                     adapter.notifyDataSetChanged();
+                                    addGroupMembers.setText("");
 //                                    Toast.makeText(getApplicationContext(),
 //                                            objects.getString(),
 //                                            Toast.LENGTH_LONG).show();
@@ -90,6 +106,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                         return true;
                     }
                 }
+
                 return false;
             }
         });
@@ -127,18 +144,31 @@ public class CreateGroupActivity extends AppCompatActivity {
         if(id == R.id.gotoGroupHome){
 
             String nameOfGroup= groupName.getText().toString();
-            String nameOfUser= userName;
+
+            String usernameOfUser= userName;
             ParseObject group = new ParseObject("Groups");
             group.put("groupName", nameOfGroup);
-            group.put("userName", nameOfUser);
-            group.put("isAdmin",1);
+            group.put("userName", usernameOfUser);
+            group.put("isAdmin", 1);
+            group.put("memberName", currentUser.getString("Name"));
+            ParseACL acl = new ParseACL(ParseUser.getCurrentUser());
+            acl.setPublicWriteAccess(true);
+            acl.setPublicReadAccess(true);
+            group.put("ProfilePic",grouppictureFile);
+            group.setACL(acl);
             group.saveInBackground();
+
+
+
+            groupNameString = groupName.getText().toString();
 
             for(int i=0; i < groupMembersListView.getCount(); i++)
             {
                 group = new ParseObject("Groups");
                 group.put("groupName", nameOfGroup);
-                group.put("userName", groupMembersListView.getItemAtPosition(i).toString());
+
+                group.put("userName", groupMemebersUsername.get(i));
+                group.put("memberName", groupMemebers.get(i));
                 group.put("isAdmin",0);
                 group.saveInBackground();
             }
@@ -148,12 +178,44 @@ public class CreateGroupActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
             Intent intent = new Intent(CreateGroupActivity.this,
                     GroupHomeActivity.class);
-            startActivity(intent);
 
+            intent.putExtra("groupName",groupNameString);
+            startActivity(intent);
+            finish();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public void setDefaultGroupImage(){
+        Resources res = getResources();
+        Drawable drawable = res.getDrawable(R.mipmap.xyz);
+        Bitmap PictureBitmap = ((BitmapDrawable)drawable).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        PictureBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        if(groupName.getText().toString().trim().length()>0){
+            picName = groupName.getText().toString().replaceAll("\\s","")+".png";
+        }
+        groupProfilePic = stream.toByteArray();
+        grouppictureFile = new ParseFile(picName, groupProfilePic);  //registerName.getText().toString().trim()+
+        grouppictureFile.saveInBackground();
+        grouppictureFile.saveInBackground(new SaveCallback() {
+            public void done(ParseException e) {
+                // If successful add file to user and signUpInBackground
+                if(null == e){
+
+                    //savetoParse();
+                }else{
+                    Toast.makeText(getApplicationContext(),
+                            e+"", Toast.LENGTH_LONG)
+                            .show();
+                }
+
+            }
+        });
+
     }
 
 

@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -52,9 +51,7 @@ public class SearchForGroupActivity extends AppCompatActivity {
                         if (e == null) {
                             for (ParseObject object : objects
                                     ) {
-                                Toast.makeText(getApplicationContext(),
-                                        object.getString("userName"),
-                                        Toast.LENGTH_LONG).show();
+
                                 if (!groupNamesList.contains(object.getString("groupName"))) {
                                     groupNamesList.add(object.getString("groupName"));
                                 }
@@ -84,6 +81,7 @@ public class SearchForGroupActivity extends AppCompatActivity {
         groupNamesListView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+
                 return false;
             }
         });
