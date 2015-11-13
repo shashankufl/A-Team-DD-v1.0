@@ -75,7 +75,7 @@ public class AddScheduleActivity extends AppCompatActivity {
             dayofWeek=format2.format(dt1);
             Toast.makeText(getApplicationContext(), dayofWeek,
                     Toast.LENGTH_LONG).show();
-            SelectedDateView.setText(startDate);
+            SelectedDateView.setText("Start Date " + startDate);
         }
     }
     //Date Picking and saving ends here
@@ -84,7 +84,6 @@ public class AddScheduleActivity extends AppCompatActivity {
     //Time picking and saving starts here ->
     public static String startTime = "";
     public static String endTime = "";
-    //public static String setTime = "";
     public static TextView EndTimeView;
     public static TextView StartTimeView;
 
@@ -104,7 +103,7 @@ public class AddScheduleActivity extends AppCompatActivity {
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             startTime = " " + hourOfDay + ":" + minute + "";
-            StartTimeView.setText(startTime);
+            StartTimeView.setText("Start Time " + startTime);
         }
 
     }
@@ -125,12 +124,11 @@ public class AddScheduleActivity extends AppCompatActivity {
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             endTime = " " + hourOfDay + ":" + minute ;
-            EndTimeView.setText(endTime);
+            EndTimeView.setText("End Time " + endTime);
         }
 
     }
     //Time Picking and saving ends here
-
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,7 +136,23 @@ public class AddScheduleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_schedule);
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
+
+        final TextView editText = (TextView) findViewById( R.id.start_date );
+        final SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd" );
+        editText.setText("Start Date " + sdf.format(new Date()));
+
+        final TextView initialTime = (TextView) findViewById( R.id.start_time );
+        SimpleDateFormat init = new SimpleDateFormat("h:mm a");
+        String editTime = init.format(Calendar.getInstance().getTime());
+        initialTime.setText("Start Time " + editTime);
+
+        final TextView initialEndTime = (TextView) findViewById( R.id.end_time );
+        SimpleDateFormat initEnd = new SimpleDateFormat("h:mm a");
+        String editEndTime = initEnd.format(Calendar.getInstance().getTime());
+        initialEndTime.setText("End Time " + editEndTime);
+
         RepeatToggle = (Switch) findViewById(R.id.repeatToggle);
+
         RepeatToggle.setClickable(true);
         final CheckBox sunday = (CheckBox) findViewById(R.id.Sunday);
         final CheckBox monday = (CheckBox) findViewById(R.id.Monday);
@@ -215,6 +229,9 @@ public class AddScheduleActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                 } else {
                     // Save new user data into Parse.com Data Storage
+//                    SelectedDateView.setText(sdf.format(startDate));
+//                    StartTimeView.setText(startTime);
+//                    EndTimeView.setText(endTime);
                     ParseObject newSchedule = new ParseObject("Schedule");
                     newSchedule.put("User_ID", userName);
                     newSchedule.put("Subject", nameTxt);
