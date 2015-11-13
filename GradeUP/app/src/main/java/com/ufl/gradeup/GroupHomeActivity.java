@@ -65,7 +65,7 @@ public class GroupHomeActivity extends AppCompatActivity {
         groupName = getIntent().getStringExtra("groupName");
         groupProfilePic = (ImageView) findViewById(R.id.GroupImage);
         name = groupName;
-
+        getGroupMembersList();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Groups");
         query.whereEqualTo("groupName", groupName);
         query.whereEqualTo("isAdmin", 1);
@@ -204,14 +204,19 @@ public class GroupHomeActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_group_home, menu);
 
         MenuItem approveRequestMenuItem = menu.findItem(R.id.approveRequestListItem);
+        MenuItem joinGroupListItem = menu.findItem(R.id.joinGroupListItem);
+
+
 
         try {
             approveRequestMenuItem.setVisible(isAdmin());
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        
+        ParseUser parseUser = ParseUser.getCurrentUser();
+        joinGroupListItem.setVisible(!groupMembersList.contains(parseUser.getUsername().toString()));
 
-       // getGroupMembersList();
 
         joinMenu = menu;
         return true;
