@@ -96,6 +96,10 @@
             android:name=".ApproveRequestActivity"
             android:label="@string/title_activity_approve_request" >
         </activity>
+	<activity
+            android:name=".ViewScheduleActivity"
+            android:label="@string/title_activity_view_schedule" >
+        </activity>
     </application>
 
 </manifest>
