@@ -1,5 +1,6 @@
 package com.ufl.gradeup;
 
+<<<<<<< HEAD
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,6 +10,9 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.MenuItemCompat;
+=======
+import android.support.design.widget.CollapsingToolbarLayout;
+>>>>>>> origin/Shashank
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -55,6 +59,7 @@ public class GroupHomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_home);
 
+<<<<<<< HEAD
         groupName = getIntent().getStringExtra("groupName");
         groupProfilePic = (ImageView) findViewById(R.id.GroupImage);
         name = groupName;
@@ -88,6 +93,12 @@ public class GroupHomeActivity extends AppCompatActivity {
                 }
             }
         });
+=======
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String value = extras.getString("new_variable_name");
+        }
+>>>>>>> origin/Shashank
 
         Toolbar groupProfileToolbar = (Toolbar) findViewById(R.id.groupHomeToolbar);
         setSupportActionBar(groupProfileToolbar);
@@ -95,6 +106,7 @@ public class GroupHomeActivity extends AppCompatActivity {
 
         CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_groupPic);
+<<<<<<< HEAD
         collapsingToolbar.setTitle(groupName);
 
         NavigationDrawerFragment navDrawerFrag = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.nav_drawer_fragment);
@@ -110,6 +122,12 @@ public class GroupHomeActivity extends AppCompatActivity {
         Uri uri = Uri.parse(pictureSourcePath);
         PicturePickerIntent.setDataAndType(uri, "image/*");
         startActivityForResult(PicturePickerIntent, PICTURE_REQUEST);
+=======
+        collapsingToolbar.setTitle("Add Group Name Here");
+
+        NavigationDrawerFragment navDrawerFrag = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.nav_drawer_fragment);
+        navDrawerFrag.setUp(R.id.nav_drawer_fragment, (DrawerLayout) findViewById(R.id.group_drawer_layout), groupProfileToolbar);
+>>>>>>> origin/Shashank
     }
 
     //TODO

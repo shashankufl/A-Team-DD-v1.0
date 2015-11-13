@@ -26,6 +26,7 @@ import java.util.List;
 
 
 
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -70,13 +71,16 @@ public class NavigationDrawerFragment extends android.support.v4.app.Fragment im
     public static List<NavigationDrawerInformation> getNavData(){
         List<NavigationDrawerInformation> navData = new ArrayList<>();
         int[] navIcons ={R.mipmap.navmyprofile,R.mipmap.navupdateprofile,R.mipmap.navaddschedule,R.mipmap.navcreategroup,R.mipmap.navjoingroup,R.mipmap.navhelp,R.mipmap.navaboutus,R.mipmap.navlogout};
+<<<<<<< HEAD
         String[] navText = {"My Profile", "Update Profile","Add Schedule", "Create Study Group", "Search Study Group","Help","About us", "Log Out"};
+=======
+        String[] navText = {"My Profile", "Update Profile","Add Schedule", "Create Study Group", "Search Study Group","Help","View Schedule", "Log Out"};
+>>>>>>> origin/Shashank
         for(int i= 0;i<navIcons.length&&i<navText.length;i++){
             NavigationDrawerInformation current = new NavigationDrawerInformation();
             current.iconId= navIcons[i];
             current.title=navText[i];
             navData.add(current);
-
         }
         return navData;
 
@@ -146,6 +150,11 @@ public class NavigationDrawerFragment extends android.support.v4.app.Fragment im
             startActivity(new Intent(getActivity(),CreateGroupActivity.class));
         } else if(position==4){
             startActivity(new Intent(getActivity(),SearchForGroupActivity.class));
+<<<<<<< HEAD
+=======
+        } else if(position==6){
+            startActivity(new Intent(getActivity(),ViewScheduleActivity.class));
+>>>>>>> origin/Shashank
         }
 
 

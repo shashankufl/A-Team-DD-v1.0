@@ -84,8 +84,13 @@ public class UserProfileActivity extends AppCompatActivity {
         TextView phoneTextView = (TextView) findViewById(R.id.phone);
         universityTextView.setText(currentUser.getString("University"));
         emailTextView.setText(currentUser.getEmail());
+<<<<<<< HEAD
         fieldOfStudyTextView.setText(currentUser.getString("StudyField") + "Department");
         if (currentUser.getString("phone") != "") {
+=======
+        fieldOfStudyTextView.setText(currentUser.getString("StudyField")+"Department");
+        if(currentUser.getString("phone")!=""){
+>>>>>>> origin/Shashank
             phoneTextView.setText(currentUser.getString("phone"));
         }
         userProfilePic = (ImageView) findViewById(R.id.ProfileImage);

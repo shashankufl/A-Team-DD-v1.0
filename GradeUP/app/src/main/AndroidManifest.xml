@@ -89,12 +89,22 @@
             android:name=".GroupHomeActivity"
             android:label="@string/title_activity_group_home" >
         </activity>
+<<<<<<< HEAD
         <activity android:name=".SearchForGroupActivity"
             android:label="@string/title_activity_search_group">
         </activity>
         <activity
             android:name=".ApproveRequestActivity"
             android:label="@string/title_activity_approve_request" >
+=======
+        <activity
+            android:name=".SearchForGroupActivity"
+            android:label="@string/title_activity_search_group" >
+        </activity>
+        <activity
+            android:name=".ViewScheduleActivity"
+            android:label="@string/title_activity_view_schedule" >
+>>>>>>> origin/Shashank
         </activity>
     </application>
 

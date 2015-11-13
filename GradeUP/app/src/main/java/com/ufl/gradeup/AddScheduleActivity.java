@@ -117,7 +117,7 @@ public class AddScheduleActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ParseUser currentUser;
         currentUser = ParseUser.getCurrentUser();
-        final String userName = currentUser.getString("Name");
+        final String userName = currentUser.getString("username");
 
         addschbtn = (Button) findViewById(R.id.addschbtn);
         SelectedDateView = (TextView) findViewById(R.id.start_date);

@@ -28,6 +28,10 @@
     <string name="title_activity_search_group">Search Study Group</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_temp">temp</string>
+<<<<<<< HEAD
     <string name="title_activity_approve_request">ApproveRequestActivity</string>
+=======
+    <string name="title_activity_view_schedule">ViewScheduleActivity</string>
+>>>>>>> origin/Shashank
 
 </resources>

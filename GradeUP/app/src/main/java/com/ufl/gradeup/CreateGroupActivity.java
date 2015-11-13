@@ -16,7 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
+<<<<<<< HEAD
 import com.parse.ParseACL;
+=======
+>>>>>>> origin/Shashank
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -38,7 +41,11 @@ public class CreateGroupActivity extends AppCompatActivity {
     EditText addGroupMembers;
     ListView groupMembersListView;
     List<String> groupMemebers = new ArrayList<String>();
+<<<<<<< HEAD
     List<String> groupMemebersUsername = new ArrayList<String>();
+=======
+
+>>>>>>> origin/Shashank
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +59,11 @@ public class CreateGroupActivity extends AppCompatActivity {
         groupMembersListView = (ListView)findViewById(R.id.memberListView);
         createGroupButton= (Button) findViewById(R.id.gotoGroupHome);
         currentUser = ParseUser.getCurrentUser();
+<<<<<<< HEAD
         userName = currentUser.getUsername();
+=======
+        userName = currentUser.getString("Name");
+>>>>>>> origin/Shashank
 
         final CreateGroupCustomAdapter adapter =  new CreateGroupCustomAdapter(groupMemebers,this);
 
@@ -75,6 +86,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                                         Toast.makeText(getApplicationContext(),
                                                 object.getString("Name"),
                                                 Toast.LENGTH_LONG).show();
+<<<<<<< HEAD
                                         if (!groupMemebersUsername.contains(object.getUsername())) {
                                             groupMemebers.add(object.getString("Name"));
                                             groupMemebersUsername.add(object.getUsername());
@@ -82,6 +94,13 @@ public class CreateGroupActivity extends AppCompatActivity {
                                     }
                                     adapter.notifyDataSetChanged();
                                     addGroupMembers.setText("");
+=======
+                                        if (!groupMemebers.contains(object.getUsername())) {
+                                            groupMemebers.add(object.getString("Name"));
+                                        }
+                                    }
+                                    adapter.notifyDataSetChanged();
+>>>>>>> origin/Shashank
 //                                    Toast.makeText(getApplicationContext(),
 //                                            objects.getString(),
 //                                            Toast.LENGTH_LONG).show();
@@ -93,7 +112,10 @@ public class CreateGroupActivity extends AppCompatActivity {
                         return true;
                     }
                 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/Shashank
                 return false;
             }
         });
@@ -131,6 +153,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         if(id == R.id.gotoGroupHome){
 
             String nameOfGroup= groupName.getText().toString();
+<<<<<<< HEAD
             String usernameOfUser= userName;
             ParseObject group = new ParseObject("Groups");
             group.put("groupName", nameOfGroup);
@@ -140,13 +163,24 @@ public class CreateGroupActivity extends AppCompatActivity {
             acl.setPublicWriteAccess(true);
             acl.setPublicReadAccess(true);
             group.setACL(acl);
+=======
+            String nameOfUser= userName;
+            ParseObject group = new ParseObject("Groups");
+            group.put("groupName", nameOfGroup);
+            group.put("userName", nameOfUser);
+            group.put("isAdmin",1);
+>>>>>>> origin/Shashank
             group.saveInBackground();
 
             for(int i=0; i < groupMembersListView.getCount(); i++)
             {
                 group = new ParseObject("Groups");
                 group.put("groupName", nameOfGroup);
+<<<<<<< HEAD
                 group.put("userName", groupMemebersUsername.get(i));
+=======
+                group.put("userName", groupMembersListView.getItemAtPosition(i).toString());
+>>>>>>> origin/Shashank
                 group.put("isAdmin",0);
                 group.saveInBackground();
             }
@@ -157,7 +191,11 @@ public class CreateGroupActivity extends AppCompatActivity {
             Intent intent = new Intent(CreateGroupActivity.this,
                     GroupHomeActivity.class);
             startActivity(intent);
+<<<<<<< HEAD
             finish();
+=======
+
+>>>>>>> origin/Shashank
             return true;
         }
 
