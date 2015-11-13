@@ -287,6 +287,7 @@ public class AddScheduleActivity extends AppCompatActivity {
                     Intent intent = new Intent(AddScheduleActivity.this,
                             UserProfileActivity.class);
                     startActivity(intent);
+                    finish();
                     Toast.makeText(getApplicationContext(), "Successfully updated.",
                             Toast.LENGTH_LONG).show();
                     finish();
