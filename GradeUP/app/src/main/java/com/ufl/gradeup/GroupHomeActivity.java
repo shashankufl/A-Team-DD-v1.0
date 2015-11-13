@@ -96,7 +96,7 @@ public class GroupHomeActivity extends AppCompatActivity {
             }
         });
 
-        getGroupMembersList();
+        //getGroupMembersList();
 
         Toolbar groupProfileToolbar = (Toolbar) findViewById(R.id.groupHomeToolbar);
         setSupportActionBar(groupProfileToolbar);
