@@ -20,6 +20,7 @@ import java.util.List;
 //import android.support.v4.app.Fragment;
 
 
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -64,13 +65,12 @@ public class NavigationDrawerFragment extends android.support.v4.app.Fragment im
     public static List<NavigationDrawerInformation> getNavData(){
         List<NavigationDrawerInformation> navData = new ArrayList<>();
         int[] navIcons ={R.mipmap.navmyprofile,R.mipmap.navupdateprofile,R.mipmap.navaddschedule,R.mipmap.navcreategroup,R.mipmap.navjoingroup,R.mipmap.navhelp,R.mipmap.navaboutus,R.mipmap.navlogout};
-        String[] navText = {"My Profile", "Update Profile","Add Schedule", "Create Study Group", "Join Study Group","Help","About us", "Log Out"};
+        String[] navText = {"My Profile", "Update Profile","View Schedule","Add Schedule", "Create Study Group", "Search Study Group","Help","About Us", "Log Out"};
         for(int i= 0;i<navIcons.length&&i<navText.length;i++){
             NavigationDrawerInformation current = new NavigationDrawerInformation();
             current.iconId= navIcons[i];
             current.title=navText[i];
             navData.add(current);
-
         }
         return navData;
 
@@ -133,9 +133,17 @@ public class NavigationDrawerFragment extends android.support.v4.app.Fragment im
             startActivity(new Intent(getActivity(),UserProfileActivity.class));
         }else if(position==1){
             startActivity(new Intent(getActivity(),UpdateProfileActivity.class));
-        } else if(position==2){
+        } else if(position==3){
             startActivity(new Intent(getActivity(),AddScheduleActivity.class));
+        } else if(position==4){
+            startActivity(new Intent(getActivity(),CreateGroupActivity.class));
+        } else if(position==5){
+            startActivity(new Intent(getActivity(),SearchForGroupActivity.class));
+        } else if(position==2){
+            startActivity(new Intent(getActivity(),ViewScheduleActivity.class));
         }
+
+
 
         //startActivity(new Intent(getActivity(),RegisterActivity.class));
     }

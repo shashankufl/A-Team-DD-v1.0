@@ -89,6 +89,18 @@
             android:name=".GroupHomeActivity"
             android:label="@string/title_activity_group_home" >
         </activity>
+        <activity
+            android:name=".SearchForGroupActivity"
+            android:label="@string/title_activity_search_group" >
+        </activity>
+        <activity
+            android:name=".ViewScheduleActivity"
+            android:label="@string/title_activity_view_schedule" >
+        </activity>
+        <activity
+            android:name=".DeleteScheduleActivity"
+            android:label="@string/title_activity_delete_schedule" >
+        </activity>
     </application>
 
 </manifest>

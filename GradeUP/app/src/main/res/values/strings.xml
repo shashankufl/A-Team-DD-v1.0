@@ -14,7 +14,7 @@
     <string name="FieldOfStudy">"Field of Study"</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_user_profile">UserProfileActivity</string>
-    <string name="title_activity_create_group">Create Group</string>
+    <string name="title_activity_create_group">New Group</string>
     <string name="university">University</string>
     <string name="logout">Logout</string>
     <string name="title_activity_update_profile">Update Profile</string>
@@ -25,5 +25,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_add_schedule">AddScheduleActivity</string>
     <string name="title_activity_group_home">GroupHomeActivity</string>
+    <string name="title_activity_search_group">Search Study Group</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_temp">temp</string>
+    <string name="title_activity_view_schedule">ViewScheduleActivity</string>
+    <string name="title_activity_delete_schedule">DeleteScheduleActivity</string>
 
 </resources>

@@ -1,5 +1,6 @@
 package com.ufl.gradeup;
 
+
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -12,8 +13,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -21,7 +25,10 @@ import android.widget.Toast;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class AddScheduleActivity extends AppCompatActivity {
     private android.support.v7.widget.Toolbar toolbar;
@@ -29,11 +36,14 @@ public class AddScheduleActivity extends AppCompatActivity {
     public static TextView SelectedDateView;
     Button addschbtn;
     EditText subjectName;
+    int dayCheck, monthCheck, yearCheck;
     int hour;
+    String dayofWeek;
     int minute;
     public static String startDate = "";
+    private Switch RepeatToggle;
 
-    public static class DatePickerFragment extends DialogFragment
+    public class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
 
         @Override
@@ -50,8 +60,22 @@ public class AddScheduleActivity extends AppCompatActivity {
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
             startDate = "" + year + "-" + (month + 1) + "-" + day;
+            dayCheck = day;
+            monthCheck = month + 1;
+            yearCheck = year;
+            String input_date = "" + day + "/" + (month + 1) + "/" + year;
+            SimpleDateFormat format1=new SimpleDateFormat("dd/MM/yyyy");
+            Date dt1= null;
+            try {
+                dt1 = format1.parse(input_date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            SimpleDateFormat format2=new SimpleDateFormat("EEEE");
+            dayofWeek=format2.format(dt1);
+            Toast.makeText(getApplicationContext(), dayofWeek,
+                    Toast.LENGTH_LONG).show();
             SelectedDateView.setText(startDate);
-
         }
     }
     //Date Picking and saving ends here
@@ -79,7 +103,7 @@ public class AddScheduleActivity extends AppCompatActivity {
         }
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            startTime = " " + hourOfDay + ":" + minute + ":00";
+            startTime = " " + hourOfDay + ":" + minute + "";
             StartTimeView.setText(startTime);
         }
 
@@ -100,7 +124,7 @@ public class AddScheduleActivity extends AppCompatActivity {
         }
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            endTime = " " + hourOfDay + ":" + minute + ":00";
+            endTime = " " + hourOfDay + ":" + minute ;
             EndTimeView.setText(endTime);
         }
 
@@ -113,15 +137,73 @@ public class AddScheduleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_schedule);
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
+        RepeatToggle = (Switch) findViewById(R.id.repeatToggle);
+        RepeatToggle.setClickable(true);
+        final CheckBox sunday = (CheckBox) findViewById(R.id.Sunday);
+        final CheckBox monday = (CheckBox) findViewById(R.id.Monday);
+        final CheckBox tuesday = (CheckBox) findViewById(R.id.Tuesday);
+        final CheckBox wednesday = (CheckBox) findViewById(R.id.Wednesday);
+        final CheckBox thursday = (CheckBox) findViewById(R.id.Thursday);
+        final CheckBox friday = (CheckBox) findViewById(R.id.Friday);
+        final CheckBox saturday = (CheckBox) findViewById(R.id.Saturday);
+        sunday.setClickable(false);
+        monday.setClickable(false);
+        tuesday.setClickable(false);
+        wednesday.setClickable(false);
+        thursday.setClickable(false);
+        friday.setClickable(false);
+        saturday.setClickable(false);
+
         ParseUser currentUser;
         currentUser = ParseUser.getCurrentUser();
-        final String userName = currentUser.getString("Name");
-
+        final String userName = currentUser.getString("username");
         addschbtn = (Button) findViewById(R.id.addschbtn);
         SelectedDateView = (TextView) findViewById(R.id.start_date);
         StartTimeView = (TextView) findViewById(R.id.start_time);
         EndTimeView = (TextView) findViewById(R.id.end_time);
         subjectName = (EditText) findViewById(R.id.subjectname);
+        RepeatToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
+
+                if (RepeatToggle.isChecked()) {
+                    switch (dayofWeek) {
+                        case "Sunday":
+                            sunday.setChecked(true);
+                            break;
+                        case "Monday":
+                            monday.setChecked(true);
+                            break;
+                        case "Tuesday":
+                            tuesday.setChecked(true);
+                            break;
+                        case "Wednesday":
+                            wednesday.setChecked(true);
+                            break;
+                        case "Thursday":
+                            thursday.setChecked(true);
+                            break;
+                        case "Friday":
+                            friday.setChecked(true);
+                            break;
+                        case "Saturday":
+                            saturday.setChecked(true);
+                    }
+                }
+                else
+                {   sunday.setChecked(false);
+                    monday.setChecked(false);
+                    tuesday.setChecked(false);
+                    wednesday.setChecked(false);
+                    thursday.setChecked(false);
+                    friday.setChecked(false);
+                    saturday.setChecked(false);
+
+                }
+            }
+        });
         addschbtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View arg0) {
@@ -139,6 +221,69 @@ public class AddScheduleActivity extends AppCompatActivity {
                     newSchedule.put("Start_time", startTime);
                     newSchedule.put("End_time", endTime);
                     newSchedule.saveInBackground();
+                    if (RepeatToggle.isChecked()) {
+                        ParseObject newSchedule1 = new ParseObject("Schedule");
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        Calendar c = Calendar.getInstance();
+                        try {
+                            c.setTime(sdf.parse(startDate));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        c.add(Calendar.DATE, 7);
+                        startDate = sdf.format(c.getTime());
+                        newSchedule1.put("User_ID", userName);
+                        newSchedule1.put("Subject", nameTxt);
+                        newSchedule1.put("Date", startDate);
+                        newSchedule1.put("Start_time", startTime);
+                        newSchedule1.put("End_time", endTime);
+                        newSchedule1.saveInBackground();
+                        //-----------------------------------------------
+                        ParseObject newSchedule2 = new ParseObject("Schedule");
+                        try {
+                            c.setTime(sdf.parse(startDate));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        c.add(Calendar.DATE, 7);
+                        startDate = sdf.format(c.getTime());
+                        newSchedule2.put("User_ID", userName);
+                        newSchedule2.put("Subject", nameTxt);
+                        newSchedule2.put("Date", startDate);
+                        newSchedule2.put("Start_time", startTime);
+                        newSchedule2.put("End_time", endTime);
+                        newSchedule2.saveInBackground();
+                        //-----------------------------------------------
+                        ParseObject newSchedule3 = new ParseObject("Schedule");
+                        try {
+                            c.setTime(sdf.parse(startDate));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        c.add(Calendar.DATE, 7);
+                        startDate = sdf.format(c.getTime());
+                        newSchedule3.put("User_ID", userName);
+                        newSchedule3.put("Subject", nameTxt);
+                        newSchedule3.put("Date", startDate);
+                        newSchedule3.put("Start_time", startTime);
+                        newSchedule3.put("End_time", endTime);
+                        newSchedule3.saveInBackground();
+                        //-----------------------------------------------
+                        ParseObject newSchedule4 = new ParseObject("Schedule");
+                        try {
+                            c.setTime(sdf.parse(startDate));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        c.add(Calendar.DATE, 7);
+                        startDate = sdf.format(c.getTime());
+                        newSchedule4.put("User_ID", userName);
+                        newSchedule4.put("Subject", nameTxt);
+                        newSchedule4.put("Date", startDate);
+                        newSchedule4.put("Start_time", startTime);
+                        newSchedule4.put("End_time", endTime);
+                        newSchedule4.saveInBackground();
+                    }
                     Intent intent = new Intent(AddScheduleActivity.this,
                             UserProfileActivity.class);
                     startActivity(intent);
@@ -173,6 +318,7 @@ public class AddScheduleActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");
@@ -188,3 +334,4 @@ public class AddScheduleActivity extends AppCompatActivity {
         newFragment2.show(getSupportFragmentManager(), "timePicker");
     }
 }
+
