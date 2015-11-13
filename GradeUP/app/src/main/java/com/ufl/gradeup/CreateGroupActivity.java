@@ -84,12 +84,14 @@ public class CreateGroupActivity extends AppCompatActivity {
                                 if (e == null) {
                                     for (ParseUser object : objects
                                             ) {
-                                        Toast.makeText(getApplicationContext(),
-                                                object.getString("Name"),
-                                                Toast.LENGTH_LONG).show();
-                                        if (!groupMemebersUsername.contains(object.getUsername())) {
+
+                                        if (!groupMemebersUsername.contains(object.getUsername()) && !(currentUser.getUsername() == object.getUsername())) {
                                             groupMemebers.add(object.getString("Name"));
                                             groupMemebersUsername.add(object.getUsername());
+                                        }else{
+                                            Toast.makeText(getApplicationContext(),
+                                                    "Member does not exist please try again", Toast.LENGTH_SHORT)
+                                                    .show();
                                         }
                                     }
                                     adapter.notifyDataSetChanged();
