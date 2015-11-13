@@ -11,7 +11,7 @@
         android:id="@+id/logOut"
         android:icon="@mipmap/logout_icon1"
         android:title="@string/logout"
-        android:orderInCategory="200"
+        android:orderInCategory="400"
         app:showAsAction="never"/>
     <item
         android:id="@+id/updateProfilePicture"
@@ -20,7 +20,7 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/searchForGroups"
-        android:orderInCategory="400"
+        android:orderInCategory="200"
         android:title="@string/title_activity_search_group"
         app:showAsAction="never" />
     <item

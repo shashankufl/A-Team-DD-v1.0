@@ -45,6 +45,17 @@
         android:textColor="@color/buttonText"
         android:text="Search" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:id="@+id/searchResults"
+        android:text="Search Results - "
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/searchForGroupButton"
+        android:textColor="@color/primaryColor"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ListView
         android:id="@+id/groupListView"
@@ -54,7 +65,7 @@
         android:layout_alignLeft="@+id/layout_searchGroup"
         android:layout_alignRight="@+id/layout_searchGroup"
         android:layout_alignStart="@+id/layout_searchGroup"
-        android:layout_below="@+id/searchForGroupButton"
+        android:layout_below="@+id/searchResults"
         android:layout_marginTop="10dp" />
 
 

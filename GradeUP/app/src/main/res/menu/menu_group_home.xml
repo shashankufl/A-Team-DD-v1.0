@@ -20,7 +20,7 @@
     <item
         android:id="@+id/updateGroupProfilePicture"
         android:orderInCategory="400"
-        android:title="@string/action_update_profile_picture"
+        android:title="Update Group Pic"
         app:showAsAction="never" />
 
 </menu>

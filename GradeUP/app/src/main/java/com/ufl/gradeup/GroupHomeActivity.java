@@ -90,8 +90,8 @@ public class GroupHomeActivity extends AppCompatActivity {
                     Bitmap profilePicBmp = BitmapFactory.decodeByteArray(data, 0, data.length);
 //                    userProfilePic = (ImageView) findViewById(R.id.ProfileImage);
                     groupProfilePic.setImageBitmap(profilePicBmp);
-                    //ImageView navProfilePic = (ImageView) findViewById(R.id.navImage);
-                    //navProfilePic.setImageBitmap(profilePicBmp);
+                    ImageView navProfilePic = (ImageView) findViewById(R.id.navImage);
+                    navProfilePic.setImageBitmap(profilePicBmp);
 
                     pictureUploadProgress.dismiss();
                 } else {
@@ -100,7 +100,7 @@ public class GroupHomeActivity extends AppCompatActivity {
             }
         });
 
-//        getGroupMembersList();
+
 
         Toolbar groupProfileToolbar = (Toolbar) findViewById(R.id.groupHomeToolbar);
         setSupportActionBar(groupProfileToolbar);
@@ -290,7 +290,6 @@ public class GroupHomeActivity extends AppCompatActivity {
                     public void done(List<ParseObject> list, ParseException e) {
                         for (ParseObject object : list
                                 ) {
-
                             object.removeAll("joinRequests", Arrays.asList(joinRequest));
                             object.saveInBackground();
                         }
