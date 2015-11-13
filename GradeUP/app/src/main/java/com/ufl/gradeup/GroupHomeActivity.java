@@ -49,6 +49,7 @@ public class GroupHomeActivity extends AppCompatActivity {
     private String joinOrCancel = "Join";
     private String groupName;
     private ArrayList<String> groupMembersList = new ArrayList<String>();
+    private ArrayList<String> groupUserNameList = new ArrayList<String>();
     public static final int PICTURE_REQUEST = 20;
     byte[] ProfilePic;
     ParseFile pictureFile;
@@ -96,7 +97,7 @@ public class GroupHomeActivity extends AppCompatActivity {
             }
         });
 
-        getGroupMembersList();
+//        getGroupMembersList();
 
         Toolbar groupProfileToolbar = (Toolbar) findViewById(R.id.groupHomeToolbar);
         setSupportActionBar(groupProfileToolbar);
@@ -205,9 +206,7 @@ public class GroupHomeActivity extends AppCompatActivity {
 
         MenuItem approveRequestMenuItem = menu.findItem(R.id.approveRequestListItem);
         MenuItem joinGroupListItem = menu.findItem(R.id.joinGroupListItem);
-
-
-
+        
         try {
             approveRequestMenuItem.setVisible(isAdmin());
         } catch (ParseException e) {
@@ -215,8 +214,14 @@ public class GroupHomeActivity extends AppCompatActivity {
         }
         
         ParseUser parseUser = ParseUser.getCurrentUser();
-        joinGroupListItem.setVisible(!groupMembersList.contains(parseUser.getUsername().toString()));
 
+        //joinGroupListItem.setVisible(!groupUserNameList.contains(parseUser.getUsername()));
+        try {
+            joinGroupListItem.setVisible(!isAdmin() && !groupUserNameList.contains(parseUser.getUsername()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        int a = 1;
 
         joinMenu = menu;
         return true;
@@ -333,6 +338,7 @@ public class GroupHomeActivity extends AppCompatActivity {
                             ) {
                         if (!groupMembersList.contains(object.getString("memberName"))) {
                             groupMembersList.add(object.getString("memberName").toString());
+                            groupUserNameList.add(object.getString("userName").toString());
                         }
                     }
                     bindGroupMembers();
