@@ -170,7 +170,7 @@ public class UserProfileActivity extends AppCompatActivity {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Groups");
         query.whereEqualTo("userName", currentUser.getUsername());
         final ProgressDialog groupLoadProgress = new ProgressDialog(this);
-        groupLoadProgress.setTitle("Loading Profile...");
+        groupLoadProgress.setTitle("Loading Groups...");
         groupLoadProgress.show();
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> objects, ParseException e) {
@@ -304,7 +304,7 @@ public class UserProfileActivity extends AppCompatActivity {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Schedule");
         query.whereEqualTo("User_ID", currentUser.getUsername());
         final ProgressDialog scheduleLoadProgress = new ProgressDialog(this);
-        scheduleLoadProgress.setTitle("Loading Profile...");
+        scheduleLoadProgress.setTitle("Loading Schedule...");
         scheduleLoadProgress.show();
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -319,8 +319,9 @@ public class UserProfileActivity extends AppCompatActivity {
                             todayScheduleTimeList.add(schTime);
                         }
                     }
-                    bindTodaySchedule();
                     scheduleLoadProgress.dismiss();
+                    bindTodaySchedule();
+
                 } else {
                     Log.d("error", "Error: " + e.getMessage());
                 }
