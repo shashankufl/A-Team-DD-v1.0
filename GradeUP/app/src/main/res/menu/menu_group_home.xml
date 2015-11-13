@@ -1,0 +1,26 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.ufl.gradeup.GroupHomeActivity">
+
+    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+        android:orderInCategory="100" app:showAsAction="never" />
+
+    <item
+        android:id="@+id/joinGroupListItem"
+        android:title="Join Group"
+        android:orderInCategory="200"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/approveRequestListItem"
+        android:title="Approve Requests"
+        android:orderInCategory="300"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/updateGroupProfilePicture"
+        android:orderInCategory="400"
+        android:title="@string/action_update_profile_picture"
+        app:showAsAction="never" />
+
+</menu>
