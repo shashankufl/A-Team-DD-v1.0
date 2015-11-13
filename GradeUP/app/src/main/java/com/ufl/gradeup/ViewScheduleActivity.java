@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -72,6 +73,7 @@ public class ViewScheduleActivity extends AppCompatActivity {
         checkschbtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View arg0) {
+                schedule.clear();//to clear contents of arraylist schedule
                 if (sDate.equals("")) {
                     Toast.makeText(getApplicationContext(),
                             "Please provide a date for your schedule",
@@ -117,6 +119,7 @@ public class ViewScheduleActivity extends AppCompatActivity {
             }
         });
         ScheduleListView.setAdapter(adapter);
+
     }
 
     @Override
@@ -137,6 +140,7 @@ public class ViewScheduleActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
     public void showDatePickerDialog(View v) {

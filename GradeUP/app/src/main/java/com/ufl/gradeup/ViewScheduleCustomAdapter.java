@@ -1,9 +1,6 @@
 package com.ufl.gradeup;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatCallback;
-import android.support.v7.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +15,9 @@ import java.util.List;
 /**
  * Created by Shashank on 11/11/2015.
  */
-public class ViewScheduleCustomAdapter<S> extends BaseAdapter implements ListAdapter, AppCompatCallback {
+
+public class ViewScheduleCustomAdapter<S> extends BaseAdapter implements ListAdapter {
+
     private List<String> list = new ArrayList<String>();
     private Context context;
 
@@ -38,7 +37,6 @@ public class ViewScheduleCustomAdapter<S> extends BaseAdapter implements ListAda
     public long getItemId(int position) {
         return 0;
     }
-
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -63,28 +61,10 @@ public class ViewScheduleCustomAdapter<S> extends BaseAdapter implements ListAda
                 list.remove(position);
                 notifyDataSetChanged();
 
+
             }
         });
         return view;
     }
 
-    public interface ClickListener {
-        public void itemClicked(View view, int position);
-    }
-
-    @Override
-    public void onSupportActionModeStarted(ActionMode mode) {
-
-    }
-
-    @Override
-    public void onSupportActionModeFinished(ActionMode mode) {
-
-    }
-
-    @Nullable
-    @Override
-    public ActionMode onWindowStartingSupportActionMode(ActionMode.Callback callback) {
-        return null;
-    }
 }
