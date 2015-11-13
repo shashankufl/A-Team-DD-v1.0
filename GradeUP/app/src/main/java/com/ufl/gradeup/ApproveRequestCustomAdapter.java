@@ -27,11 +27,13 @@ public class ApproveRequestCustomAdapter extends BaseAdapter implements ListAdap
     private ArrayList<String> list = new ArrayList<String>();
     private Context context;
     private String groupName;
+    private String memberName;
 
-    public ApproveRequestCustomAdapter(ArrayList<String> list, Context context, String groupName) {
+    public ApproveRequestCustomAdapter(ArrayList<String> list, Context context, String groupName, String memberName) {
         this.list = list;
         this.context = context;
         this.groupName = groupName;
+        this.memberName = memberName;
     }
 
     @Override
@@ -98,10 +100,12 @@ public class ApproveRequestCustomAdapter extends BaseAdapter implements ListAdap
             public void onClick(View v) {
                 final String userName = list.get(position).split(",")[0];
                 final String joinRequest = list.get(position);
+                final String memberNameString = list.get(position).split(",")[2];
                 ParseObject group = new ParseObject("Groups");
                 group.put("groupName", groupName);
                 group.put("userName", userName);
                 group.put("isAdmin",0);
+                group.put("memberName", memberNameString);
 
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("Groups");
                 query.whereEqualTo("groupName", groupName);

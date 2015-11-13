@@ -55,6 +55,7 @@ public class GroupHomeActivity extends AppCompatActivity {
     ParseFile pictureFile;
     String picName = "profilePic.png";
     String name;
+    private  String memberName;
 
     ImageView groupProfilePic;
 
@@ -65,6 +66,8 @@ public class GroupHomeActivity extends AppCompatActivity {
 
         groupName = getIntent().getStringExtra("groupName");
         groupProfilePic = (ImageView) findViewById(R.id.GroupImage);
+//        ParseUser parseUser = ParseUser.getCurrentUser();
+//        memberName = parseUser.get("Name").toString();
         name = groupName;
         getGroupMembersList();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Groups");
@@ -206,7 +209,7 @@ public class GroupHomeActivity extends AppCompatActivity {
 
         MenuItem approveRequestMenuItem = menu.findItem(R.id.approveRequestListItem);
         MenuItem joinGroupListItem = menu.findItem(R.id.joinGroupListItem);
-        
+
         try {
             approveRequestMenuItem.setVisible(isAdmin());
         } catch (ParseException e) {
@@ -240,11 +243,13 @@ public class GroupHomeActivity extends AppCompatActivity {
         }
 
         if (id == R.id.joinGroupListItem) {
+            ParseUser parseUser = ParseUser.getCurrentUser();
+            memberName = parseUser.get("Name").toString();
             if (joinOrCancel.equalsIgnoreCase("Join")) {
                 item.setTitle("Cancel Request");
                 String test = getIntent().getStringExtra("groupName");
                 final ParseUser requestingUser = ParseUser.getCurrentUser();
-                final String joinRequest = requestingUser.getUsername() + "," + groupName;
+                final String joinRequest = requestingUser.getUsername() + "," + groupName+","+requestingUser.get("Name");
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("Groups");
                 query.whereEqualTo("groupName", getIntent().getStringExtra("groupName"));
                 query.whereEqualTo("isAdmin", 1);
@@ -265,6 +270,7 @@ public class GroupHomeActivity extends AppCompatActivity {
 //                            object.saveInBackground();
 //                        }
                         }
+
                     }
                 });
 
@@ -275,7 +281,7 @@ public class GroupHomeActivity extends AppCompatActivity {
 
                 final ParseUser requestingUser = ParseUser.getCurrentUser();
 
-                final String joinRequest = requestingUser.getUsername() + "," + groupName;
+                final String joinRequest = requestingUser.getUsername() + "," + groupName+","+requestingUser.get("Name");
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("Groups");
                 query.whereEqualTo("groupName", getIntent().getStringExtra("groupName"));
                 query.whereEqualTo("isAdmin", 1);
@@ -302,6 +308,7 @@ public class GroupHomeActivity extends AppCompatActivity {
                     GroupHomeActivity.this,
                     ApproveRequestActivity.class);
             intent.putExtra("groupName", groupName);
+            intent.putExtra("memberName", memberName);
             startActivity(intent);
 
 
