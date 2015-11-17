@@ -154,6 +154,7 @@ public class NavigationDrawerFragment extends android.support.v4.app.Fragment im
             ParseUser.logOut();
 
         }
+        navDrawerLayout.closeDrawers();
 
 
 

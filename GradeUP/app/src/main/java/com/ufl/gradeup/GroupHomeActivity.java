@@ -63,7 +63,7 @@ public class GroupHomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_home);
-
+        loadNavData();
         groupName = getIntent().getStringExtra("groupName");
         groupProfilePic = (ImageView) findViewById(R.id.GroupImage);
 //        ParseUser parseUser = ParseUser.getCurrentUser();
@@ -90,9 +90,6 @@ public class GroupHomeActivity extends AppCompatActivity {
                     Bitmap profilePicBmp = BitmapFactory.decodeByteArray(data, 0, data.length);
 //                    userProfilePic = (ImageView) findViewById(R.id.ProfileImage);
                     groupProfilePic.setImageBitmap(profilePicBmp);
-                    ImageView navProfilePic = (ImageView) findViewById(R.id.navImage);
-                    navProfilePic.setImageBitmap(profilePicBmp);
-
                     pictureUploadProgress.dismiss();
                 } else {
                     //userProfilePic.setImageBitmap(R.mipmap.xyz);
@@ -397,6 +394,33 @@ public class GroupHomeActivity extends AppCompatActivity {
 
         }
 
+
+    }
+
+    public void loadNavData(){
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        final String currentName = currentUser.getString("Name");
+
+        TextView navTitle = (TextView) findViewById(R.id.navTitleText);
+        navTitle.setText(currentName);
+
+        ParseFile profilePictureFile = currentUser.getParseFile("ProfilePic");
+
+        profilePictureFile.getDataInBackground(new GetDataCallback() {
+            @Override
+            public void done(byte[] data, ParseException e) {
+
+                if (e == null) {
+                    Bitmap profilePicBmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+//                    userProfilePic = (ImageView) findViewById(R.id.ProfileImage);
+                    ImageView navProfilePic = (ImageView) findViewById(R.id.navImage);
+                    navProfilePic.setImageBitmap(profilePicBmp);
+
+                } else {
+
+                }
+            }
+        });
 
     }
 
