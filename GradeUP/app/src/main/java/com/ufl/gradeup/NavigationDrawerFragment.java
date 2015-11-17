@@ -139,6 +139,7 @@ public class NavigationDrawerFragment extends android.support.v4.app.Fragment im
         //Write code for navigation using position
         if(position==0){
             startActivity(new Intent(getActivity(),UserProfileActivity.class));
+            getActivity().finish();
         }else if(position==1){
             startActivity(new Intent(getActivity(),UpdateProfileActivity.class));
 

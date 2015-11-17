@@ -55,7 +55,8 @@ public class GroupHomeActivity extends AppCompatActivity {
     ParseFile pictureFile;
     String picName = "profilePic.png";
     String name;
-    private  String memberName;
+    byte[] profilepictureByteArray;
+    private String memberName;
 
     ImageView groupProfilePic;
 
@@ -70,33 +71,32 @@ public class GroupHomeActivity extends AppCompatActivity {
 //        memberName = parseUser.get("Name").toString();
         name = groupName;
         getGroupMembersList();
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Groups");
-        query.whereEqualTo("groupName", groupName);
-        query.whereEqualTo("isAdmin", 1);
-        ParseFile profilePictureFile = null; //currentUser.getParseFile("ProfilePic");
-        try {
-            profilePictureFile = query.getFirst().getParseFile("ProfilePic");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        final ProgressDialog pictureUploadProgress = new ProgressDialog(this);
-        pictureUploadProgress.setTitle("Loading Profile...");
-        pictureUploadProgress.show();
-        profilePictureFile.getDataInBackground(new GetDataCallback() {
-            @Override
-            public void done(byte[] data, ParseException e) {
-
-                if (e == null) {
-                    Bitmap profilePicBmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-//                    userProfilePic = (ImageView) findViewById(R.id.ProfileImage);
-                    groupProfilePic.setImageBitmap(profilePicBmp);
-                    pictureUploadProgress.dismiss();
-                } else {
-                    //userProfilePic.setImageBitmap(R.mipmap.xyz);
-                }
-            }
-        });
-
+//        ParseQuery<ParseObject> query = ParseQuery.getQuery("Groups");
+//        query.whereEqualTo("groupName", groupName);
+//        query.whereEqualTo("isAdmin", 1);
+//        ParseFile profilePictureFile = null; //currentUser.getParseFile("ProfilePic");
+//        try {
+//            profilePictureFile = query.getFirst().getParseFile("ProfilePic");
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        final ProgressDialog pictureUploadProgress = new ProgressDialog(this);
+//        pictureUploadProgress.setTitle("Loading Profile...");
+//        pictureUploadProgress.show();
+//        profilePictureFile.getDataInBackground(new GetDataCallback() {
+//            @Override
+//            public void done(byte[] data, ParseException e) {
+//
+//                if (e == null) {
+//                    Bitmap profilePicBmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+////                    userProfilePic = (ImageView) findViewById(R.id.ProfileImage);
+//                    groupProfilePic.setImageBitmap(profilePicBmp);
+//                    pictureUploadProgress.dismiss();
+//                } else {
+//                    //userProfilePic.setImageBitmap(R.mipmap.xyz);
+//                }
+//            }
+//        });
 
 
         Toolbar groupProfileToolbar = (Toolbar) findViewById(R.id.groupHomeToolbar);
@@ -212,7 +212,7 @@ public class GroupHomeActivity extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        
+
         ParseUser parseUser = ParseUser.getCurrentUser();
 
         //joinGroupListItem.setVisible(!groupUserNameList.contains(parseUser.getUsername()));
@@ -246,7 +246,7 @@ public class GroupHomeActivity extends AppCompatActivity {
                 item.setTitle("Cancel Request");
                 String test = getIntent().getStringExtra("groupName");
                 final ParseUser requestingUser = ParseUser.getCurrentUser();
-                final String joinRequest = requestingUser.getUsername() + "," + groupName+","+requestingUser.get("Name");
+                final String joinRequest = requestingUser.getUsername() + "," + groupName + "," + requestingUser.get("Name");
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("Groups");
                 query.whereEqualTo("groupName", getIntent().getStringExtra("groupName"));
                 query.whereEqualTo("isAdmin", 1);
@@ -278,7 +278,7 @@ public class GroupHomeActivity extends AppCompatActivity {
 
                 final ParseUser requestingUser = ParseUser.getCurrentUser();
 
-                final String joinRequest = requestingUser.getUsername() + "," + groupName+","+requestingUser.get("Name");
+                final String joinRequest = requestingUser.getUsername() + "," + groupName + "," + requestingUser.get("Name");
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("Groups");
                 query.whereEqualTo("groupName", getIntent().getStringExtra("groupName"));
                 query.whereEqualTo("isAdmin", 1);
@@ -333,6 +333,9 @@ public class GroupHomeActivity extends AppCompatActivity {
     public void getGroupMembersList() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Groups");
         query.whereEqualTo("groupName", groupName);
+        final ProgressDialog pictureLoadProgress = new ProgressDialog(this);
+        pictureLoadProgress.setTitle("Loading Group Profile...");
+        pictureLoadProgress.show();
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
@@ -340,20 +343,29 @@ public class GroupHomeActivity extends AppCompatActivity {
                     for (ParseObject object : list
                             ) {
                         if (!groupMembersList.contains(object.getString("memberName"))) {
-                            groupMembersList.add(object.getString("memberName").toString());
-                            groupUserNameList.add(object.getString("userName").toString());
+                            groupMembersList.add(object.getString("memberName"));
+                            groupUserNameList.add(object.getString("userName"));
+                            if (object.getNumber("isAdmin") == 1) {
+                                ParseFile profilePictureFile = object.getParseFile("ProfilePic");
+                                try {
+                                    profilepictureByteArray = profilePictureFile.getData();
+                                } catch (ParseException e1) {
+                                    e1.printStackTrace();
+                                }
+                                Bitmap profilePicBmp = BitmapFactory.decodeByteArray(profilepictureByteArray, 0, profilepictureByteArray.length);
+                                groupProfilePic.setImageBitmap(profilePicBmp);
+                            }
                         }
                     }
+                    pictureLoadProgress.dismiss();
                     bindGroupMembers();
                 }
-
-
             }
         });
 
     }
 
-    public void bindGroupMembers(){
+    public void bindGroupMembers() {
 
         LinearLayout groupLayout = (LinearLayout) findViewById(R.id.membersCard);
         if (groupMembersList.size() == 0) {
@@ -368,7 +380,7 @@ public class GroupHomeActivity extends AppCompatActivity {
                 textView.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Small);
             }
             groupLayout.addView(textView);
-        }else{
+        } else {
             for (int i = 0; i < groupMembersList.size(); i++) {
                 TextView textView = new TextView(this);
                 textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
@@ -397,7 +409,7 @@ public class GroupHomeActivity extends AppCompatActivity {
 
     }
 
-    public void loadNavData(){
+    public void loadNavData() {
         ParseUser currentUser = ParseUser.getCurrentUser();
         final String currentName = currentUser.getString("Name");
 
