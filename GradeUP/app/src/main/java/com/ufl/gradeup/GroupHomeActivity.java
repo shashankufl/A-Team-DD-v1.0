@@ -215,6 +215,16 @@ public class GroupHomeActivity extends AppCompatActivity {
 
         ParseUser parseUser = ParseUser.getCurrentUser();
 
+        try {
+            if(isRequestSent()){
+                joinGroupListItem.setTitle("Cancel Request");
+            }else{
+                joinGroupListItem.setTitle("Join Group");
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         //joinGroupListItem.setVisible(!groupUserNameList.contains(parseUser.getUsername()));
         try {
             joinGroupListItem.setVisible(!isAdmin() && !groupUserNameList.contains(parseUser.getUsername()));
@@ -257,6 +267,7 @@ public class GroupHomeActivity extends AppCompatActivity {
                                 ) {
 
                             object.addAllUnique("joinRequests", Arrays.asList(joinRequest));
+
                             object.saveInBackground();
 //                           if(object.getString("joinRequests") == null){
 //                            object.put("joinRequests",requestingUser.getUsername());
@@ -433,6 +444,34 @@ public class GroupHomeActivity extends AppCompatActivity {
                 }
             }
         });
+
+    }
+
+    private boolean isRequestSent() throws ParseException {
+        final int flag;
+        final ParseUser requestingUser = ParseUser.getCurrentUser();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Groups");
+        query.whereEqualTo("groupName", getIntent().getStringExtra("groupName"));
+        query.whereEqualTo("isAdmin", 1);
+        ArrayList<String> requestArray = (ArrayList<String>)query.getFirst().get("joinRequests");
+        if(requestArray.contains(requestingUser.getUsername()+","+groupName+","+requestingUser.get("Name").toString())){
+            return true;
+        }else{
+            return false;
+        }
+//        query.findInBackground(new FindCallback<ParseObject>() {
+//            @Override
+//            public void done(List<ParseObject> list, ParseException e) {
+//                for (ParseObject object : list
+//                        ) {
+//                    ArrayList<String> requestArray = (ArrayList<String>) object.get("joinRequests");
+//                    if (requestArray.contains(requestingUser.getUsername())) {
+//                       flag = 1;
+//
+//                    }
+//                }
+//            }
+//        });
 
     }
 
