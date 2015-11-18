@@ -30,5 +30,6 @@
     <string name="title_activity_temp">temp</string>
     <string name="title_activity_approve_request">Approve Requests</string>
 <string name="title_activity_view_schedule">View Schedule</string>
+    <string name="title_activity_create_group_meeting">CreateGroupMeetingActivity</string>
 
 </resources>
