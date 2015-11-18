@@ -21,12 +21,13 @@
     <item
         android:id="@+id/searchForGroups"
         android:orderInCategory="200"
+        android:icon="@mipmap/search_icon"
         android:title="@string/title_activity_search_group"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/creategroupMenuItem"
-        android:icon="@mipmap/creategroup_white"
-        android:title="@string/title_activity_create_group"
-        android:orderInCategory="200"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
+    <!--<item-->
+        <!--android:id="@+id/creategroupMenuItem"-->
+        <!--android:icon="@mipmap/creategroup_white"-->
+        <!--android:title="@string/title_activity_create_group"-->
+        <!--android:orderInCategory="200"-->
+        <!--app:showAsAction="never"/>-->
 </menu>

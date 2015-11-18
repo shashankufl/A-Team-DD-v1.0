@@ -1,10 +1,9 @@
-<android.support.v4.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/drawer_layout">
+    android:layout_height="match_parent">
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/main_content"
@@ -51,229 +50,232 @@
         </android.support.design.widget.AppBarLayout>
 
 
-            <android.support.v4.widget.NestedScrollView
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                android:orientation="vertical"
+                android:paddingTop="15dp">
 
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingTop="15dp">
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="My Info"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textColor="@color/primaryColor" />
 
-                    <TextView
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp">
+
+                    <LinearLayout
+                        style="@style/ProfileInfoStyle"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="My Info"
-                        android:textColor="@color/primaryColor"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-
-                    <android.support.v7.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp">
-
-                        <LinearLayout
-                            style="@style/ProfileInfoStyle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                        android:layout_height="wrap_content">
 
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/profileInfo_margin"
-                                android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:text="University of Florida"
-                                android:id="@+id/university"
-                                />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/profileInfo_margin"
-                                android:textAppearance="?android:attr/textAppearanceSmall"
-                                android:text="MS in Computer Science (Fall 2015)"
-                                android:id="@+id/studyField"
-                                />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/profileInfo_margin"
-                                android:textAppearance="?android:attr/textAppearanceSmall"
-                                android:text="masteryoda@gmail.com"
-                                android:id="@+id/email"
-                                />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/profileInfo_margin"
-                                android:textAppearance="?android:attr/textAppearanceSmall"
-                                android:text=""
-                                android:id="@+id/phone"
-                                />
-
-
-                        </LinearLayout>
-
-                    </android.support.v7.widget.CardView>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Today's Schedule"
-                        android:textColor="@color/primaryColor"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-
-                    <android.support.v7.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp">
-
-
-                        <LinearLayout
-                            style="@style/ProfileInfoStyle"
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:id="@+id/university"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/todayScheduleCard">
+                            android:layout_marginLeft="@dimen/profileInfo_margin"
+                            android:text="University of Florida"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                            <!--<TextView-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:text="Analysis of Algorithms"-->
-                            <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
-                            <!--<TextView-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:text="7.25AM - 8.15PM"-->
-                            <!--android:textAppearance="?android:attr/textAppearanceSmall" />-->
+                        <TextView
+                            android:id="@+id/studyField"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/profileInfo_margin"
+                            android:text="MS in Computer Science (Fall 2015)"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                            <!--<View-->
-                            <!--android:layout_width="fill_parent"-->
-                            <!--android:layout_height="1dp"-->
-                            <!--android:layout_marginTop="10dp"-->
-                            <!--android:layout_marginBottom="10dp"-->
-                            <!--android:background="@android:color/darker_gray"/>-->
+                        <TextView
+                            android:id="@+id/email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/profileInfo_margin"
+                            android:text="masteryoda@gmail.com"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                            <!--<TextView-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:text="Software Engineering"-->
-                            <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
-                            <!--<TextView-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:text="11.45AM - 12.35PM"-->
-                            <!--android:textAppearance="?android:attr/textAppearanceSmall" />-->
-
-                            <!--<View-->
-                            <!--android:layout_width="fill_parent"-->
-                            <!--android:layout_height="1dp"-->
-                            <!--android:layout_marginTop="10dp"-->
-                            <!--android:layout_marginBottom="10dp"-->
-                            <!--android:background="@android:color/darker_gray"/>-->
-
-                            <!--<TextView-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:text="A - Team Meeting"-->
-                            <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
-                            <!--<TextView-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:text="2PM - 3PM"-->
-                            <!--android:textAppearance="?android:attr/textAppearanceSmall" />-->
+                        <TextView
+                            android:id="@+id/phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/profileInfo_margin"
+                            android:text=""
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
 
 
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Today's Schedule"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textColor="@color/primaryColor" />
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp">
 
 
-                        </LinearLayout>
-
-                    </android.support.v7.widget.CardView>
-
-                    <TextView
+                    <LinearLayout
+                        android:id="@+id/todayScheduleCard"
+                        style="@style/ProfileInfoStyle"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="My Study Groups"
-                        android:textColor="@color/primaryColor"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+                        android:layout_height="wrap_content">
 
-                    <android.support.v7.widget.CardView
+                        <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Analysis of Algorithms"-->
+                        <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
+                        <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="7.25AM - 8.15PM"-->
+                        <!--android:textAppearance="?android:attr/textAppearanceSmall" />-->
+
+                        <!--<View-->
+                        <!--android:layout_width="fill_parent"-->
+                        <!--android:layout_height="1dp"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:layout_marginBottom="10dp"-->
+                        <!--android:background="@android:color/darker_gray"/>-->
+
+                        <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Software Engineering"-->
+                        <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
+                        <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="11.45AM - 12.35PM"-->
+                        <!--android:textAppearance="?android:attr/textAppearanceSmall" />-->
+
+                        <!--<View-->
+                        <!--android:layout_width="fill_parent"-->
+                        <!--android:layout_height="1dp"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:layout_marginBottom="10dp"-->
+                        <!--android:background="@android:color/darker_gray"/>-->
+
+                        <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="A - Team Meeting"-->
+                        <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
+                        <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="2PM - 3PM"-->
+                        <!--android:textAppearance="?android:attr/textAppearanceSmall" />-->
+
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="My Study Groups"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textColor="@color/primaryColor" />
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp">
+
+                    <LinearLayout
+                        android:id="@+id/groupsCard"
+                        style="@style/ProfileInfoStyle"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp">
+                        android:layout_height="wrap_content">
 
-                        <LinearLayout
-                            style="@style/ProfileInfoStyle"
-                            android:id="@+id/groupsCard"
+                        <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Analysis of Algorithms"-->
+                        <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
+
+                        <!--<View-->
+                        <!--android:layout_width="fill_parent"-->
+                        <!--android:layout_height="1dp"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:layout_marginBottom="10dp"-->
+                        <!--android:background="@android:color/darker_gray"/>-->
+
+                        <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Software Engineering"-->
+                        <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
+
+
+                        <!--<View-->
+                        <!--android:layout_width="fill_parent"-->
+                        <!--android:layout_height="1dp"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:layout_marginBottom="10dp"-->
+                        <!--android:background="@android:color/darker_gray"/>-->
+
+                        <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="A - Team"-->
+                        <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
+
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/myGroups"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <!--<TextView-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:text="Analysis of Algorithms"-->
-                            <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
-
-                            <!--<View-->
-                            <!--android:layout_width="fill_parent"-->
-                            <!--android:layout_height="1dp"-->
-                            <!--android:layout_marginTop="10dp"-->
-                            <!--android:layout_marginBottom="10dp"-->
-                            <!--android:background="@android:color/darker_gray"/>-->
-
-                            <!--<TextView-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:text="Software Engineering"-->
-                            <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
+                            android:layout_height="match_parent" />
 
 
-                            <!--<View-->
-                            <!--android:layout_width="fill_parent"-->
-                            <!--android:layout_height="1dp"-->
-                            <!--android:layout_marginTop="10dp"-->
-                            <!--android:layout_marginBottom="10dp"-->
-                            <!--android:background="@android:color/darker_gray"/>-->
+                    </LinearLayout>
 
-                            <!--<TextView-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:text="A - Team"-->
-                            <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
+                </android.support.v7.widget.CardView>
 
 
-                            <android.support.v7.widget.RecyclerView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:id="@+id/myGroups"
-                                />
+            </LinearLayout>
 
+        </android.support.v4.widget.NestedScrollView>
 
-                        </LinearLayout>
-
-                    </android.support.v7.widget.CardView>
-
-
-                </LinearLayout>
-
-            </android.support.v4.widget.NestedScrollView>
-
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@mipmap/creategroup_white" />
 
 
     </android.support.design.widget.CoordinatorLayout>
+
     <fragment
         android:id="@+id/nav_drawer_fragment"
+        android:name="com.ufl.gradeup.NavigationDrawerFragment"
         android:layout_width="280dp"
         android:layout_height="match_parent"
-        app:layout="@layout/fragment_navigation_drawer"
         android:layout_gravity="start"
-        android:name="com.ufl.gradeup.NavigationDrawerFragment"
-        tools:layout="@layout/fragment_navigation_drawer"/>
+        app:layout="@layout/fragment_navigation_drawer"
+        tools:layout="@layout/fragment_navigation_drawer" />
 </android.support.v4.widget.DrawerLayout>
