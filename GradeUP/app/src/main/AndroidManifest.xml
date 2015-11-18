@@ -89,16 +89,21 @@
             android:name=".GroupHomeActivity"
             android:label="@string/title_activity_group_home" >
         </activity>
-        <activity android:name=".SearchForGroupActivity"
-            android:label="@string/title_activity_search_group">
+        <activity
+            android:name=".SearchForGroupActivity"
+            android:label="@string/title_activity_search_group" >
         </activity>
         <activity
             android:name=".ApproveRequestActivity"
             android:label="@string/title_activity_approve_request" >
         </activity>
-	<activity
+        <activity
             android:name=".ViewScheduleActivity"
             android:label="@string/title_activity_view_schedule" >
+        </activity>
+        <activity
+            android:name=".CreateGroupMeetingActivity"
+            android:label="@string/title_activity_create_group_meeting" >
         </activity>
     </application>
 
