@@ -50,13 +50,17 @@ public class GroupHomeActivity extends AppCompatActivity {
     private String groupName;
     private ArrayList<String> groupMembersList = new ArrayList<String>();
     private ArrayList<String> groupUserNameList = new ArrayList<String>();
+    private ArrayList<String> joinRequests = new ArrayList<String>();
     public static final int PICTURE_REQUEST = 20;
     byte[] ProfilePic;
     ParseFile pictureFile;
+    ParseFile groupPicture;
     String picName = "profilePic.png";
     String name;
     byte[] profilepictureByteArray;
     private String memberName;
+    private boolean isAdmin ;
+    private boolean isRequestSent ;
 
     ImageView groupProfilePic;
 
@@ -70,7 +74,13 @@ public class GroupHomeActivity extends AppCompatActivity {
 //        ParseUser parseUser = ParseUser.getCurrentUser();
 //        memberName = parseUser.get("Name").toString();
         name = groupName;
+
         getGroupMembersList();
+        try {
+            isAdmin();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 //        ParseQuery<ParseObject> query = ParseQuery.getQuery("Groups");
 //        query.whereEqualTo("groupName", groupName);
 //        query.whereEqualTo("isAdmin", 1);
@@ -207,29 +217,20 @@ public class GroupHomeActivity extends AppCompatActivity {
         MenuItem approveRequestMenuItem = menu.findItem(R.id.approveRequestListItem);
         MenuItem joinGroupListItem = menu.findItem(R.id.joinGroupListItem);
 
-        try {
-            approveRequestMenuItem.setVisible(isAdmin());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        approveRequestMenuItem.setVisible(isAdmin);
 
         ParseUser parseUser = ParseUser.getCurrentUser();
 
-        try {
-            if(isRequestSent()){
-                joinGroupListItem.setTitle("Cancel Request");
-            }else{
-                joinGroupListItem.setTitle("Join Group");
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+
 
         //joinGroupListItem.setVisible(!groupUserNameList.contains(parseUser.getUsername()));
-        try {
-            joinGroupListItem.setVisible(!isAdmin() && !groupUserNameList.contains(parseUser.getUsername()));
-        } catch (ParseException e) {
-            e.printStackTrace();
+
+
+        if(isRequestSent){
+            joinGroupListItem.setTitle("Cancel Request");
+        }else{
+            joinGroupListItem.setTitle("Join Group");
+            joinGroupListItem.setVisible(!isAdmin && !groupUserNameList.contains(parseUser.getUsername()));
         }
         int a = 1;
 
@@ -269,6 +270,7 @@ public class GroupHomeActivity extends AppCompatActivity {
                             object.addAllUnique("joinRequests", Arrays.asList(joinRequest));
 
                             object.saveInBackground();
+                            joinRequests = (ArrayList)object.get("joinRequests");
 //                           if(object.getString("joinRequests") == null){
 //                            object.put("joinRequests",requestingUser.getUsername());
 //                            object.saveInBackground();
@@ -325,25 +327,60 @@ public class GroupHomeActivity extends AppCompatActivity {
             onProfilePicClicked();
         }
 
+        if(id == R.id.leaveGroup){
+            leaveGroup();
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
-    private boolean isAdmin() throws ParseException {
+    //Need to Rename function
+    private void isAdmin() throws ParseException {
 
         final ParseUser requestingUser = ParseUser.getCurrentUser();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Groups");
         query.whereEqualTo("groupName", getIntent().getStringExtra("groupName"));
         query.whereEqualTo("isAdmin", 1);
-        query.whereEqualTo("userName", requestingUser.getUsername());
-        if (query.count() == 1) {
-            return true;
+        ArrayList<String> requestArray = null;
+        try {
+            requestArray = (ArrayList<String>)query.getFirst().get("joinRequests");
+            if(requestArray.contains(requestingUser.getUsername()+","+groupName+","+requestingUser.get("Name").toString())){
+                isRequestSent = true;
+            }else{
+                isRequestSent = false;
+            }
+        } catch (ParseException e1) {
+            e1.printStackTrace();
         }
-        return false;
+
+        query.whereEqualTo("userName", requestingUser.getUsername());
+
+        if (query.count() == 1) {
+//            return true;
+            isAdmin = true;
+        }else {
+//        return false;
+            isAdmin = false;
+        }
     }
 
     public void getGroupMembersList() {
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Groups");
+         final ParseUser requestingUser = ParseUser.getCurrentUser();
+         ParseQuery<ParseObject> query = ParseQuery.getQuery("Groups");
         query.whereEqualTo("groupName", groupName);
+//        query.whereEqualTo("isAdmin", 1);
+
+
+//        query.whereEqualTo("userName",requestingUser.getUsername() );
+//        try {
+//            if(query.count() == 1){
+//                isAdmin = true;
+//            } else{
+//                isAdmin = false;
+//            }
+//        } catch (ParseException e1) {
+//            e1.printStackTrace();
+//        }
         final ProgressDialog pictureLoadProgress = new ProgressDialog(this);
         pictureLoadProgress.setTitle("Loading Group Profile...");
         pictureLoadProgress.show();
@@ -356,7 +393,11 @@ public class GroupHomeActivity extends AppCompatActivity {
                         if (!groupMembersList.contains(object.getString("memberName"))) {
                             groupMembersList.add(object.getString("memberName"));
                             groupUserNameList.add(object.getString("userName"));
+
+
                             if (object.getNumber("isAdmin") == 1) {
+
+
                                 ParseFile profilePictureFile = object.getParseFile("ProfilePic");
                                 try {
                                     profilepictureByteArray = profilePictureFile.getData();
@@ -373,6 +414,9 @@ public class GroupHomeActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+
 
     }
 
@@ -447,6 +491,7 @@ public class GroupHomeActivity extends AppCompatActivity {
 
     }
 
+    //Can remove if Join Request and Appprove REquest works Fine
     private boolean isRequestSent() throws ParseException {
         final int flag;
         final ParseUser requestingUser = ParseUser.getCurrentUser();
@@ -459,20 +504,66 @@ public class GroupHomeActivity extends AppCompatActivity {
         }else{
             return false;
         }
-//        query.findInBackground(new FindCallback<ParseObject>() {
-//            @Override
-//            public void done(List<ParseObject> list, ParseException e) {
-//                for (ParseObject object : list
-//                        ) {
-//                    ArrayList<String> requestArray = (ArrayList<String>) object.get("joinRequests");
-//                    if (requestArray.contains(requestingUser.getUsername())) {
-//                       flag = 1;
-//
-//                    }
-//                }
-//            }
-//        });
+
 
     }
+
+    private void leaveGroup(){
+
+        Toast.makeText(getApplicationContext(),
+                "Left Group", Toast.LENGTH_SHORT)
+                .show();
+        if(isAdmin){
+            isAdmin = false;
+            setNewAdmin();
+        }
+        final ParseUser requestingUser = ParseUser.getCurrentUser();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Groups");
+        query.whereEqualTo("groupName",groupName);
+        query.whereEqualTo("userName",requestingUser.getUsername());
+        try {
+            query.getFirst().deleteInBackground();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+
+        Intent intent = new Intent(
+                GroupHomeActivity.this,
+                UserProfileActivity.class);
+        startActivity(intent);
+
+    }
+
+    private void setNewAdmin(){
+        final ParseUser requestingUser = ParseUser.getCurrentUser();
+
+        ParseQuery<ParseObject> queryAdmin = ParseQuery.getQuery("Groups");
+        queryAdmin.whereEqualTo("groupName",groupName);
+        queryAdmin.whereEqualTo("isAdmin",1);
+
+        queryAdmin.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject parseObject, ParseException e) {
+                 groupPicture = parseObject.getParseFile("ProfilePic");
+            }
+        });
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Groups");
+        query.whereEqualTo("groupName",groupName);
+       query.getFirstInBackground(new GetCallback<ParseObject>() {
+           @Override
+           public void done(ParseObject parseObject, ParseException e) {
+               parseObject.put("isAdmin",1);
+               parseObject.put("ProfilePic",groupPicture);
+               parseObject.put("joinRequests",joinRequests);
+               parseObject.saveInBackground();
+           }
+       });
+
+
+    }
+
+
 
 }

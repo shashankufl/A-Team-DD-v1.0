@@ -171,6 +171,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                 group.put("userName", groupMemebersUsername.get(i));
                 group.put("memberName", groupMemebers.get(i));
                 group.put("isAdmin",0);
+                group.setACL(acl);
                 group.saveInBackground();
             }
             Toast.makeText(

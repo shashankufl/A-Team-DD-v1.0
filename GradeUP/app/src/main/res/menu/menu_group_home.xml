@@ -23,4 +23,10 @@
         android:title="Update Group Pic"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/leaveGroup"
+        android:orderInCategory="500"
+        android:title="Leave Group"
+        app:showAsAction="never" />
+
 </menu>
