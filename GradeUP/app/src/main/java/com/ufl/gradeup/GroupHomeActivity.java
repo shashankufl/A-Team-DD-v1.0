@@ -245,7 +245,13 @@ public class GroupHomeActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.new_meeting) {
+            Intent intent = new Intent(
+                    GroupHomeActivity.this,
+                    CreateGroupMeetingActivity.class);
+            intent.putExtra("groupName", groupName);
+            intent.putExtra("memberList", groupUserNameList);
+            startActivity(intent);
             return true;
         }
 
