@@ -75,6 +75,12 @@ public class AddScheduleActivity extends AppCompatActivity {
             dayofWeek=format2.format(dt1);
             Toast.makeText(getApplicationContext(), dayofWeek,
                     Toast.LENGTH_LONG).show();
+            if(day/10 == 0){
+                startDate = "" + year + "-" + (month + 1) + "-0" + day;
+            }
+            else{
+                startDate = "" + year + "-" + (month + 1) + "-" + day;
+            }
             SelectedDateView.setText("Start Date " + startDate);
         }
     }
@@ -102,7 +108,12 @@ public class AddScheduleActivity extends AppCompatActivity {
         }
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            startTime = " " + hourOfDay + ":" + minute + "";
+            if(minute/10 == 0){
+                startTime = " " + hourOfDay + ":0" + minute + "";
+            }
+            else{
+                startTime = " " + hourOfDay + ":" + minute + "";
+            }
             StartTimeView.setText("Start Time " + startTime);
         }
 
@@ -123,7 +134,12 @@ public class AddScheduleActivity extends AppCompatActivity {
         }
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            endTime = " " + hourOfDay + ":" + minute ;
+            if(minute/10 == 0){
+                endTime = " " + hourOfDay + ":0" + minute + "";
+            }
+            else{
+                endTime = " " + hourOfDay + ":" + minute + "";
+            }
             EndTimeView.setText("End Time " + endTime);
         }
 
@@ -142,12 +158,12 @@ public class AddScheduleActivity extends AppCompatActivity {
         editText.setText("Start Date " + sdf.format(new Date()));
 
         final TextView initialTime = (TextView) findViewById( R.id.start_time );
-        SimpleDateFormat init = new SimpleDateFormat("h:mm a");
+        SimpleDateFormat init = new SimpleDateFormat("hh:mm a");
         String editTime = init.format(Calendar.getInstance().getTime());
         initialTime.setText("Start Time " + editTime);
 
         final TextView initialEndTime = (TextView) findViewById( R.id.end_time );
-        SimpleDateFormat initEnd = new SimpleDateFormat("h:mm a");
+        SimpleDateFormat initEnd = new SimpleDateFormat("hh:mm a");
         String editEndTime = initEnd.format(Calendar.getInstance().getTime());
         initialEndTime.setText("End Time " + editEndTime);
 

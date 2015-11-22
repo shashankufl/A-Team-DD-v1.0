@@ -75,6 +75,12 @@ public class UpdateUserScheduleActivity extends AppCompatActivity {
             dayofWeek=format2.format(dt1);
             Toast.makeText(getApplicationContext(), dayofWeek,
                     Toast.LENGTH_LONG).show();
+            if(day/10 == 0){
+                startDate = "" + year + "-" + (month + 1) + "-0" + day;
+            }
+            else{
+                startDate = "" + year + "-" + (month + 1) + "-" + day;
+            }
             SelectedDateView.setText("Start Date " + startDate);
         }
     }
@@ -102,7 +108,12 @@ public class UpdateUserScheduleActivity extends AppCompatActivity {
         }
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            startTime = " " + hourOfDay + ":" + minute + "";
+            if(minute/10 == 0){
+                startTime = " " + hourOfDay + ":0" + minute + "";
+            }
+            else{
+                startTime = " " + hourOfDay + ":" + minute + "";
+            }
             StartTimeView.setText("Start Time " + startTime);
         }
 
@@ -123,7 +134,12 @@ public class UpdateUserScheduleActivity extends AppCompatActivity {
         }
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            endTime = " " + hourOfDay + ":" + minute ;
+            if(minute/10 == 0){
+                endTime = " " + hourOfDay + ":0" + minute + "";
+            }
+            else{
+                endTime = " " + hourOfDay + ":" + minute + "";
+            }
             EndTimeView.setText("End Time " + endTime);
         }
 
@@ -189,7 +205,11 @@ public class UpdateUserScheduleActivity extends AppCompatActivity {
                                 object.deleteInBackground();
                                 object.saveInBackground();
                                 Toast.makeText(getApplicationContext(), "Record Deleted",
-                                Toast.LENGTH_LONG).show();
+                                        Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(UpdateUserScheduleActivity.this,
+                                        ViewScheduleActivity.class);
+                                startActivity(intent);
+                                finish();
 
                             }
                         }
@@ -221,6 +241,10 @@ public class UpdateUserScheduleActivity extends AppCompatActivity {
                                 object.saveInBackground();
                                 Toast.makeText(getApplicationContext(), "Schedule Updated successfully",
                                         Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(UpdateUserScheduleActivity.this,
+                                        ViewScheduleActivity.class);
+                                startActivity(intent);
+                                finish();
 
                             }
                         }
@@ -230,10 +254,6 @@ public class UpdateUserScheduleActivity extends AppCompatActivity {
 
             }
         });
-        Intent intent = new Intent(UpdateUserScheduleActivity.this,
-                ViewScheduleActivity.class);
-        startActivity(intent);
-        finish();
     }
 
     @Override

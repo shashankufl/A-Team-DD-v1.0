@@ -52,7 +52,12 @@ public class ViewScheduleActivity extends AppCompatActivity {
         }
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            sDate = "" + year + "-" + (month + 1) + "-" + day;
+            if(day/10 == 0){
+                sDate = "" + year + "-" + (month + 1) + "-0" + day;
+            }
+            else{
+                sDate = "" + year + "-" + (month + 1) + "-" + day;
+            }
             SelectedDateView.setText(sDate);
         }
     }
@@ -100,14 +105,13 @@ public class ViewScheduleActivity extends AppCompatActivity {
                             }
                         }
                     });
-                    if(schName == null){
+                    if(ScheduleListView == null){
                         Toast.makeText(getBaseContext(),"No records found for " + sDate,Toast.LENGTH_LONG).show();
                     }
                 }
             }
         });
-        ScheduleListView.setAdapter(adapter);
-        //ScheduleListView.setItemsCanFocus(false);
+        ScheduleListView.setAdapter(adapter);;
         ScheduleListView.setClickable(true);
         ScheduleListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -126,8 +130,6 @@ public class ViewScheduleActivity extends AppCompatActivity {
                 intent.putExtras(extras);
                 startActivity(intent);
                 finish();
-                //Toast.makeText(getBaseContext(), "touched " + subject + " " + sDate + " " + startTime + " " + endTime  , Toast.LENGTH_LONG).show();
-
             }
         });
 

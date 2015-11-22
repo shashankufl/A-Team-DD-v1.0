@@ -9,38 +9,35 @@
         android:id="@+id/app_bar"
         layout="@layout/app_bar"></include>
 
-    <Button
-        android:id="@+id/datebutton"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:onClick="showDatePickerDialog"
-        android:drawableLeft="@mipmap/ic_date_selector"
-        android:focusable="true"
-        android:layout_marginTop="0dp"
-        android:layout_below="@+id/app_bar"
-        android:layout_toRightOf="@+id/sdate"
-        android:layout_toEndOf="@+id/sdate"
-        android:background="#fffdff"
-        style="?android:attr/borderlessButtonStyle" />
-
-    <TextView
+      <TextView
         android:id="@+id/sdate"
-        android:layout_width="160dp"
-        android:layout_height="60dp"
-        android:textSize="20dp"
-        android:ems="15"
         android:hint="Select date"
         android:layout_below="@+id/app_bar"
-        android:layout_marginLeft="20dp"
         android:layout_alignRight="@+id/checkschbtn"
         android:layout_alignEnd="@+id/checkschbtn"
-        android:layout_marginTop="15dp" />
+        android:layout_marginTop="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:onClick="showDatePickerDialog"
+        android:drawableRight="@mipmap/ic_date_selector"
+        android:text="Date"
+        android:textSize="20dp"
+        android:ems="15"
+        style="@android:style/Widget.EditText"
+        android:focusable="true"
+        android:textAlignment="center"/>
 
     <Button
         android:id="@+id/checkschbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/datebutton"
+        android:layout_below="@+id/sdate"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:text="View Schedule"

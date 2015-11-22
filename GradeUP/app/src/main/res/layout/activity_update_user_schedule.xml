@@ -52,7 +52,7 @@
         style="@android:style/Widget.EditText"
         android:focusable="true"
         android:textAlignment="center"
-        android:contextClickable="false"
+        android:contextClickable="true"
         android:clickable="true"
         />
 
