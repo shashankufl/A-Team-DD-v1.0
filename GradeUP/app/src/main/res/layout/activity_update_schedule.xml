@@ -99,84 +99,27 @@
         android:ems="15"
         android:textSize="20dp" />
 
+    <Button
+        android:id="@+id/delschbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/end_time"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:text="Delete"
+        android:textColor="@color/buttonText" />
 
     <Button
         android:id="@+id/addschbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/end_time"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="130dp"
-        android:text="Add Schedule"
-        android:textColor="@color/buttonText" />
-
-    <Switch
-        android:id="@+id/repeatToggle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Repeat"
-        android:layout_below="@+id/end_time"
-        android:layout_marginTop="30dp"
+        android:text="Update"
+        android:layout_marginRight="30dp"
+        android:textColor="@color/buttonText"
+        android:layout_alignTop="@+id/delschbtn"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <CheckBox
-        android:id="@+id/Sunday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:text="S"
-        android:layout_below="@+id/repeatToggle"
-        />
 
-    <CheckBox
-        android:id="@+id/Monday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="M"
-        android:layout_below="@+id/repeatToggle"
-        android:layout_toRightOf="@+id/Sunday"
-        />
-
-    <CheckBox
-        android:id="@+id/Tuesday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="T"
-        android:layout_below="@+id/repeatToggle"
-        android:layout_toRightOf="@+id/Monday"
-        />
-    <CheckBox
-        android:id="@+id/Wednesday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="W"
-        android:layout_below="@+id/repeatToggle"
-        android:layout_toRightOf="@+id/Tuesday"
-        />
-    <CheckBox
-        android:id="@+id/Thursday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Th"
-        android:layout_below="@+id/repeatToggle"
-        android:layout_toRightOf="@+id/Wednesday"
-        />
-    <CheckBox
-        android:id="@+id/Friday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="F"
-        android:layout_below="@+id/repeatToggle"
-        android:layout_toRightOf="@+id/Thursday"
-        />
-    <CheckBox
-        android:id="@+id/Saturday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="S"
-        android:layout_below="@+id/repeatToggle"
-        android:layout_toRightOf="@+id/Friday"
-        />
 
 </RelativeLayout>

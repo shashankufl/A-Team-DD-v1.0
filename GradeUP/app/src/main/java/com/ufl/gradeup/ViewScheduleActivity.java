@@ -5,12 +5,11 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListView;
@@ -68,7 +67,7 @@ public class ViewScheduleActivity extends AppCompatActivity {
         ParseUser currentUser;
         currentUser = ParseUser.getCurrentUser();
         final String userEmail = currentUser.getString("username");
-        final ViewScheduleCustomAdapter adapter = new ViewScheduleCustomAdapter<String>(schedule,this);
+        final ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,schedule);
 
         checkschbtn.setOnClickListener(new View.OnClickListener() {
 
@@ -104,20 +103,22 @@ public class ViewScheduleActivity extends AppCompatActivity {
         });
 
         //ScheduleListView.setItemsCanFocus(false);
+        ScheduleListView.setClickable(true);
         ScheduleListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), "Don't touch me", Toast.LENGTH_LONG).show();
-//                Intent intent = new Intent(ViewScheduleActivity.this, UserProfileActivity.class);
+            Toast.makeText(getBaseContext(), "touched " + ScheduleListView.getItemAtPosition(position) , Toast.LENGTH_LONG).show();
+//                Intent intent = new Intent(ViewScheduleActivity.this, UpdateScheduleActivity.class);
+//                intent.putExtra("groupName",groupNameString);
 //                startActivity(intent);
             }
         });
-        ScheduleListView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return false;
-            }
-        });
+//        ScheduleListView.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                return false;
+//            }
+//        });
         ScheduleListView.setAdapter(adapter);
 
     }
