@@ -28,8 +28,9 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_temp">temp</string>
     <string name="title_activity_view_schedule">View Schedule</string>
-    <string name="title_activity_delete_schedule">Delete Schedule</string>
+    <string name="title_activity_update_schedule">Update Schedule</string>
     <string name="title_activity_approve_request">ApproveRequestActivity</string>
+    <string name="title_activity_update_user_schedule">UpdateUserScheduleActivity</string>
 
 
 </resources>

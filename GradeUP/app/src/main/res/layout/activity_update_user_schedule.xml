@@ -1,7 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ufl.gradeup.AddScheduleActivity"
     android:theme="@style/ThemeOverlay.AppCompat"
     android:touchscreenBlocksFocus="true"
     android:background="#fdffffff"
@@ -9,13 +8,15 @@
     android:focusable="true"
     android:contextClickable="true"
     android:clickable="true"
-    style="@style/AppTheme.Base">
+    style="@style/AppTheme.Base"
+    tools:context="com.ufl.gradeup.UpdateUserScheduleActivity">
+
     <include
         android:id="@+id/app_bar"
         layout="@layout/app_bar"></include>
 
     <EditText
-        android:id="@+id/subjectname"
+        android:id="@+id/subjectnameUpdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -32,7 +33,7 @@
 
 
     <TextView
-        android:id="@+id/start_date"
+        android:id="@+id/start_dateUpdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -41,7 +42,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:layout_below="@+id/subjectname"
+        android:layout_below="@+id/subjectnameUpdate"
         android:onClick="showDatePickerDialog"
         android:drawableRight="@mipmap/ic_date_selector"
         android:layout_marginTop="20dp"
@@ -56,10 +57,10 @@
         />
 
     <TextView
-        android:id="@+id/start_time"
+        android:id="@+id/start_timeUpdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/start_date"
+        android:layout_below="@+id/start_dateUpdate"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
@@ -77,7 +78,7 @@
 
 
     <TextView
-        android:id="@+id/end_time"
+        android:id="@+id/end_timeUpdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -88,7 +89,7 @@
         android:layout_marginRight="40dp"
         android:layout_alignLeft="@+id/start_time"
         android:layout_alignStart="@+id/start_time"
-        android:layout_below="@+id/start_time"
+        android:layout_below="@+id/start_timeUpdate"
         android:layout_marginTop="10dp"
         android:onClick="showTimePickerDialog2"
         android:drawableRight="@mipmap/ic_view_clock"
@@ -100,26 +101,25 @@
         android:textSize="20dp" />
 
     <Button
-        android:id="@+id/delschbtn"
+        android:id="@+id/delschbtnUpdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/end_time"
+        android:layout_below="@+id/end_timeUpdate"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="30dp"
         android:text="Delete"
         android:textColor="@color/buttonText" />
 
     <Button
-        android:id="@+id/addschbtn"
+        android:id="@+id/addschbtnUpdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Update"
         android:layout_marginRight="30dp"
         android:textColor="@color/buttonText"
-        android:layout_alignTop="@+id/delschbtn"
+        android:layout_alignTop="@+id/delschbtnUpdate"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-
-
 </RelativeLayout>
+

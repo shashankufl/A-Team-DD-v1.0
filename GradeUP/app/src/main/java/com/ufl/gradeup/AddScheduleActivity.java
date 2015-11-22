@@ -306,9 +306,8 @@ public class AddScheduleActivity extends AppCompatActivity {
                             UserProfileActivity.class);
                     startActivity(intent);
                     finish();
-                    Toast.makeText(getApplicationContext(), "Successfully updated.",
+                    Toast.makeText(getApplicationContext(), "Successfully added.",
                             Toast.LENGTH_LONG).show();
-                    finish();
 
                 }
             }

@@ -2,6 +2,7 @@ package com.ufl.gradeup;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +31,7 @@ public class ViewScheduleActivity extends AppCompatActivity {
     private android.support.v7.widget.Toolbar toolbar;
     public static TextView SelectedDateView;
     Button checkschbtn;
+    String schName = null;
     public static String sDate = "",schDate;
     ListView ScheduleListView;
     ArrayList<String> schedule = new ArrayList<String>();
@@ -88,9 +90,9 @@ public class ViewScheduleActivity extends AppCompatActivity {
                             if (e == null) {
                                 for (ParseObject object : nameList) {
                                     if (new String(object.getString("Date")).equals(sDate)) {
-                                        String schName = "" + object.getString("Subject") + "\n" +
-                                                "From " + object.getString("Start_time") +
-                                                " To " + object.getString("End_time");
+                                        schName = "" + object.getString("Subject") + "\n" +
+                                                "" + object.getString("Start_time") +
+                                                "-" + object.getString("End_time");
                                         schedule.add(schName);
                                     }
                                 }
@@ -98,28 +100,36 @@ public class ViewScheduleActivity extends AppCompatActivity {
                             }
                         }
                     });
+                    if(schName == null){
+                        Toast.makeText(getBaseContext(),"No records found for " + sDate,Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });
-
+        ScheduleListView.setAdapter(adapter);
         //ScheduleListView.setItemsCanFocus(false);
         ScheduleListView.setClickable(true);
         ScheduleListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Toast.makeText(getBaseContext(), "touched " + ScheduleListView.getItemAtPosition(position) , Toast.LENGTH_LONG).show();
-//                Intent intent = new Intent(ViewScheduleActivity.this, UpdateScheduleActivity.class);
-//                intent.putExtra("groupName",groupNameString);
-//                startActivity(intent);
+                String clickedInstance, subject, startTime, endTime;
+                clickedInstance = (String) ScheduleListView.getItemAtPosition(position);
+                subject = clickedInstance.split("\\\n")[0];
+                startTime = clickedInstance.substring(clickedInstance.indexOf("\n") + 1, clickedInstance.indexOf("-"));
+                endTime = clickedInstance.substring(clickedInstance.lastIndexOf("-") + 1);
+                Bundle extras = new Bundle();
+                extras.putString("start_date", sDate);
+                extras.putString("Subject", subject);
+                extras.putString("Start_time", startTime);
+                extras.putString("End_time", endTime);
+                Intent intent = new Intent(ViewScheduleActivity.this, UpdateUserScheduleActivity.class);
+                intent.putExtras(extras);
+                startActivity(intent);
+                finish();
+                //Toast.makeText(getBaseContext(), "touched " + subject + " " + sDate + " " + startTime + " " + endTime  , Toast.LENGTH_LONG).show();
+
             }
         });
-//        ScheduleListView.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                return false;
-//            }
-//        });
-        ScheduleListView.setAdapter(adapter);
 
     }
 
