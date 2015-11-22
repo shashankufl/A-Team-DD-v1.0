@@ -108,7 +108,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="130dp"
         android:text="Add Schedule"
-        android:textColor="@color/buttonText" />
+        android:textColor="@color/buttonText"
+        android:theme="@style/CardView.Light"
+        android:visibility="visible"/>
 
     <Switch
         android:id="@+id/repeatToggle"

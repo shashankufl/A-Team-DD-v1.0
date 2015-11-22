@@ -30,7 +30,7 @@
     <string name="title_activity_view_schedule">View Schedule</string>
     <string name="title_activity_update_schedule">Update Schedule</string>
     <string name="title_activity_approve_request">ApproveRequestActivity</string>
-    <string name="title_activity_update_user_schedule">UpdateUserScheduleActivity</string>
+    <string name="title_activity_update_user_schedule">Update Schedule</string>
 
 
 </resources>
