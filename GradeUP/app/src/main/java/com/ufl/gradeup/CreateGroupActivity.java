@@ -48,6 +48,7 @@ public class CreateGroupActivity extends AppCompatActivity {
     ParseFile grouppictureFile;
     byte[] groupProfilePic;
     String picName = "groupProfilePic.png";
+    ArrayList<String> emptyArrayList = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -154,7 +155,8 @@ public class CreateGroupActivity extends AppCompatActivity {
             ParseACL acl = new ParseACL(ParseUser.getCurrentUser());
             acl.setPublicWriteAccess(true);
             acl.setPublicReadAccess(true);
-            group.put("ProfilePic",grouppictureFile);
+            group.put("ProfilePic", grouppictureFile);
+            group.put("joinRequests",emptyArrayList);
             group.setACL(acl);
             group.saveInBackground();
 
@@ -170,6 +172,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                 group.put("userName", groupMemebersUsername.get(i));
                 group.put("memberName", groupMemebers.get(i));
                 group.put("isAdmin",0);
+                group.setACL(acl);
                 group.saveInBackground();
             }
             Toast.makeText(

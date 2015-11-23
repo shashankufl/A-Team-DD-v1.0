@@ -20,17 +20,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ApproveRequestActivity extends AppCompatActivity {
-
+    private android.support.v7.widget.Toolbar toolbar;
     ArrayList<String> pendingRequestsList = new ArrayList<String>();
     ListView pendingRequestListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_approve_request);
-
+    String test = getIntent().getStringExtra("memberName");
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(toolbar);
         pendingRequestListView = (ListView)findViewById(R.id.pendingRequestListView);
         //final ArrayAdapter<String> adapter = new  ArrayAdapter<String>(ApproveRequestActivity.this, android.R.layout.simple_expandable_list_item_1, pendingRequestsList);
-        final ApproveRequestCustomAdapter adapter =  new ApproveRequestCustomAdapter(pendingRequestsList,this, getIntent().getStringExtra("groupName"));
+        final ApproveRequestCustomAdapter adapter =  new ApproveRequestCustomAdapter(pendingRequestsList,this, getIntent().getStringExtra("groupName"), getIntent().getStringExtra("memberName"));
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Groups");
         query.whereEqualTo("groupName", getIntent().getStringExtra("groupName"));
         query.whereEqualTo("isAdmin", 1);

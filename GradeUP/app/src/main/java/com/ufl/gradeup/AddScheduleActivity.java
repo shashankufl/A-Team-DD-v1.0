@@ -368,4 +368,3 @@ public class AddScheduleActivity extends AppCompatActivity {
         newFragment2.show(getSupportFragmentManager(), "timePicker");
     }
 }
-

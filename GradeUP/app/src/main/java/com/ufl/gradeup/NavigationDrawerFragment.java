@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.parse.ParseUser;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,10 +67,8 @@ public class NavigationDrawerFragment extends android.support.v4.app.Fragment im
 
     public static List<NavigationDrawerInformation> getNavData(){
         List<NavigationDrawerInformation> navData = new ArrayList<>();
-        int[] navIcons ={R.mipmap.navmyprofile,R.mipmap.navupdateprofile,R.mipmap.navaddschedule,R.mipmap.navcreategroup,R.mipmap.navjoingroup,R.mipmap.navhelp,R.mipmap.navaboutus,R.mipmap.navlogout};
-
-        String[] navText = {"My Profile", "Update Profile","View Schedule","Add Schedule", "Create Study Group", "Search Study Group","Help","About Us", "Log Out"};
-
+        int[] navIcons ={R.mipmap.navmyprofile,R.mipmap.navupdateprofile,R.mipmap.navaddschedule,R.mipmap.navaddschedule,R.mipmap.navcreategroup,R.mipmap.navjoingroup,R.mipmap.navhelp,R.mipmap.navaboutus,R.mipmap.navlogout};
+        String[] navText = {"My Profile", "Update Profile","Add Schedule","View my Schedule", "Create Study Group", "Search Study Group","Help","About us", "Log Out"};
         for(int i= 0;i<navIcons.length&&i<navText.length;i++){
             NavigationDrawerInformation current = new NavigationDrawerInformation();
             current.iconId= navIcons[i];
@@ -134,6 +134,7 @@ public class NavigationDrawerFragment extends android.support.v4.app.Fragment im
         //Write code for navigation using position
         if(position==0){
             startActivity(new Intent(getActivity(),UserProfileActivity.class));
+            getActivity().finish();
         }else if(position==1){
             startActivity(new Intent(getActivity(),UpdateProfileActivity.class));
         } else if(position==3){
@@ -142,9 +143,13 @@ public class NavigationDrawerFragment extends android.support.v4.app.Fragment im
             startActivity(new Intent(getActivity(),CreateGroupActivity.class));
         } else if(position==5){
             startActivity(new Intent(getActivity(),SearchForGroupActivity.class));
-        } else if(position==2){
+        }else if(position==2){
             startActivity(new Intent(getActivity(),ViewScheduleActivity.class));
+        }else if(position==8){
+            ParseUser.logOut();
         }
+        navDrawerLayout.closeDrawers();
+
 
 
 

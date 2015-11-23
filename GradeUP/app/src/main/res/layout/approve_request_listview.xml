@@ -7,28 +7,62 @@
         android:id="@+id/list_item_string"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
         android:paddingLeft="8dp"
         android:textSize="18sp"
         android:textStyle="bold" />
+    <!--<TextView-->
+        <!--android:id="@+id/list_item_string"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:paddingLeft="8dp"-->
+        <!--android:layout_marginLeft="30dp"-->
+        <!--android:textSize="18sp"-->
+        <!--android:text=""-->
+        <!--android:textStyle="bold" />-->
 
-    <Button
-        android:id="@+id/declineRequestBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="5dp"
-        android:text="Delete" />
+    <ImageButton
+    android:id="@+id/declineRequestBtn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    android:layout_alignParentRight="true"
+    android:layout_centerVertical="true"
+    android:layout_marginRight="10dp"
+    android:src="@mipmap/cross" />
 
-    <Button
+    <ImageButton
         android:id="@+id/approveRequestBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/declineRequestBtn"
+        android:background="@null"
+        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="10dp"
-        android:text="Add" />
+        android:layout_marginRight="50dp"
+        android:src="@drawable/plus" />
+
+    <!--<Button-->
+        <!--android:id="@+id/declineRequestBtn"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textColor="@color/buttonText"-->
+        <!--android:text="Delete"-->
+        <!--android:layout_below="@+id/list_item_string"-->
+        <!--android:layout_alignTop="@+id/approveRequestBtn"-->
+        <!--android:layout_centerHorizontal="true" />-->
+
+    <!--<Button-->
+        <!--android:id="@+id/approveRequestBtn"-->
+        <!--android:layout_marginLeft="50dp"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textColor="@color/buttonText"-->
+        <!--android:text="Add"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:layout_below="@+id/list_item_string"-->
+         <!--/>-->
 
 </RelativeLayout>

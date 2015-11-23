@@ -10,7 +10,7 @@
         android:id="@+id/app_bar"
         layout="@layout/app_bar"></include>
 
-      <TextView
+    <TextView
         android:id="@+id/sdate"
         android:hint="Select date"
         android:layout_below="@+id/app_bar"

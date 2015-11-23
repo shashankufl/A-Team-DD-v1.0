@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
@@ -27,11 +28,13 @@ public class ApproveRequestCustomAdapter extends BaseAdapter implements ListAdap
     private ArrayList<String> list = new ArrayList<String>();
     private Context context;
     private String groupName;
+    private String memberName;
 
-    public ApproveRequestCustomAdapter(ArrayList<String> list, Context context, String groupName) {
+    public ApproveRequestCustomAdapter(ArrayList<String> list, Context context, String groupName, String memberName) {
         this.list = list;
         this.context = context;
         this.groupName = groupName;
+        this.memberName = memberName;
     }
 
     @Override
@@ -62,12 +65,12 @@ public class ApproveRequestCustomAdapter extends BaseAdapter implements ListAdap
 
 
         TextView listItemText = (TextView)view.findViewById(R.id.list_item_string);
-        listItemText.setText(list.get(position));
+        listItemText.setText("Request From "+list.get(position).split(",")[2]);
 
         //Handle buttons and add onClickListeners
 
-        Button deleteBtn = (Button)view.findViewById(R.id.declineRequestBtn);
-        Button addBtn = (Button)view.findViewById(R.id.approveRequestBtn);
+        ImageButton deleteBtn = (ImageButton)view.findViewById(R.id.declineRequestBtn);
+        ImageButton addBtn = (ImageButton)view.findViewById(R.id.approveRequestBtn);
 
         deleteBtn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -98,10 +101,12 @@ public class ApproveRequestCustomAdapter extends BaseAdapter implements ListAdap
             public void onClick(View v) {
                 final String userName = list.get(position).split(",")[0];
                 final String joinRequest = list.get(position);
+                final String memberNameString = list.get(position).split(",")[2];
                 ParseObject group = new ParseObject("Groups");
                 group.put("groupName", groupName);
                 group.put("userName", userName);
                 group.put("isAdmin",0);
+                group.put("memberName", memberNameString);
 
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("Groups");
                 query.whereEqualTo("groupName", groupName);

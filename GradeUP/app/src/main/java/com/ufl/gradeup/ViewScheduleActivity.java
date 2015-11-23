@@ -105,8 +105,8 @@ public class ViewScheduleActivity extends AppCompatActivity {
                             }
                         }
                     });
-                    if(ScheduleListView == null){
-                        Toast.makeText(getBaseContext(),"No records found for " + sDate,Toast.LENGTH_LONG).show();
+                    if (ScheduleListView == null) {
+                        Toast.makeText(getBaseContext(), "No records found for " + sDate, Toast.LENGTH_LONG).show();
                     }
                 }
             }
