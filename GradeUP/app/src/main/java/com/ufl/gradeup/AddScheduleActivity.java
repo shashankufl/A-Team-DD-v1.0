@@ -81,7 +81,7 @@ public class AddScheduleActivity extends AppCompatActivity {
             else{
                 startDate = "" + year + "-" + (month + 1) + "-" + day;
             }
-            SelectedDateView.setText("Start Date " + startDate);
+            SelectedDateView.setText("Date: " + startDate);
         }
     }
     //Date Picking and saving ends here
@@ -114,7 +114,7 @@ public class AddScheduleActivity extends AppCompatActivity {
             else{
                 startTime = " " + hourOfDay + ":" + minute + "";
             }
-            StartTimeView.setText("Start Time " + startTime);
+            StartTimeView.setText("From " + startTime + " hrs");
         }
 
     }
@@ -140,7 +140,7 @@ public class AddScheduleActivity extends AppCompatActivity {
             else{
                 endTime = " " + hourOfDay + ":" + minute + "";
             }
-            EndTimeView.setText("End Time " + endTime);
+            EndTimeView.setText("To " + endTime + " hrs");
         }
 
     }
@@ -155,17 +155,17 @@ public class AddScheduleActivity extends AppCompatActivity {
 
         final TextView editText = (TextView) findViewById( R.id.start_date );
         final SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd" );
-        editText.setText("Start Date " + sdf.format(new Date()));
+        editText.setText("Date: " + sdf.format(new Date()));
 
         final TextView initialTime = (TextView) findViewById( R.id.start_time );
-        SimpleDateFormat init = new SimpleDateFormat("hh:mm a");
+        SimpleDateFormat init = new SimpleDateFormat("HH:mm");
         String editTime = init.format(Calendar.getInstance().getTime());
-        initialTime.setText("Start Time " + editTime);
+        initialTime.setText("From " + editTime + " hrs");
 
         final TextView initialEndTime = (TextView) findViewById( R.id.end_time );
-        SimpleDateFormat initEnd = new SimpleDateFormat("hh:mm a");
+        SimpleDateFormat initEnd = new SimpleDateFormat("HH:mm");
         String editEndTime = initEnd.format(Calendar.getInstance().getTime());
-        initialEndTime.setText("End Time " + editEndTime);
+        initialEndTime.setText("To  " + editEndTime + " hrs");
 
         RepeatToggle = (Switch) findViewById(R.id.repeatToggle);
 

@@ -6,8 +6,6 @@
     android:background="#fdffffff"
     android:focusableInTouchMode="true"
     android:focusable="true"
-    android:contextClickable="true"
-    android:clickable="true"
     style="@style/AppTheme.Base"
     tools:context="com.ufl.gradeup.UpdateUserScheduleActivity">
 
@@ -29,6 +27,7 @@
         android:drawableLeft="@mipmap/study_icon"
         android:layout_marginTop="30dp"
         android:ems="15"
+        android:textSize="17dp"
         android:hint="Course Name" />
 
 
@@ -40,20 +39,18 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:layout_below="@+id/subjectnameUpdate"
         android:onClick="showDatePickerDialog"
         android:drawableRight="@mipmap/ic_date_selector"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:text="Date"
-        android:textSize="20dp"
+        android:textSize="17dp"
         android:ems="15"
         style="@android:style/Widget.EditText"
         android:focusable="true"
         android:textAlignment="center"
-        android:contextClickable="true"
-        android:clickable="true"
         />
 
     <TextView
@@ -65,8 +62,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:onClick="showTimePickerDialog1"
         android:drawableRight="@mipmap/ic_view_clock"
         android:text="Select Start Time"
@@ -74,7 +71,7 @@
         style="@android:style/Widget.EditText"
         android:ems="15"
         android:focusable="true"
-        android:textSize="20dp" />
+        android:textSize="17dp" />
 
 
     <TextView
@@ -85,8 +82,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:layout_alignLeft="@+id/start_time"
         android:layout_alignStart="@+id/start_time"
         android:layout_below="@+id/start_timeUpdate"
@@ -98,7 +95,7 @@
         style="@android:style/Widget.EditText"
         android:focusable="true"
         android:ems="15"
-        android:textSize="20dp" />
+        android:textSize="17dp" />
 
     <Button
         android:id="@+id/delschbtnUpdate"
@@ -106,7 +103,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/end_timeUpdate"
         android:layout_marginTop="30dp"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="20dp"
         android:text="Delete"
         android:textColor="@color/buttonText"
         android:theme="@style/CardView.Light"
@@ -117,7 +114,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Update"
-        android:layout_marginRight="30dp"
+        android:layout_marginRight="20dp"
         android:textColor="@color/buttonText"
         android:layout_alignTop="@+id/delschbtnUpdate"
         android:layout_alignParentRight="true"

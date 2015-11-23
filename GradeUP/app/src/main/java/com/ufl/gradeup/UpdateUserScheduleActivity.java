@@ -81,7 +81,7 @@ public class UpdateUserScheduleActivity extends AppCompatActivity {
             else{
                 startDate = "" + year + "-" + (month + 1) + "-" + day;
             }
-            SelectedDateView.setText("Start Date " + startDate);
+            SelectedDateView.setText("Date: " + startDate);
         }
     }
     //Date Picking and saving ends here
@@ -114,7 +114,7 @@ public class UpdateUserScheduleActivity extends AppCompatActivity {
             else{
                 startTime = " " + hourOfDay + ":" + minute + "";
             }
-            StartTimeView.setText("Start Time " + startTime);
+            StartTimeView.setText("From " + startTime + " hrs");
         }
 
     }
@@ -140,7 +140,7 @@ public class UpdateUserScheduleActivity extends AppCompatActivity {
             else{
                 endTime = " " + hourOfDay + ":" + minute + "";
             }
-            EndTimeView.setText("End Time " + endTime);
+            EndTimeView.setText("To " + endTime + " hrs");
         }
 
     }
@@ -172,13 +172,13 @@ public class UpdateUserScheduleActivity extends AppCompatActivity {
         initialSubjectName.setText(courseName);
 
         final TextView editText = (TextView) findViewById( R.id.start_dateUpdate );
-        editText.setText("Start Date " + startDate);
+        editText.setText("Date: " + startDate);
 
         final TextView initialStartTime = (TextView) findViewById( R.id.start_timeUpdate );
-        initialStartTime.setText("Start Time " + startTime);
+        initialStartTime.setText("From " + startTime + " hrs");
 
         final TextView initialEndTime = (TextView) findViewById( R.id.end_timeUpdate );
-        initialEndTime.setText("End Time " + endTime);
+        initialEndTime.setText("To " + endTime + " hrs");
 
         addschbtn = (Button) findViewById(R.id.addschbtnUpdate);
         delschbtn = (Button) findViewById(R.id.delschbtnUpdate);
