@@ -87,33 +87,7 @@
         android:onClick="getSelectedDateSchedule"
         android:layout_alignLeft="@+id/meetingDateCard"
         android:layout_alignStart="@+id/meetingDateCard" />
-    <android.support.v7.widget.CardView
-        android:id="@+id/freeSlotCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/getTimeTxt"
-        android:layout_margin="10dp"
-        android:onClick="showDatePickerDialog">
-
-        <LinearLayout
-            style="@style/ProfileInfoStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@mipmap/datepicker_icon"
-                android:gravity="center_vertical"
-                android:text="Select Date" />
-
-
-
-        </LinearLayout>
-
-
-    </android.support.v7.widget.CardView>
+   
 
 
 </RelativeLayout>
