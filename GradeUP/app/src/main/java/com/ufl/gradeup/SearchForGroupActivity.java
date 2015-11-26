@@ -1,6 +1,5 @@
 package com.ufl.gradeup;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
@@ -71,10 +70,10 @@ public class SearchForGroupActivity extends AppCompatActivity {
         groupNamesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(SearchForGroupActivity.this,
-                        GroupHomeActivity.class);
-                intent.putExtra("groupName",groupName);
-                startActivity(intent);
+//                Intent intent = new Intent(SearchForGroupActivity.this,
+//                        GroupHomeActivity.class);
+//                intent.putExtra("groupName",groupName);
+//                startActivity(intent);
             }
         });
 
@@ -98,8 +97,8 @@ public class SearchForGroupActivity extends AppCompatActivity {
 
     public void gotoGroupHome(View v){
 
-        Intent intent = new Intent(SearchForGroupActivity.this,
-                        GroupHomeActivity.class);
-                startActivity(intent);
+//        Intent intent = new Intent(SearchForGroupActivity.this,
+//                        GroupHomeActivity.class);
+//                startActivity(intent);
     }
 }

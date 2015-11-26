@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +31,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AddScheduleActivity extends AppCompatActivity {
     private android.support.v7.widget.Toolbar toolbar;
@@ -36,10 +40,9 @@ public class AddScheduleActivity extends AppCompatActivity {
     public static TextView SelectedDateView;
     Button addschbtn;
     EditText subjectName;
+    String regexSName = "[a-zA-Z0-9.-_@,/':()!#$%&*+\\s]{3,50}";
     int dayCheck, monthCheck, yearCheck;
-    int hour;
     String dayofWeek;
-    int minute;
     public static String startDate = "";
     private Switch RepeatToggle;
 
@@ -88,6 +91,8 @@ public class AddScheduleActivity extends AppCompatActivity {
 
 
     //Time picking and saving starts here ->
+    int startTimeInt=0,endTimeInt=0;
+    int currentTimeInt=0;
     public static String startTime = "";
     public static String endTime = "";
     public static TextView EndTimeView;
@@ -100,8 +105,8 @@ public class AddScheduleActivity extends AppCompatActivity {
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the current time as default
             final Calendar c = Calendar.getInstance();
-            hour = c.get(Calendar.HOUR_OF_DAY);
-            minute = c.get(Calendar.MINUTE);
+            int hour = c.get(Calendar.HOUR_OF_DAY);
+            int minute = c.get(Calendar.MINUTE);
             // Creating new instance of DatePickerDialog
             return new TimePickerDialog(getActivity(), this, hour, minute,
                     DateFormat.is24HourFormat(getActivity()));
@@ -114,6 +119,7 @@ public class AddScheduleActivity extends AppCompatActivity {
             else{
                 startTime = " " + hourOfDay + ":" + minute + "";
             }
+            startTimeInt = hourOfDay*100 + minute + 1;
             StartTimeView.setText("From " + startTime + " hrs");
         }
 
@@ -140,6 +146,7 @@ public class AddScheduleActivity extends AppCompatActivity {
             else{
                 endTime = " " + hourOfDay + ":" + minute + "";
             }
+            endTimeInt = hourOfDay*100 + minute + 1;
             EndTimeView.setText("To " + endTime + " hrs");
         }
 
@@ -153,19 +160,58 @@ public class AddScheduleActivity extends AppCompatActivity {
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
 
+        ParseUser currentUser;
+        currentUser = ParseUser.getCurrentUser();
+        final String userName = currentUser.getString("username");
+        addschbtn = (Button) findViewById(R.id.addschbtn);
+        SelectedDateView = (TextView) findViewById(R.id.start_date);
+        StartTimeView = (TextView) findViewById(R.id.start_time);
+        EndTimeView = (TextView) findViewById(R.id.end_time);
+        subjectName = (EditText) findViewById(R.id.subjectname);
+
         final TextView editText = (TextView) findViewById( R.id.start_date );
         final SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd" );
         editText.setText("Date: " + sdf.format(new Date()));
+        startDate = sdf.format(new Date());
 
         final TextView initialTime = (TextView) findViewById( R.id.start_time );
-        SimpleDateFormat init = new SimpleDateFormat("HH:mm");
-        String editTime = init.format(Calendar.getInstance().getTime());
+        final Calendar c1 = Calendar.getInstance();
+        int hour = c1.get(Calendar.HOUR_OF_DAY);
+        int minute = c1.get(Calendar.MINUTE);
+        currentTimeInt = hour*100 + minute + 1;
+        String editTime;
+        if(minute/10 == 0){
+            editTime = "" + hour + ":0" + minute + "";
+        }
+        else{
+            editTime = "" + hour + ":" + minute + "";
+        }
         initialTime.setText("From " + editTime + " hrs");
+        startTime = editTime;
 
         final TextView initialEndTime = (TextView) findViewById( R.id.end_time );
-        SimpleDateFormat initEnd = new SimpleDateFormat("HH:mm");
-        String editEndTime = initEnd.format(Calendar.getInstance().getTime());
-        initialEndTime.setText("To  " + editEndTime + " hrs");
+        initialEndTime.setText("To  " + editTime + " hrs");
+        endTime = editTime;
+
+        subjectName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                Pattern p = Pattern.compile(regexSName);
+                Matcher m = p.matcher(subjectName.getText());
+                if (!m.matches()) {
+                    subjectName.setError("Course name has to be between 3 and 50 characters");
+                    addschbtn.setEnabled(false);
+                } else {
+                    addschbtn.setEnabled(true);
+                }
+            }
+        });
 
         RepeatToggle = (Switch) findViewById(R.id.repeatToggle);
 
@@ -185,14 +231,6 @@ public class AddScheduleActivity extends AppCompatActivity {
         friday.setClickable(false);
         saturday.setClickable(false);
 
-        ParseUser currentUser;
-        currentUser = ParseUser.getCurrentUser();
-        final String userName = currentUser.getString("username");
-        addschbtn = (Button) findViewById(R.id.addschbtn);
-        SelectedDateView = (TextView) findViewById(R.id.start_date);
-        StartTimeView = (TextView) findViewById(R.id.start_time);
-        EndTimeView = (TextView) findViewById(R.id.end_time);
-        subjectName = (EditText) findViewById(R.id.subjectname);
         RepeatToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
@@ -241,13 +279,21 @@ public class AddScheduleActivity extends AppCompatActivity {
                 String nameTxt = subjectName.getText().toString();
                 if (nameTxt.equals("")) {
                     Toast.makeText(getApplicationContext(),
-                            "Please complete course name field",
+                            "A valid course name is required" ,
                             Toast.LENGTH_LONG).show();
-                } else {
+                }
+                else if(startTime == endTime)
+                {
+                    Toast.makeText(getApplicationContext(),"Start time & End time cannot be same",
+                            Toast.LENGTH_LONG).show();
+                }
+                else if((startTimeInt >= endTimeInt) || (endTimeInt < currentTimeInt) || ((startTimeInt > currentTimeInt) && (endTimeInt == 0)))
+                {
+                    Toast.makeText(getApplicationContext(),"End time should be after start time",
+                            Toast.LENGTH_LONG).show();
+                }
+                else {
                     // Save new user data into Parse.com Data Storage
-//                    SelectedDateView.setText(sdf.format(startDate));
-//                    StartTimeView.setText(startTime);
-//                    EndTimeView.setText(endTime);
                     ParseObject newSchedule = new ParseObject("Schedule");
                     newSchedule.put("User_ID", userName);
                     newSchedule.put("Subject", nameTxt);

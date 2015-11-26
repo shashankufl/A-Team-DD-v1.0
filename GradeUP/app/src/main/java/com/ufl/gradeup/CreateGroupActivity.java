@@ -1,6 +1,5 @@
 package com.ufl.gradeup;
 
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -179,11 +178,11 @@ public class CreateGroupActivity extends AppCompatActivity {
                     getApplicationContext(),
                     "Group created successfully" ,
                     Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(CreateGroupActivity.this,
-                    GroupHomeActivity.class);
+//            Intent intent = new Intent(CreateGroupActivity.this,
+//                    GroupHomeActivity.class);
 
-            intent.putExtra("groupName",groupNameString);
-            startActivity(intent);
+//            intent.putExtra("groupName",groupNameString);
+//            startActivity(intent);
             finish();
             return true;
         }
