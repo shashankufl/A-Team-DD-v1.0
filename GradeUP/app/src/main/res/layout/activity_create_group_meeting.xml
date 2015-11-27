@@ -87,7 +87,44 @@
         android:onClick="getSelectedDateSchedule"
         android:layout_alignLeft="@+id/meetingDateCard"
         android:layout_alignStart="@+id/meetingDateCard" />
-   
+
+    <EditText
+        android:id="@+id/meetingAgenda"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@mipmap/meeting"
+        android:hint="Meeting Agenda"
+        android:layout_below="@+id/meetingStartTimeButton"
+        android:layout_alignLeft="@+id/getTimeTxt"
+        android:layout_alignStart="@+id/getTimeTxt"
+        android:layout_marginTop="28dp" />
+
+    <Button
+        android:id="@+id/meetingStartTimeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/buttonText"
+        android:onClick="onSelectPicClicked"
+        android:text="Start Time"
+        android:layout_alignTop="@+id/meetingEndTimeButton"
+        android:layout_alignLeft="@+id/getTimeTxt"
+        android:layout_alignStart="@+id/getTimeTxt"
+        android:layout_marginLeft="49dp"
+        android:layout_marginStart="49dp" />
+
+    <Button
+        android:id="@+id/meetingEndTimeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/buttonText"
+        android:onClick="onSelectPicClicked"
+        android:text="End Time"
+        android:layout_marginRight="43dp"
+        android:layout_marginEnd="43dp"
+        android:layout_marginTop="36dp"
+        android:layout_below="@+id/getTimeTxt"
+        android:layout_alignRight="@+id/meetingDateCard"
+        android:layout_alignEnd="@+id/meetingDateCard" />
 
 
 </RelativeLayout>
