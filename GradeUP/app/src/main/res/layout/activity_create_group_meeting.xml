@@ -8,123 +8,231 @@
         android:id="@+id/app_bar"
         layout="@layout/app_bar"></include>
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/meetingTitleCard"
-        android:layout_width="match_parent"
+    <ScrollView
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/app_bar"
-        android:layout_margin="10dp">
+        android:layout_below="@+id/app_bar">
 
-        <LinearLayout
-            style="@style/ProfileInfoStyle"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/input_layout_meetingTitle"
+            <android.support.v7.widget.CardView
+                android:id="@+id/meetingTitleCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/profileInfo_margin">
+                android:layout_margin="10dp">
 
-                <EditText
-                    android:id="@+id/meetingTitle"
+                <LinearLayout
+                    style="@style/meetinStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/input_layout_meetingTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/profileInfo_margin">
+
+                        <EditText
+                            android:id="@+id/meetingTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@mipmap/meeting"
+                            android:hint="Meeting Title" />
+
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/agendaCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/meetingTitleCard"
+                android:layout_margin="10dp">
+
+                <LinearLayout
+                    style="@style/meetinStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/input_layout_agenda"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/profileInfo_margin">
+
+                        <EditText
+                            android:id="@+id/meetingAgenda"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@mipmap/agenda_icon"
+                            android:hint="Agenda" />
+
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/meetingDateCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/agendaCard"
+                android:layout_margin="10dp"
+                android:onClick="showDatePickerDialog">
+
+                <LinearLayout
+                    style="@style/ProfileInfoStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/meeting"
-                    android:hint="Meeting Title" />
+                    android:orientation="horizontal">
 
-            </android.support.design.widget.TextInputLayout>
-        </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@mipmap/datepicker_icon"
+                        android:gravity="center_vertical"
+                        android:text="Select Date" />
+
+                    <TextView
+                        android:id="@+id/selectedDateTxt"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@mipmap/right_arrow_icon"
+                        android:gravity="center_vertical|right"
+                        android:text="YYYY-MM-DD" />
 
 
-    </android.support.v7.widget.CardView>
+                </LinearLayout>
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/meetingDateCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/meetingTitleCard"
-        android:layout_margin="10dp"
-        android:onClick="showDatePickerDialog">
 
-        <LinearLayout
-            style="@style/ProfileInfoStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@mipmap/datepicker_icon"
-                android:gravity="center_vertical"
-                android:text="Select Date" />
+            </android.support.v7.widget.CardView>
 
             <TextView
-                android:id="@+id/selectedDateTxt"
+                android:id="@+id/getTimeTxt"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:drawableRight="@mipmap/right_arrow_icon"
-                android:gravity="center_vertical|right"
-                android:text="YYYY-MM-DD" />
+                android:layout_alignLeft="@+id/meetingDateCard"
+                android:layout_alignStart="@+id/meetingDateCard"
+                android:layout_below="@+id/meetingDateCard"
+                android:layout_centerVertical="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_horizontal|top"
+                android:onClick="getSelectedDateSchedule"
+                android:paddingTop="20dp"
+                android:text="@string/getTime"
+                android:textColor="@color/primaryColor" />
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/availableTimeCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/meetingDateCard"
+                android:layout_margin="10dp">
+
+                <LinearLayout
+                    android:id="@+id/freeSlotLinearLayout"
+                    style="@style/ProfileInfoStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="Available Free Slots"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:textColor="@color/primaryColor" />
 
 
-        </LinearLayout>
+                </LinearLayout>
 
 
-    </android.support.v7.widget.CardView>
-    <TextView
-        android:id="@+id/getTimeTxt"
-        android:paddingTop="20dp"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/getTime"
-        android:textColor="@color/primaryColor"
-        android:layout_centerVertical="true"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center_horizontal|top"
-        android:onClick="getSelectedDateSchedule"
-        android:layout_alignLeft="@+id/meetingDateCard"
-        android:layout_alignStart="@+id/meetingDateCard" />
+            </android.support.v7.widget.CardView>
 
-    <EditText
-        android:id="@+id/meetingAgenda"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@mipmap/meeting"
-        android:hint="Meeting Agenda"
-        android:layout_below="@+id/meetingStartTimeButton"
-        android:layout_alignLeft="@+id/getTimeTxt"
-        android:layout_alignStart="@+id/getTimeTxt"
-        android:layout_marginTop="28dp" />
+            <android.support.v7.widget.CardView
+                android:id="@+id/startTimeCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/availableTimeCard"
+                android:layout_margin="10dp"
+                android:onClick="showDatePickerDialog">
 
-    <Button
-        android:id="@+id/meetingStartTimeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/buttonText"
-        android:onClick="onSelectPicClicked"
-        android:text="Start Time"
-        android:layout_alignTop="@+id/meetingEndTimeButton"
-        android:layout_alignLeft="@+id/getTimeTxt"
-        android:layout_alignStart="@+id/getTimeTxt"
-        android:layout_marginLeft="49dp"
-        android:layout_marginStart="49dp" />
+                <LinearLayout
+                    style="@style/ProfileInfoStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/meetingEndTimeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/buttonText"
-        android:onClick="onSelectPicClicked"
-        android:text="End Time"
-        android:layout_marginRight="43dp"
-        android:layout_marginEnd="43dp"
-        android:layout_marginTop="36dp"
-        android:layout_below="@+id/getTimeTxt"
-        android:layout_alignRight="@+id/meetingDateCard"
-        android:layout_alignEnd="@+id/meetingDateCard" />
+                    <TextView
+                        android:id="@+id/meetingStartTimeButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@mipmap/timepicker_icon"
+                        android:gravity="center_vertical"
+                        android:text="Start Time" />
+
+                    <TextView
+                        android:id="@+id/meetingEndTimeButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="80dp"
+                        android:drawableLeft="@mipmap/timepicker_icon"
+                        android:gravity="center_vertical|right"
+                        android:text="End Time" />
 
 
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <!--<EditText-->
+            <!--android:id="@+id/meetingAgenda"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:drawableLeft="@mipmap/meeting"-->
+            <!--android:hint="Meeting Agenda"-->
+            <!--android:layout_below="@+id/meetingStartTimeButton"-->
+            <!--android:layout_alignLeft="@+id/getTimeTxt"-->
+            <!--android:layout_alignStart="@+id/getTimeTxt"-->
+            <!--android:layout_marginTop="28dp" />-->
+
+            <!--<Button-->
+            <!--android:id="@+id/meetingStartTimeButton"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@color/buttonText"-->
+            <!--android:onClick="onSelectPicClicked"-->
+            <!--android:text="Start Time"-->
+            <!--android:layout_alignTop="@+id/meetingEndTimeButton"-->
+            <!--android:layout_alignLeft="@+id/getTimeTxt"-->
+            <!--android:layout_alignStart="@+id/getTimeTxt"-->
+            <!--android:layout_marginLeft="49dp"-->
+            <!--android:layout_marginStart="49dp" />-->
+
+            <!--<Button-->
+            <!--android:id="@+id/meetingEndTimeButton"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@color/buttonText"-->
+            <!--android:onClick="onSelectPicClicked"-->
+            <!--android:text="End Time"-->
+            <!--android:layout_marginRight="43dp"-->
+            <!--android:layout_marginEnd="43dp"-->
+            <!--android:layout_marginTop="36dp"-->
+            <!--android:layout_below="@+id/getTimeTxt"-->
+            <!--android:layout_alignRight="@+id/meetingDateCard"-->
+            <!--android:layout_alignEnd="@+id/meetingDateCard" />-->
+
+
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>
