@@ -4,4 +4,10 @@
     tools:context="com.ufl.gradeup.CreateGroupMeetingActivity">
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
+
+    <item
+        android:id="@+id/createMeeting"
+        android:title="Create Meeting"
+        android:orderInCategory="200"
+        app:showAsAction="always"/>
 </menu>

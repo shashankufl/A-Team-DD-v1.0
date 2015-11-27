@@ -2,28 +2,51 @@ package com.ufl.gradeup;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
+import com.parse.Parse;
+import com.parse.ParseACL;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import org.w3c.dom.Text;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class CreateGroupMeetingActivity extends AppCompatActivity {
+
+    static final int start_dialog_id = 0;
+    static final int end_dialog_id = 1;
+    int startHour, startMinute, endHour, endMinute;
+    EditText meetingAgendaTxt;
+    EditText meetingTitleTxt;
+    Button meetingStartTimeBtn;
+    Button meetingEndTimeBtn;
+    private ArrayList<String> groupUserNameList = new ArrayList<String>();
+    int freeSlotSize;
+
+
 
     private android.support.v7.widget.Toolbar toolbar;
     private ArrayList<String> groupMembersList = new ArrayList<String>();
@@ -33,6 +56,8 @@ public class CreateGroupMeetingActivity extends AppCompatActivity {
     private ArrayList<Double> normEndTime = new ArrayList<Double>();
     private ArrayList<Integer> timeSlotArray = new ArrayList<Integer>();
     private ArrayList<String> freeSlotList = new ArrayList<String>();
+    private ArrayList<String> startTimeSlotList = new ArrayList<String>();
+    private ArrayList<String> endTimeSlotList = new ArrayList<String>();
     public static String selectedDate = "";
     public static TextView SelectedDateView;
 
@@ -62,7 +87,7 @@ public class CreateGroupMeetingActivity extends AppCompatActivity {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
-
+    @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +96,28 @@ public class CreateGroupMeetingActivity extends AppCompatActivity {
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
 
+        meetingAgendaTxt = (EditText)findViewById(R.id.meetingAgenda);
+        meetingStartTimeBtn = (Button)findViewById(R.id.meetingStartTimeButton);
+        meetingEndTimeBtn = (Button)findViewById(R.id.meetingEndTimeButton);
+        meetingTitleTxt = (EditText)findViewById(R.id.meetingTitle);
+
+        groupUserNameList = getIntent().getStringArrayListExtra("memberList");
+
+        meetingStartTimeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(start_dialog_id);
+            }
+        });
+
+        meetingEndTimeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(end_dialog_id);
+            }
+        });
+
+
         SelectedDateView = (TextView) findViewById(R.id.selectedDateTxt);
         groupMembersList = getIntent().getStringArrayListExtra("memberList");
 
@@ -78,6 +125,40 @@ public class CreateGroupMeetingActivity extends AppCompatActivity {
             timeSlotArray.add(0);
         }
     }
+    @SuppressWarnings("deprecation")
+    protected Dialog onCreateDialog (int id){
+        if(id == start_dialog_id){
+            return new TimePickerDialog(this, StartTimeSetListener, startHour, startMinute, true);
+        }else if(id == end_dialog_id){
+            return new TimePickerDialog(this, EndTimeSetListener, endHour, endMinute, true);
+        }
+        return null;
+    }
+
+    private TimePickerDialog.OnTimeSetListener StartTimeSetListener =
+            new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                    startHour = hourOfDay;
+                    startMinute = minute;
+                    Toast.makeText(getApplicationContext(),
+                            startHour+":"+startMinute,
+                            Toast.LENGTH_SHORT).show();
+                }
+            };
+    private TimePickerDialog.OnTimeSetListener EndTimeSetListener =
+            new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                    endHour = hourOfDay;
+                    endMinute = minute;
+                    Toast.makeText(getApplicationContext(),
+                            endHour+":"+endMinute,
+                            Toast.LENGTH_SHORT).show();
+                }
+            };
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -96,6 +177,17 @@ public class CreateGroupMeetingActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+
+        if(id == R.id.createMeeting){
+            if(isWithinFreeSlot()) {
+                createMeeting();
+                addMeetingToSchedule();
+            }else{
+                Toast.makeText(getApplicationContext(),
+                        "Please enter a time between the free slot",
+                        Toast.LENGTH_LONG).show();
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -175,9 +267,12 @@ public class CreateGroupMeetingActivity extends AppCompatActivity {
                 i= i+zeroCounter-1;
 
                 freeSlotList.add(startTimeString+" to "+endTimeString);
+                startTimeSlotList.add(startTimeString);
+                endTimeSlotList.add(endTimeString);
             }
 
         }
+        freeSlotSize = freeSlotList.size();
 
     }
 
@@ -198,6 +293,73 @@ public class CreateGroupMeetingActivity extends AppCompatActivity {
 
         return timeSlot;
 
+    }
+
+    private void createMeeting(){
+        String Agenda = meetingAgendaTxt.getText().toString();
+        String MeetingTitle = meetingTitleTxt.getText().toString();
+
+        String meetingStartTime = startHour+":"+startMinute;
+        String meetingEndTime = endHour+":"+endMinute;
+        ParseObject groupMeeting = new ParseObject("MemberSchedule");
+        groupMeeting.put("meetingStartTime",meetingStartTime);
+        groupMeeting.put("meetingEndTime",meetingEndTime);
+        groupMeeting.put("Agenda",Agenda);
+        groupMeeting.put("meetingTitle",MeetingTitle);
+        groupMeeting.put("Date",selectedDate);
+        groupMeeting.put("groupName",getIntent().getStringExtra("groupName"));
+        ParseACL acl = new ParseACL(ParseUser.getCurrentUser());
+        acl.setPublicWriteAccess(true);
+        acl.setPublicReadAccess(true);
+        groupMeeting.setACL(acl);
+        groupMeeting.saveInBackground();
+
+
+    }
+
+    private void addMeetingToSchedule(){
+        ParseObject schedule;
+        String meetingStartTime = startHour+":"+startMinute;
+        String meetingEndTime = endHour+":"+endMinute;
+        String Agenda = meetingAgendaTxt.getText().toString();
+        String MeetingTitle = meetingTitleTxt.getText().toString();
+
+        for(int i = 0; i < groupUserNameList.size(); i++){
+            schedule = new ParseObject("Schedule");
+            schedule.put("User_ID",groupUserNameList.get(i));
+            schedule.put("Start_time",meetingStartTime);
+            schedule.put("End_time",meetingEndTime);
+            schedule.put("Subject",MeetingTitle);
+            schedule.put("Date",selectedDate);
+            schedule.saveInBackground();
+        }
+
+    }
+
+    private boolean isWithinFreeSlot(){
+        String meetingStartTime = startHour+":"+startMinute;
+        String meetingEndTime = endHour+":"+endMinute;
+        boolean isWithinTimeSlot = false;
+
+        DateFormat formatter = new SimpleDateFormat("hh:mm");
+        try {
+            Date startTime = formatter.parse(meetingStartTime);
+            Date endTime = formatter.parse(meetingEndTime);
+
+
+            for(int i = 0; i < freeSlotSize; i++){
+                Date freeStartTime = formatter.parse(startTimeSlotList.get(i));
+                Date freeEndTime = formatter.parse(endTimeSlotList.get(i));
+                if(startTime.after(freeStartTime) && endTime.before(freeEndTime)) {
+                    isWithinTimeSlot = true;
+                }
+            }
+        } catch (java.text.ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        return isWithinTimeSlot;
     }
 //    public void getFreeSlots(){
 //        int k=0;
@@ -231,4 +393,5 @@ public class CreateGroupMeetingActivity extends AppCompatActivity {
 //        }
 //        SelectedDateView.setText(freeSlotList.toString());
 //    }
+
 }
