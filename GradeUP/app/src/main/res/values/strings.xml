@@ -7,6 +7,7 @@
     <string name="Email">E-mail Address</string>
     <string name="Password">Password</string>
     <string name="Login">Login</string>
+    <string name="Retrieve">Retrieve</string>
     <string name="Register">"Register"</string>
     <string name="ConfirmPassword">Confirm Password</string>
     <string name="title_activity_register">Register</string>
@@ -29,10 +30,11 @@
     <string name="title_activity_temp">temp</string>
     <string name="title_activity_view_schedule">View Schedule</string>
     <string name="title_activity_update_schedule">Update Schedule</string>
-    <string name="title_activity_approve_request">ApproveRequestActivity</string>
+    <string name="title_activity_approve_request">Approve Request</string>
     <string name="title_activity_update_user_schedule">Update Schedule</string>
     <string name="getTime"><u>Get Available Times...</u>.</string>
     <string name="title_activity_create_group_meeting">New Meeting</string>
+    <string name="title_forgot_pass_activity">Retrieve Password</string>
 
 
 

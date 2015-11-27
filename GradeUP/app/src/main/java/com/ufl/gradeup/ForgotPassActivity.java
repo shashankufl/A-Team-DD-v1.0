@@ -11,75 +11,61 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.parse.LogInCallback;
+import com.parse.RequestPasswordResetCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
-
-public class LoginActivity extends AppCompatActivity {
-
+/**
+ * Created by shweta on 11/16/2015.
+ */
+public class ForgotPassActivity extends AppCompatActivity{
     EditText email;
-    EditText password;
-    Button loginButton;
+    Button retrieveButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.forgot_pass);
 
         email = (EditText)findViewById(R.id.emailText);
-        password = (EditText) findViewById(R.id.passwordText);
-        loginButton = (Button) findViewById(R.id.LoginBtn);
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        retrieveButton = (Button) findViewById(R.id.RetrieveBtn);
+        retrieveButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View arg0) {
                 // Retrieve the text entered from the EditText
                 String emailTxt = email.getText().toString();
-                String passwordTxt = password.getText().toString();
 
                 // Send data to Parse.com for verification
-                ParseUser.logInInBackground(emailTxt, passwordTxt,
-                        new LogInCallback() {
-                            public void done(ParseUser user, ParseException e) {
-                                if (user != null) {
-                                    // If user exist and authenticated, send user to Welcome.class
-                                    Intent intent = new Intent(
-                                            LoginActivity.this,
-                                            UserProfileActivity.class);
-                                    startActivity(intent);
 
-                                    finish();
+                ParseUser.requestPasswordResetInBackground(emailTxt,
+                        new RequestPasswordResetCallback() {
+                            public void done(ParseException e) {
+                                if (e == null) {
+                                    Toast.makeText(
+                                            getApplicationContext(),
+                                            "An email was successfully sent with reset instructions.",
+                                            Toast.LENGTH_LONG).show();
                                 } else {
                                     Toast.makeText(
                                             getApplicationContext(),
-                                            "Invalid credentials, please try again signup if you're a new user",
+                                            "Invalid credentials: Incorrect Email address",
                                             Toast.LENGTH_LONG).show();
                                 }
                             }
                         });
             }
         });
-
-
-        TextView signUp = (TextView)findViewById(R.id.signup);
-        signUp.setOnClickListener(new View.OnClickListener() {
+        TextView retryLogin = (TextView)findViewById(R.id.RetryLogin);
+        retryLogin.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(i);
-            }
-        });
-
-        TextView FrgtPass = (TextView)findViewById(R.id.FrgtPass);
-        FrgtPass.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(LoginActivity.this, ForgotPassActivity.class);
+                Intent i = new Intent(ForgotPassActivity.this, LoginActivity.class);
                 startActivity(i);
             }
         });
 
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
