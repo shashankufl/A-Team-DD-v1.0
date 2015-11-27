@@ -40,6 +40,7 @@ public class AddScheduleActivity extends AppCompatActivity {
     public static TextView SelectedDateView;
     ImageButton addschbtn,cancelbtn;
     EditText subjectName;
+    String date1,date2,date3,date4,date5,date6,date7;
     String regexSName = "[a-zA-Z0-9.-_@,/':()!#$%&*+\\s]{3,50}";
     int dayCheck, monthCheck, yearCheck;
     String dayofWeek;
@@ -169,6 +170,7 @@ public class AddScheduleActivity extends AppCompatActivity {
         StartTimeView = (TextView) findViewById(R.id.start_time);
         EndTimeView = (TextView) findViewById(R.id.end_time);
         subjectName = (EditText) findViewById(R.id.subjectname);
+        RepeatToggle = (Switch) findViewById(R.id.repeatToggle);
 
         final TextView editText = (TextView) findViewById( R.id.start_date );
         final SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd" );
@@ -198,9 +200,11 @@ public class AddScheduleActivity extends AppCompatActivity {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
+
             @Override
             public void afterTextChanged(Editable s) {
                 Pattern p = Pattern.compile(regexSName);
@@ -214,7 +218,19 @@ public class AddScheduleActivity extends AppCompatActivity {
             }
         });
 
-        RepeatToggle = (Switch) findViewById(R.id.repeatToggle);
+        SelectedDateView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                RepeatToggle.setChecked(false);
+            }
+        });
+
 
         RepeatToggle.setClickable(true);
         final CheckBox sunday = (CheckBox) findViewById(R.id.Sunday);
@@ -237,8 +253,35 @@ public class AddScheduleActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView,
                                          boolean isChecked) {
+                date1 = startDate;
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Calendar cDate = Calendar.getInstance();
+                try {
+                    cDate.setTime(sdf.parse(startDate));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                cDate.add(Calendar.DATE, 1);
+                date2 = sdf.format(cDate.getTime());
+                cDate.add(Calendar.DATE, 1);
+                date3 = sdf.format(cDate.getTime());
+                cDate.add(Calendar.DATE, 1);
+                date4 = sdf.format(cDate.getTime());
+                cDate.add(Calendar.DATE, 1);
+                date5 = sdf.format(cDate.getTime());
+                cDate.add(Calendar.DATE, 1);
+                date6 = sdf.format(cDate.getTime());
+                cDate.add(Calendar.DATE, 1);
+                date7 = sdf.format(cDate.getTime());
 
                 if (RepeatToggle.isChecked()) {
+                    sunday.setClickable(true);
+                    monday.setClickable(true);
+                    tuesday.setClickable(true);
+                    wednesday.setClickable(true);
+                    thursday.setClickable(true);
+                    friday.setClickable(true);
+                    saturday.setClickable(true);
                     switch (dayofWeek) {
                         case "Sunday":
                             sunday.setChecked(true);
