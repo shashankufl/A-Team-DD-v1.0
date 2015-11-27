@@ -186,13 +186,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_below="@id/repeatMonthToggle"
-                android:text="        Schedule will repeat once every month"
+                android:text=""
                 android:textSize="15dp"
                 android:ems="15"
                 android:textAlignment="center"
                 android:focusable="false"
                 android:layout_marginRight="30dp"
-                android:textStyle="bold" />
+                />
 
         </RelativeLayout>
     </ScrollView>
