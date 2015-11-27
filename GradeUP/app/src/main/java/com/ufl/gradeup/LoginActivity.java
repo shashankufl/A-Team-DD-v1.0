@@ -28,7 +28,6 @@ public class LoginActivity extends AppCompatActivity {
         email = (EditText)findViewById(R.id.emailText);
         password = (EditText) findViewById(R.id.passwordText);
         loginButton = (Button) findViewById(R.id.LoginBtn);
-
         loginButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View arg0) {
@@ -46,9 +45,7 @@ public class LoginActivity extends AppCompatActivity {
                                             LoginActivity.this,
                                             UserProfileActivity.class);
                                     startActivity(intent);
-                                    Toast.makeText(getApplicationContext(),
-                                            "Successfully Logged in to GradeUP",
-                                            Toast.LENGTH_LONG).show();
+
                                     finish();
                                 } else {
                                     Toast.makeText(
@@ -68,6 +65,16 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(i);
+            }
+        });
+
+        TextView FrgtPass = (TextView)findViewById(R.id.FrgtPass);
+        FrgtPass.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LoginActivity.this, ForgotPassActivity.class);
                 startActivity(i);
             }
         });

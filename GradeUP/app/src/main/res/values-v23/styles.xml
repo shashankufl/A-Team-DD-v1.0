@@ -8,4 +8,11 @@
         <item name="android:colorButtonNormal">@color/buttonColorNormal</item>
 
     </style>
+    <style name="ProfileInfoStyle" parent="android:Widget">
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">20dp</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingRight">15dp</item>
+    </style>
 </resources>
