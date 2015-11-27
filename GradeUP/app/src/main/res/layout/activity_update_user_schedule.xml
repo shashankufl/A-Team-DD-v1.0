@@ -2,10 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/ThemeOverlay.AppCompat"
-    android:touchscreenBlocksFocus="true"
     android:background="#fdffffff"
-    android:focusableInTouchMode="true"
     android:focusable="true"
+    android:clickable="true"
     style="@style/AppTheme.Base"
     tools:context="com.ufl.gradeup.UpdateUserScheduleActivity">
 
@@ -53,86 +52,126 @@
         android:drawableRight="@mipmap/ic_date_selector"
         android:layout_marginTop="15dp"
         android:text="Date"
-        android:textSize="17dp"
+        android:textSize="15dp"
         android:ems="15"
+        android:focusable="false"
         style="@android:style/Widget.EditText"
-        android:focusable="true"
         android:textAlignment="center"
         />
 
     <TextView
         android:id="@+id/start_timeUpdate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_below="@+id/start_dateUpdate"
-        android:layout_alignParentEnd="true"
+        android:onClick="showTimePickerDialog1"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:onClick="showTimePickerDialog1"
-        android:drawableRight="@mipmap/ic_view_clock"
+        android:drawableRight="@mipmap/ic_listarrow"
         android:text="Select Start Time"
         android:textAlignment="center"
         style="@android:style/Widget.EditText"
         android:ems="15"
-        android:focusable="true"
-        android:textSize="17dp" />
+        android:focusable="false"
+        android:textSize="12dp"/>
 
 
     <TextView
         android:id="@+id/end_timeUpdate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
         android:layout_alignLeft="@+id/start_time"
         android:layout_alignStart="@+id/start_time"
-        android:layout_below="@+id/start_timeUpdate"
-        android:layout_marginTop="10dp"
+        android:layout_below="@+id/start_dateUpdate"
         android:onClick="showTimePickerDialog2"
-        android:drawableRight="@mipmap/ic_view_clock"
         android:text="Select End Time  "
         android:textAlignment="center"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:drawableRight="@mipmap/ic_listarrow"
         style="@android:style/Widget.EditText"
-        android:focusable="true"
         android:ems="15"
-        android:textSize="17dp" />
+        android:textSize="12dp"
+        android:layout_marginRight="30dp"
+        android:layout_centerVertical="true"
+        android:focusable="false"
+        android:layout_marginLeft="30dp"
+        android:layout_toRightOf="@id/start_timeUpdate" />
+
+            <TextView
+                android:id="@+id/displaytext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_below="@+id/start_timeUpdate"
+                android:layout_marginTop="30dp"
+                android:text="*Any updates to this schedule will not affect it's subsequent occurrences/repetitions"
+                android:textSize="15dp"
+                android:ems="15"
+                android:focusable="false"
+                android:textAlignment="center"
+                />
+
+        </RelativeLayout>
+    </ScrollView>
 
     <ImageButton
         android:id="@+id/delschbtnUpdate"
-        android:layout_below="@+id/end_timeUpdate"
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:theme="@style/CardView"
         android:background="@drawable/oval_definition"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="10dp"
-        android:layout_alignRight="@+id/repeatToggle"
-        android:layout_alignEnd="@+id/repeatToggle"
-        android:layout_marginLeft="20dp"
         android:src="@mipmap/ic_deletebtn"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/deletetext"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_above="@id/delschbtnUpdate"
+        android:text="Delete"
+        android:textSize="15dp"
+        android:ems="15"
+        android:focusable="false"
+        android:layout_alignParentLeft="true"
+        android:textAlignment="center"
         />
 
     <ImageButton
         android:id="@+id/addschbtnUpdate"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:layout_marginRight="20dp"
         android:theme="@style/CardView"
         android:background="@drawable/oval_definition"
         android:src="@mipmap/ic_add_tick"
-        android:focusableInTouchMode="true"
-        android:layout_alignTop="@+id/delschbtnUpdate"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-</RelativeLayout>
-    </ScrollView>
+    <TextView
+        android:id="@+id/updatetext"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_above="@id/addschbtnUpdate"
+        android:text="Update"
+        android:textSize="15dp"
+        android:ems="15"
+        android:focusable="false"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentRight="true"
+        android:textAlignment="center"
+        />
 </RelativeLayout>
 
