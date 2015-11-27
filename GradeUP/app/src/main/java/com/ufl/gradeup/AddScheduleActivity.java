@@ -260,11 +260,13 @@ public class AddScheduleActivity extends AppCompatActivity {
         friday.setClickable(false);
         saturday.setClickable(false);
 
+
         weeklyRepeatToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView,
                                          boolean isChecked) {
+
                 date1 = startDate;
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 Calendar cDate = Calendar.getInstance();
@@ -287,6 +289,7 @@ public class AddScheduleActivity extends AppCompatActivity {
                 date7 = sdf.format(cDate.getTime());
 
                 if (weeklyRepeatToggle.isChecked()) {
+                    monthlyRepeatToggle.setChecked(false);
                     sunday.setClickable(true);
                     monday.setClickable(true);
                     tuesday.setClickable(true);

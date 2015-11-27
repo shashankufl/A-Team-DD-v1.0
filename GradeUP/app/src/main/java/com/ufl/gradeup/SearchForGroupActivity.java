@@ -1,5 +1,6 @@
 package com.ufl.gradeup;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
@@ -70,10 +71,10 @@ public class SearchForGroupActivity extends AppCompatActivity {
         groupNamesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Intent intent = new Intent(SearchForGroupActivity.this,
-//                        GroupHomeActivity.class);
-//                intent.putExtra("groupName",groupName);
-//                startActivity(intent);
+                Intent intent = new Intent(SearchForGroupActivity.this,
+                        GroupHomeActivity.class);
+                intent.putExtra("groupName",groupName);
+                startActivity(intent);
             }
         });
 
@@ -85,20 +86,20 @@ public class SearchForGroupActivity extends AppCompatActivity {
             }
         });
         groupNamesListView.setAdapter(adapter);
-//        groupNameView.setOnClickListener(new View.OnClickListener() {
-//
-//            public void onClick(View arg0) {
-//                Intent intent = new Intent(SearchForGroupActivity.this,
-//                        GroupHomeActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        groupNameView.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View arg0) {
+                Intent intent = new Intent(SearchForGroupActivity.this,
+                        GroupHomeActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void gotoGroupHome(View v){
 
-//        Intent intent = new Intent(SearchForGroupActivity.this,
-//                        GroupHomeActivity.class);
-//                startActivity(intent);
+        Intent intent = new Intent(SearchForGroupActivity.this,
+                        GroupHomeActivity.class);
+                startActivity(intent);
     }
 }
