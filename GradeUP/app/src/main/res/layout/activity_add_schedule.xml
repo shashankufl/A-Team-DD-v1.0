@@ -89,6 +89,7 @@
                 android:textSize="12dp"
                 android:focusable="false"
                 android:layout_below="@+id/start_date"
+                android:layout_toRightOf="@id/start_time"
                 android:layout_alignRight="@+id/start_date"
                 android:layout_alignEnd="@+id/start_date" />
 
@@ -101,7 +102,8 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                />
 
             <CheckBox
                 android:id="@+id/Sunday"
@@ -193,62 +195,65 @@
                 android:focusable="false"
                 android:layout_marginRight="30dp"
                 />
+            <ImageButton
+                android:id="@+id/addschbtn"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:theme="@style/CardView.Light"
+                android:background="@drawable/oval_definition"
+                android:src="@mipmap/ic_add_tick"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="50dp"
+                android:layout_below="@id/monthlytext"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"/>
 
+            <TextView
+                android:id="@+id/updatetext"
+                android:layout_width="35dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_below="@id/monthlytext"
+                android:layout_marginTop="30dp"
+                android:text="Save"
+                android:textSize="15dp"
+                android:ems="15"
+                android:focusable="false"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:textAlignment="center"
+                />
+
+            <ImageButton
+                android:id="@+id/cancelBtn"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:theme="@style/CardView.Light"
+                android:background="@drawable/oval_definition"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:src="@mipmap/ic_goback"/>
+
+            <TextView
+                android:id="@+id/deletetext"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_below="@id/monthlytext"
+                android:layout_marginTop="30dp"
+                android:text="Cancel"
+                android:textSize="15dp"
+                android:ems="15"
+                android:focusable="false"
+                android:layout_alignParentLeft="true"
+                android:textAlignment="center"
+                />
         </RelativeLayout>
     </ScrollView>
-    <ImageButton
-        android:id="@+id/addschbtn"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:theme="@style/CardView.Light"
-        android:background="@drawable/oval_definition"
-        android:src="@mipmap/ic_add_tick"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
 
-    <TextView
-        android:id="@+id/updatetext"
-        android:layout_width="35dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_above="@id/addschbtn"
-        android:text="Save"
-        android:textSize="15dp"
-        android:ems="15"
-        android:focusable="false"
-        android:layout_marginRight="10dp"
-        android:layout_alignParentRight="true"
-        android:textAlignment="center"
-        />
-
-    <ImageButton
-        android:id="@+id/cancelBtn"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:theme="@style/CardView.Light"
-        android:background="@drawable/oval_definition"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:src="@mipmap/ic_goback"/>
-
-    <TextView
-        android:id="@+id/deletetext"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_above="@id/cancelBtn"
-        android:text="Cancel"
-        android:textSize="15dp"
-        android:ems="15"
-        android:focusable="false"
-        android:layout_alignParentLeft="true"
-        android:textAlignment="center"
-        />
 
 </RelativeLayout>

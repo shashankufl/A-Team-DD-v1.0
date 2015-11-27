@@ -74,28 +74,25 @@
         style="@android:style/Widget.EditText"
         android:ems="15"
         android:focusable="false"
-        android:textSize="12dp"/>
+        android:textSize="12dp" />
 
 
     <TextView
         android:id="@+id/end_timeUpdate"
-        android:layout_alignLeft="@+id/start_time"
-        android:layout_alignStart="@+id/start_time"
         android:layout_below="@+id/start_dateUpdate"
-        android:onClick="showTimePickerDialog2"
-        android:text="Select End Time  "
-        android:textAlignment="center"
+        android:layout_toRightOf="@id/start_timeUpdate"
         android:layout_width="150dp"
         android:layout_height="50dp"
+        android:onClick="showTimePickerDialog2"
         android:drawableRight="@mipmap/ic_listarrow"
+        android:text="Select End Time  "
+        android:textAlignment="center"
         style="@android:style/Widget.EditText"
         android:ems="15"
         android:textSize="12dp"
-        android:layout_marginRight="30dp"
-        android:layout_centerVertical="true"
         android:focusable="false"
-        android:layout_marginLeft="30dp"
-        android:layout_toRightOf="@id/start_timeUpdate" />
+        android:layout_alignRight="@+id/start_dateUpdate"
+        android:layout_alignEnd="@+id/start_dateUpdate" />
 
             <TextView
                 android:id="@+id/displaytext"
@@ -115,63 +112,67 @@
                 android:focusable="false"
                 android:textAlignment="center"
                 />
+            <ImageButton
+                android:id="@+id/delschbtnUpdate"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:theme="@style/CardView"
+                android:background="@drawable/oval_definition"
+                android:src="@mipmap/ic_deletebtn"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="140dp"
+                android:layout_below="@id/displaytext"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:id="@+id/deletetext"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Delete"
+                android:textSize="15dp"
+                android:ems="15"
+                android:layout_marginTop="120dp"
+                android:layout_below="@id/displaytext"
+                android:focusable="false"
+                android:layout_alignParentLeft="true"
+                android:textAlignment="center"
+                />
+
+            <ImageButton
+                android:id="@+id/addschbtnUpdate"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:theme="@style/CardView"
+                android:background="@drawable/oval_definition"
+                android:src="@mipmap/ic_add_tick"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:id="@+id/updatetext"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="120dp"
+                android:layout_below="@id/displaytext"
+                android:text="Update"
+                android:textSize="15dp"
+                android:ems="15"
+                android:focusable="false"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:textAlignment="center"
+                />
 
         </RelativeLayout>
     </ScrollView>
 
-    <ImageButton
-        android:id="@+id/delschbtnUpdate"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:theme="@style/CardView"
-        android:background="@drawable/oval_definition"
-        android:src="@mipmap/ic_deletebtn"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
-    <TextView
-        android:id="@+id/deletetext"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_above="@id/delschbtnUpdate"
-        android:text="Delete"
-        android:textSize="15dp"
-        android:ems="15"
-        android:focusable="false"
-        android:layout_alignParentLeft="true"
-        android:textAlignment="center"
-        />
-
-    <ImageButton
-        android:id="@+id/addschbtnUpdate"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:theme="@style/CardView"
-        android:background="@drawable/oval_definition"
-        android:src="@mipmap/ic_add_tick"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:id="@+id/updatetext"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_above="@id/addschbtnUpdate"
-        android:text="Update"
-        android:textSize="15dp"
-        android:ems="15"
-        android:focusable="false"
-        android:layout_marginRight="10dp"
-        android:layout_alignParentRight="true"
-        android:textAlignment="center"
-        />
 </RelativeLayout>
 

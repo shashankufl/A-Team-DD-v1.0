@@ -178,6 +178,7 @@ public class AddScheduleActivity extends AppCompatActivity {
         weeklyRepeatToggle.setChecked(false);
         monthlyRepeatToggle.setChecked(false);
         final TextView monthlyRepeatText = (TextView) findViewById(R.id.monthlytext);
+
         final TextView editText = (TextView) findViewById( R.id.start_date );
         final SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd" );
         editText.setText("Date: " + sdf.format(new Date()));
