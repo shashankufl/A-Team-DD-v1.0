@@ -14,11 +14,11 @@ import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -38,7 +38,7 @@ public class AddScheduleActivity extends AppCompatActivity {
     private android.support.v7.widget.Toolbar toolbar;
     //Date picking and saving starts here ->
     public static TextView SelectedDateView;
-    Button addschbtn;
+    ImageButton addschbtn,cancelbtn;
     EditText subjectName;
     String regexSName = "[a-zA-Z0-9.-_@,/':()!#$%&*+\\s]{3,50}";
     int dayCheck, monthCheck, yearCheck;
@@ -163,7 +163,8 @@ public class AddScheduleActivity extends AppCompatActivity {
         ParseUser currentUser;
         currentUser = ParseUser.getCurrentUser();
         final String userName = currentUser.getString("username");
-        addschbtn = (Button) findViewById(R.id.addschbtn);
+        addschbtn = (ImageButton) findViewById(R.id.addschbtn);
+        cancelbtn = (ImageButton) findViewById(R.id.cancelBtn);
         SelectedDateView = (TextView) findViewById(R.id.start_date);
         StartTimeView = (TextView) findViewById(R.id.start_time);
         EndTimeView = (TextView) findViewById(R.id.end_time);
@@ -271,6 +272,13 @@ public class AddScheduleActivity extends AppCompatActivity {
                     saturday.setChecked(false);
 
                 }
+            }
+        });
+        cancelbtn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View arg0) {
+
+                finish();
             }
         });
         addschbtn.setOnClickListener(new View.OnClickListener() {

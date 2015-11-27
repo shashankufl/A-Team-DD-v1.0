@@ -13,6 +13,14 @@
         android:id="@+id/app_bar"
         layout="@layout/app_bar"></include>
 
+    <ScrollView
+        android:layout_below="@+id/app_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
     <EditText
         android:id="@+id/subjectnameUpdate"
         android:layout_width="wrap_content"
@@ -21,7 +29,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/app_bar"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:drawableLeft="@mipmap/study_icon"
@@ -97,30 +104,35 @@
         android:ems="15"
         android:textSize="17dp" />
 
-    <Button
+    <ImageButton
         android:id="@+id/delschbtnUpdate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_below="@+id/end_timeUpdate"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:theme="@style/CardView"
+        android:background="@drawable/oval_definition"
         android:layout_marginTop="30dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignRight="@+id/repeatToggle"
+        android:layout_alignEnd="@+id/repeatToggle"
         android:layout_marginLeft="20dp"
-        android:text="Delete"
-        android:textColor="@color/buttonText"
-        android:theme="@style/CardView.Light"
-        android:visibility="visible"/>
+        android:src="@mipmap/ic_deletebtn"
+        />
 
-    <Button
+    <ImageButton
         android:id="@+id/addschbtnUpdate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Update"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_marginRight="20dp"
-        android:textColor="@color/buttonText"
+        android:theme="@style/CardView"
+        android:background="@drawable/oval_definition"
+        android:src="@mipmap/ic_add_tick"
+        android:focusableInTouchMode="true"
         android:layout_alignTop="@+id/delschbtnUpdate"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:theme="@style/CardView.Light"
-        android:visibility="visible"/>
+        android:layout_alignParentEnd="true" />
 
+</RelativeLayout>
+    </ScrollView>
 </RelativeLayout>
 

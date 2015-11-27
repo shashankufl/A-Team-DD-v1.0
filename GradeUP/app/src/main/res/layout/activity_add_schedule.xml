@@ -5,14 +5,21 @@
     android:theme="@style/ThemeOverlay.AppCompat"
     android:touchscreenBlocksFocus="true"
     android:background="#fdffffff"
-    android:focusableInTouchMode="true"
     android:focusable="true"
-    android:contextClickable="true"
     android:clickable="true"
     style="@style/AppTheme.Base">
     <include
         android:id="@+id/app_bar"
         layout="@layout/app_bar"></include>
+
+    <ScrollView
+        android:layout_below="@+id/app_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
     <EditText
         android:id="@+id/subjectname"
@@ -22,7 +29,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/app_bar"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:drawableLeft="@mipmap/study_icon"
@@ -101,18 +107,30 @@
         android:textSize="17dp" />
 
 
-    <Button
+    <ImageButton
         android:id="@+id/addschbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/end_time"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:text="Add Schedule"
-        android:textColor="@color/buttonText"
-        android:theme="@style/CardView.Light"
-        android:visibility="visible"/>
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:theme="@style/CardView"
+        android:background="@drawable/oval_definition"
+        android:layout_below="@+id/Saturday"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignRight="@+id/repeatToggle"
+        android:layout_alignEnd="@+id/repeatToggle"
+        android:src="@mipmap/ic_add_tick"
+        android:focusableInTouchMode="true" />
 
+    <ImageButton
+        android:id="@+id/cancelBtn"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:theme="@style/CardView.Light"
+        android:background="@drawable/oval_definition"
+        android:layout_below="@+id/Saturday"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp"
+        android:src="@mipmap/ic_goback"/>
     <Switch
         android:id="@+id/repeatToggle"
         android:layout_width="wrap_content"
@@ -127,7 +145,7 @@
         android:id="@+id/Sunday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
+        android:layout_marginLeft="30dp"
         android:text="S"
         android:layout_below="@+id/repeatToggle"
         />
@@ -181,5 +199,6 @@
         android:layout_below="@+id/repeatToggle"
         android:layout_toRightOf="@+id/Friday"
         />
-
+</RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

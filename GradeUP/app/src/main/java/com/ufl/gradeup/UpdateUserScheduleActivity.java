@@ -13,9 +13,9 @@ import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -37,7 +37,7 @@ public class UpdateUserScheduleActivity extends AppCompatActivity {
     private android.support.v7.widget.Toolbar toolbar;
     //Date picking and saving starts here ->
     public static TextView SelectedDateView;
-    Button addschbtn,delschbtn;
+    ImageButton addschbtn,delschbtn;
     EditText subjectName;
     String regexSName = "[a-zA-Z0-9.-_@,/':()!#$%&*+\\s]{3,50}";
     int dayCheck, monthCheck, yearCheck;
@@ -183,8 +183,8 @@ public class UpdateUserScheduleActivity extends AppCompatActivity {
         final TextView initialEndTime = (TextView) findViewById( R.id.end_timeUpdate );
         initialEndTime.setText("To " + endTime + " hrs");
 
-        addschbtn = (Button) findViewById(R.id.addschbtnUpdate);
-        delschbtn = (Button) findViewById(R.id.delschbtnUpdate);
+        addschbtn = (ImageButton) findViewById(R.id.addschbtnUpdate);
+        delschbtn = (ImageButton) findViewById(R.id.delschbtnUpdate);
         SelectedDateView = (TextView) findViewById(R.id.start_dateUpdate);
         StartTimeView = (TextView) findViewById(R.id.start_timeUpdate);
         EndTimeView = (TextView) findViewById(R.id.end_timeUpdate);
