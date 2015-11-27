@@ -1,0 +1,43 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ufl.gradeup.NewDiscussionActivity">
+
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar"></include>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_groupName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/app_bar"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp">
+
+        <EditText
+            android:id="@+id/newDiscussionTopic"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/groupname_icon"
+            android:hint="Discussion Topic"
+            android:inputType="textMultiLine"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Discussion"
+        android:textColor="@color/buttonText"
+        android:id="@+id/gotoPublicDiscussion"
+        android:layout_below="@+id/input_layout_groupName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp" />
+
+
+</RelativeLayout>
