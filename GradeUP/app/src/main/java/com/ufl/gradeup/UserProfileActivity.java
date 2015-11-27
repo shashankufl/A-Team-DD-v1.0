@@ -428,7 +428,6 @@ public class UserProfileActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
         }
-
         if (id == R.id.updateProfilePicture) {
             onProfilePicClicked();
             return true;

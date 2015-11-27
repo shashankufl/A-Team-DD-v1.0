@@ -67,8 +67,10 @@ public class NavigationDrawerFragment extends android.support.v4.app.Fragment im
 
     public static List<NavigationDrawerInformation> getNavData(){
         List<NavigationDrawerInformation> navData = new ArrayList<>();
-        int[] navIcons ={R.mipmap.navmyprofile,R.mipmap.navupdateprofile,R.mipmap.navaddschedule,R.mipmap.navaddschedule,R.mipmap.navcreategroup,R.mipmap.navjoingroup,R.mipmap.navhelp,R.mipmap.navaboutus,R.mipmap.navlogout};
-        String[] navText = {"My Profile", "Update Profile","View my Schedule","Add Schedule", "Create Study Group", "Search Study Group","Help","About us", "Log Out"};
+
+        int[] navIcons ={R.mipmap.navmyprofile,R.mipmap.navupdateprofile,R.mipmap.navaddschedule,R.mipmap.navaddschedule,R.mipmap.navcreategroup,R.mipmap.navjoingroup,R.mipmap.discussion_post_icon,R.mipmap.navhelp,R.mipmap.navaboutus,R.mipmap.navlogout};
+        String[] navText = {"My Profile", "Update Profile","Add Schedule","View my Schedule", "Create Study Group", "Search Study Group","Discussion Forum","Help","About us", "Log Out"};
+
         for(int i= 0;i<navIcons.length&&i<navText.length;i++){
             NavigationDrawerInformation current = new NavigationDrawerInformation();
             current.iconId= navIcons[i];
@@ -147,6 +149,9 @@ public class NavigationDrawerFragment extends android.support.v4.app.Fragment im
             startActivity(new Intent(getActivity(),ViewScheduleActivity.class));
         }else if(position==8){
             ParseUser.logOut();
+        }
+        else if(position==6) {
+            startActivity(new Intent(getActivity(), PublicDiscussionActivity.class));
         }
         navDrawerLayout.closeDrawers();
 

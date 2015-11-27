@@ -110,9 +110,18 @@
             android:name=".CreateGroupMeetingActivity"
             android:label="@string/title_activity_create_group_meeting" >
         </activity>
+
 	<activity
             android:name=".ForgotPassActivity"
             android:label="@string/title_forgot_pass_activity" >
+    </activity>
+        <activity
+            android:name=".PublicDiscussionActivity"
+            android:label="Discussion Forum"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity android:name=".NewDiscussionActivity"
+            android:label="New Discussion Post">
         </activity>
     </application>
 
