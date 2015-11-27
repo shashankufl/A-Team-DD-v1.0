@@ -2,6 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fdffffff"
+    android:clickable="true"
+    android:focusable="true"
     android:descendantFocusability="blocksDescendants"
     tools:context="com.ufl.gradeup.AddScheduleActivity"
     android:theme="@style/CardView">
@@ -11,41 +13,49 @@
         layout="@layout/app_bar"></include>
 
     <TextView
-        android:id="@+id/sdate"
-        android:hint="Select date"
-        android:layout_below="@+id/app_bar"
-        android:layout_alignRight="@+id/checkschbtn"
-        android:layout_alignEnd="@+id/checkschbtn"
-        android:layout_marginTop="15dp"
-        android:layout_width="wrap_content"
+        android:id="@+id/maintxt"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:onClick="showDatePickerDialog"
-        android:drawableRight="@mipmap/ic_date_selector"
-        android:text="Date"
-        android:textSize="20dp"
-        android:ems="15"
-        style="@android:style/Widget.EditText"
-        android:focusable="true"
-        android:textAlignment="center"/>
-
-    <Button
-        android:id="@+id/checkschbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/sdate"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="View Schedule"
-        android:focusableInTouchMode="true"
-        android:textColor="#fdffffff"
-        style="@style/CardView"
-        android:theme="@style/CardView" />
+        android:layout_below="@id/app_bar"
+        android:text="              Select Date to view schedule"
+        android:textSize="15dp"
+        android:ems="15"
+        android:layout_alignParentLeft="true"
+        android:textAlignment="center"
+        />
+
+    <CalendarView
+        android:id="@+id/calendarDisplay"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/maintxt"
+        android:focusedMonthDateColor="#e60f2347"
+        android:dateTextAppearance="@style/Base.TextAppearance.AppCompat.Widget.TextView.SpinnerItem"
+        ></CalendarView>
+
+    <View
+        android:id="@+id/horizontalLine"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/calendarDisplay"
+        android:layout_height="1dp"
+        android:background="#e60f2347"        />
+
+        <ScrollView
+        android:layout_below="@+id/calendarDisplay"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
     <ListView
         android:id="@+id/scheduleListView"
@@ -53,8 +63,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_below="@+id/checkschbtn"
-        android:layout_marginTop="20dp"
         android:dividerHeight="2dp"
         android:drawSelectorOnTop="false"
         android:divider="@color/cardview_shadow_start_color"
@@ -65,5 +73,7 @@
         style="@style/CardView"
         android:focusable="true"
         android:touchscreenBlocksFocus="false" />
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>

@@ -7,14 +7,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Switch;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -29,19 +30,21 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class UpdateUserScheduleActivity extends AppCompatActivity {
     private android.support.v7.widget.Toolbar toolbar;
     //Date picking and saving starts here ->
     public static TextView SelectedDateView;
-    Button addschbtn,delschbtn;
+    ImageButton addschbtn,delschbtn;
     EditText subjectName;
+    String regexSName = "[a-zA-Z0-9.-_@,/':()!#$%&*+\\s]{3,50}";
     int dayCheck, monthCheck, yearCheck;
     int hour;
     String dayofWeek, courseName, oldCourseName, oldStartDate, oldEndTime, oldStartTime;
     int minute;
     public static String startDate = "";
-    private Switch RepeatToggle;
 
     public class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
@@ -109,10 +112,10 @@ public class UpdateUserScheduleActivity extends AppCompatActivity {
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             if(minute/10 == 0){
-                startTime = " " + hourOfDay + ":0" + minute + "";
+                startTime = "" + hourOfDay + ":0" + minute + "";
             }
             else{
-                startTime = " " + hourOfDay + ":" + minute + "";
+                startTime = "" + hourOfDay + ":" + minute + "";
             }
             StartTimeView.setText("From " + startTime + " hrs");
         }
@@ -135,10 +138,10 @@ public class UpdateUserScheduleActivity extends AppCompatActivity {
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             if(minute/10 == 0){
-                endTime = " " + hourOfDay + ":0" + minute + "";
+                endTime = "" + hourOfDay + ":0" + minute + "";
             }
             else{
-                endTime = " " + hourOfDay + ":" + minute + "";
+                endTime = "" + hourOfDay + ":" + minute + "";
             }
             EndTimeView.setText("To " + endTime + " hrs");
         }
@@ -180,12 +183,35 @@ public class UpdateUserScheduleActivity extends AppCompatActivity {
         final TextView initialEndTime = (TextView) findViewById( R.id.end_timeUpdate );
         initialEndTime.setText("To " + endTime + " hrs");
 
-        addschbtn = (Button) findViewById(R.id.addschbtnUpdate);
-        delschbtn = (Button) findViewById(R.id.delschbtnUpdate);
+        addschbtn = (ImageButton) findViewById(R.id.addschbtnUpdate);
+        delschbtn = (ImageButton) findViewById(R.id.delschbtnUpdate);
         SelectedDateView = (TextView) findViewById(R.id.start_dateUpdate);
         StartTimeView = (TextView) findViewById(R.id.start_timeUpdate);
         EndTimeView = (TextView) findViewById(R.id.end_timeUpdate);
         subjectName = (EditText) findViewById(R.id.subjectnameUpdate);
+
+        subjectName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                Pattern p = Pattern.compile(regexSName);
+                Matcher m = p.matcher(subjectName.getText());
+                if (!m.matches()) {
+                    subjectName.setError("Course name has to be between 3 and 50 characters");
+                    addschbtn.setEnabled(false);
+                    delschbtn.setEnabled(false);
+                } else {
+                    addschbtn.setEnabled(true);
+                    delschbtn.setEnabled(true);
+                }
+            }
+        });
+
 
         // Delete selected data from Parse.com Data Storage
         delschbtn.setOnClickListener(new View.OnClickListener() {
@@ -222,6 +248,47 @@ public class UpdateUserScheduleActivity extends AppCompatActivity {
 
             public void onClick(View arg0) {
 
+                int hstart=0,mstart=0;
+                try
+                {
+                   hstart = Integer.parseInt(startTime.split("\\:")[0]);
+                }
+                catch (NumberFormatException nfe)
+                {
+                    System.out.println("NumberFormatException: " + nfe.getMessage());
+                }
+                try
+                {
+                    mstart = Integer.parseInt(startTime.substring(startTime.lastIndexOf(":") + 1));
+                }
+                catch (NumberFormatException nfe)
+                {
+                    System.out.println("NumberFormatException: " + nfe.getMessage());
+                }
+                int startTimeInt = hstart*100 + mstart;
+
+                int hend=0,mend=0;
+                try
+                {
+                    hend = Integer.parseInt(endTime.split("\\:")[0]);
+                }
+                catch (NumberFormatException nfe1)
+                {
+                    System.out.println("NumberFormatException: " + nfe1.getMessage());
+                }
+                try
+                {
+                    mend = Integer.parseInt(endTime.substring(endTime.lastIndexOf(":") + 1));
+                }
+                catch (NumberFormatException nfe1)
+                {
+                    System.out.println("NumberFormatException: " + nfe1.getMessage());
+                }
+                int endTimeInt = hend*100 + mend;
+                if (startTimeInt >= endTimeInt) {
+                    Toast.makeText(getApplicationContext(), "End time should be after start time",
+                            Toast.LENGTH_LONG).show();
+                } else {
                 ParseQuery<ParseObject> query1 = ParseQuery.getQuery("Schedule");
                 query1.whereEqualTo("User_ID", userEmail);
                 query1.whereEqualTo("Subject", oldCourseName);
@@ -250,7 +317,7 @@ public class UpdateUserScheduleActivity extends AppCompatActivity {
                         }
                     }
                 });
-
+            }
 
             }
         });

@@ -86,14 +86,14 @@ public class SearchForGroupActivity extends AppCompatActivity {
             }
         });
         groupNamesListView.setAdapter(adapter);
-//        groupNameView.setOnClickListener(new View.OnClickListener() {
-//
-//            public void onClick(View arg0) {
-//                Intent intent = new Intent(SearchForGroupActivity.this,
-//                        GroupHomeActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        groupNameView.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View arg0) {
+                Intent intent = new Intent(SearchForGroupActivity.this,
+                        GroupHomeActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void gotoGroupHome(View v){
