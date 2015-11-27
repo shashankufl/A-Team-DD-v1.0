@@ -31,6 +31,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,6 +42,7 @@ public class AddScheduleActivity extends AppCompatActivity {
     ImageButton addschbtn,cancelbtn;
     EditText subjectName;
     String date1,date2,date3,date4,date5,date6,date7;
+    String sunDate,monDate,tueDate,wedDate,thuDate,friDate,satDate;
     String regexSName = "[a-zA-Z0-9.-_@,/':()!#$%&*+\\s]{3,50}";
     int dayCheck, monthCheck, yearCheck;
     String dayofWeek;
@@ -177,6 +179,10 @@ public class AddScheduleActivity extends AppCompatActivity {
         editText.setText("Date: " + sdf.format(new Date()));
         startDate = sdf.format(new Date());
 
+        SimpleDateFormat formatDay = new SimpleDateFormat("EEEE", Locale.US);
+        Calendar newInstance = Calendar.getInstance();
+        dayofWeek = formatDay.format(newInstance.getTime());
+
         final TextView initialTime = (TextView) findViewById( R.id.start_time );
         final Calendar c1 = Calendar.getInstance();
         int hour = c1.get(Calendar.HOUR_OF_DAY);
@@ -285,24 +291,73 @@ public class AddScheduleActivity extends AppCompatActivity {
                     switch (dayofWeek) {
                         case "Sunday":
                             sunday.setChecked(true);
+                            sunDate = date1;
+                            monDate = date2;
+                            tueDate = date3;
+                            wedDate = date4;
+                            thuDate = date5;
+                            friDate = date6;
+                            satDate = date7;
                             break;
                         case "Monday":
                             monday.setChecked(true);
+                            sunDate = date7;
+                            monDate = date1;
+                            tueDate = date2;
+                            wedDate = date3;
+                            thuDate = date4;
+                            friDate = date5;
+                            satDate = date6;
                             break;
                         case "Tuesday":
                             tuesday.setChecked(true);
+                            sunDate = date6;
+                            monDate = date7;
+                            tueDate = date1;
+                            wedDate = date2;
+                            thuDate = date3;
+                            friDate = date4;
+                            satDate = date5;
                             break;
                         case "Wednesday":
                             wednesday.setChecked(true);
+                            sunDate = date5;
+                            monDate = date6;
+                            tueDate = date7;
+                            wedDate = date1;
+                            thuDate = date2;
+                            friDate = date3;
+                            satDate = date4;
                             break;
                         case "Thursday":
                             thursday.setChecked(true);
+                            sunDate = date4;
+                            monDate = date5;
+                            tueDate = date6;
+                            wedDate = date7;
+                            thuDate = date1;
+                            friDate = date2;
+                            satDate = date3;
                             break;
                         case "Friday":
                             friday.setChecked(true);
+                            sunDate = date3;
+                            monDate = date4;
+                            tueDate = date5;
+                            wedDate = date6;
+                            thuDate = date7;
+                            friDate = date1;
+                            satDate = date2;
                             break;
                         case "Saturday":
                             saturday.setChecked(true);
+                            sunDate = date2;
+                            monDate = date3;
+                            tueDate = date4;
+                            wedDate = date5;
+                            thuDate = date6;
+                            friDate = date7;
+                            satDate = date1;
                     }
                 }
                 else
@@ -351,69 +406,431 @@ public class AddScheduleActivity extends AppCompatActivity {
                     newSchedule.put("Date", startDate);
                     newSchedule.put("Start_time", startTime);
                     newSchedule.put("End_time", endTime);
+                    String actualStartDate = startDate;
                     newSchedule.saveInBackground();
                     if (RepeatToggle.isChecked()) {
-                        ParseObject newSchedule1 = new ParseObject("Schedule");
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                        Calendar c = Calendar.getInstance();
-                        try {
-                            c.setTime(sdf.parse(startDate));
-                        } catch (ParseException e) {
-                            e.printStackTrace();
+                        if(sunday.isChecked()){
+
+                            startDate = actualStartDate;
+                            if(startDate != sunDate){
+                                ParseObject newScheduleA = new ParseObject("Schedule");
+                                newScheduleA.put("User_ID", userName);
+                                newScheduleA.put("Subject", nameTxt);
+                                newScheduleA.put("Date", sunDate);
+                                newScheduleA.put("Start_time", startTime);
+                                newScheduleA.put("End_time", endTime);
+                                newScheduleA.saveInBackground();
+                            }
+                            startDate = sunDate;
+                            ParseObject newSchedule1 = new ParseObject("Schedule");
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                            Calendar c = Calendar.getInstance();
+                            try {
+                                c.setTime(sdf.parse(startDate));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            c.add(Calendar.DATE, 7);
+                            startDate = sdf.format(c.getTime());
+                            newSchedule1.put("User_ID", userName);
+                            newSchedule1.put("Subject", nameTxt);
+                            newSchedule1.put("Date", startDate);
+                            newSchedule1.put("Start_time", startTime);
+                            newSchedule1.put("End_time", endTime);
+                            newSchedule1.saveInBackground();
+                            //-----------------------------------------------
+                            ParseObject newSchedule2 = new ParseObject("Schedule");
+                            c.add(Calendar.DATE, 7);
+                            startDate = sdf.format(c.getTime());
+                            newSchedule2.put("User_ID", userName);
+                            newSchedule2.put("Subject", nameTxt);
+                            newSchedule2.put("Date", startDate);
+                            newSchedule2.put("Start_time", startTime);
+                            newSchedule2.put("End_time", endTime);
+                            newSchedule2.saveInBackground();
+                            //-----------------------------------------------
+                            ParseObject newSchedule3 = new ParseObject("Schedule");
+                            c.add(Calendar.DATE, 7);
+                            startDate = sdf.format(c.getTime());
+                            newSchedule3.put("User_ID", userName);
+                            newSchedule3.put("Subject", nameTxt);
+                            newSchedule3.put("Date", startDate);
+                            newSchedule3.put("Start_time", startTime);
+                            newSchedule3.put("End_time", endTime);
+                            newSchedule3.saveInBackground();
+                            //-----------------------------------------------
+                            ParseObject newSchedule4 = new ParseObject("Schedule");
+                            c.add(Calendar.DATE, 7);
+                            startDate = sdf.format(c.getTime());
+                            newSchedule4.put("User_ID", userName);
+                            newSchedule4.put("Subject", nameTxt);
+                            newSchedule4.put("Date", startDate);
+                            newSchedule4.put("Start_time", startTime);
+                            newSchedule4.put("End_time", endTime);
+                            newSchedule4.saveInBackground();
+
                         }
-                        c.add(Calendar.DATE, 7);
-                        startDate = sdf.format(c.getTime());
-                        newSchedule1.put("User_ID", userName);
-                        newSchedule1.put("Subject", nameTxt);
-                        newSchedule1.put("Date", startDate);
-                        newSchedule1.put("Start_time", startTime);
-                        newSchedule1.put("End_time", endTime);
-                        newSchedule1.saveInBackground();
-                        //-----------------------------------------------
-                        ParseObject newSchedule2 = new ParseObject("Schedule");
-                        try {
-                            c.setTime(sdf.parse(startDate));
-                        } catch (ParseException e) {
-                            e.printStackTrace();
+                        if(monday.isChecked()){
+                            startDate = actualStartDate;
+                            if(startDate != monDate){
+                                ParseObject newScheduleB = new ParseObject("Schedule");
+                                newScheduleB.put("User_ID", userName);
+                                newScheduleB.put("Subject", nameTxt);
+                                newScheduleB.put("Date", monDate);
+                                newScheduleB.put("Start_time", startTime);
+                                newScheduleB.put("End_time", endTime);
+                                newScheduleB.saveInBackground();
+                            }
+                            startDate = monDate;
+                            ParseObject newSchedule5 = new ParseObject("Schedule");
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                            Calendar c = Calendar.getInstance();
+                            try {
+                                c.setTime(sdf.parse(startDate));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            c.add(Calendar.DATE, 7);
+                            startDate = sdf.format(c.getTime());
+                            newSchedule5.put("User_ID", userName);
+                            newSchedule5.put("Subject", nameTxt);
+                            newSchedule5.put("Date", startDate);
+                            newSchedule5.put("Start_time", startTime);
+                            newSchedule5.put("End_time", endTime);
+                            newSchedule5.saveInBackground();
+                            //-----------------------------------------------
+                            ParseObject newSchedule6 = new ParseObject("Schedule");
+                            c.add(Calendar.DATE, 7);
+                            startDate = sdf.format(c.getTime());
+                            newSchedule6.put("User_ID", userName);
+                            newSchedule6.put("Subject", nameTxt);
+                            newSchedule6.put("Date", startDate);
+                            newSchedule6.put("Start_time", startTime);
+                            newSchedule6.put("End_time", endTime);
+                            newSchedule6.saveInBackground();
+                            //-----------------------------------------------
+                            ParseObject newSchedule7 = new ParseObject("Schedule");
+                            c.add(Calendar.DATE, 7);
+                            startDate = sdf.format(c.getTime());
+                            newSchedule7.put("User_ID", userName);
+                            newSchedule7.put("Subject", nameTxt);
+                            newSchedule7.put("Date", startDate);
+                            newSchedule7.put("Start_time", startTime);
+                            newSchedule7.put("End_time", endTime);
+                            newSchedule7.saveInBackground();
+                            //-----------------------------------------------
+                            ParseObject newSchedule8 = new ParseObject("Schedule");
+                            c.add(Calendar.DATE, 7);
+                            startDate = sdf.format(c.getTime());
+                            newSchedule8.put("User_ID", userName);
+                            newSchedule8.put("Subject", nameTxt);
+                            newSchedule8.put("Date", startDate);
+                            newSchedule8.put("Start_time", startTime);
+                            newSchedule8.put("End_time", endTime);
+                            newSchedule8.saveInBackground();
+
                         }
-                        c.add(Calendar.DATE, 7);
-                        startDate = sdf.format(c.getTime());
-                        newSchedule2.put("User_ID", userName);
-                        newSchedule2.put("Subject", nameTxt);
-                        newSchedule2.put("Date", startDate);
-                        newSchedule2.put("Start_time", startTime);
-                        newSchedule2.put("End_time", endTime);
-                        newSchedule2.saveInBackground();
-                        //-----------------------------------------------
-                        ParseObject newSchedule3 = new ParseObject("Schedule");
-                        try {
-                            c.setTime(sdf.parse(startDate));
-                        } catch (ParseException e) {
-                            e.printStackTrace();
+                        if(tuesday.isChecked()){
+                            startDate = actualStartDate;
+                            if(startDate != tueDate){
+                                ParseObject newScheduleC = new ParseObject("Schedule");
+                                newScheduleC.put("User_ID", userName);
+                                newScheduleC.put("Subject", nameTxt);
+                                newScheduleC.put("Date", tueDate);
+                                newScheduleC.put("Start_time", startTime);
+                                newScheduleC.put("End_time", endTime);
+                                newScheduleC.saveInBackground();
+                            }
+                            startDate = tueDate;
+                            ParseObject newSchedule9 = new ParseObject("Schedule");
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                            Calendar c = Calendar.getInstance();
+                            try {
+                                c.setTime(sdf.parse(startDate));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            c.add(Calendar.DATE, 7);
+                            startDate = sdf.format(c.getTime());
+                            newSchedule9.put("User_ID", userName);
+                            newSchedule9.put("Subject", nameTxt);
+                            newSchedule9.put("Date", startDate);
+                            newSchedule9.put("Start_time", startTime);
+                            newSchedule9.put("End_time", endTime);
+                            newSchedule9.saveInBackground();
+                            //-----------------------------------------------
+                            ParseObject newSchedule10 = new ParseObject("Schedule");
+                            c.add(Calendar.DATE, 7);
+                            startDate = sdf.format(c.getTime());
+                            newSchedule10.put("User_ID", userName);
+                            newSchedule10.put("Subject", nameTxt);
+                            newSchedule10.put("Date", startDate);
+                            newSchedule10.put("Start_time", startTime);
+                            newSchedule10.put("End_time", endTime);
+                            newSchedule10.saveInBackground();
+                            //-----------------------------------------------
+                            ParseObject newSchedule11 = new ParseObject("Schedule");
+                            c.add(Calendar.DATE, 7);
+                            startDate = sdf.format(c.getTime());
+                            newSchedule11.put("User_ID", userName);
+                            newSchedule11.put("Subject", nameTxt);
+                            newSchedule11.put("Date", startDate);
+                            newSchedule11.put("Start_time", startTime);
+                            newSchedule11.put("End_time", endTime);
+                            newSchedule11.saveInBackground();
+                            //-----------------------------------------------
+                            ParseObject newSchedule12 = new ParseObject("Schedule");
+                            c.add(Calendar.DATE, 7);
+                            startDate = sdf.format(c.getTime());
+                            newSchedule12.put("User_ID", userName);
+                            newSchedule12.put("Subject", nameTxt);
+                            newSchedule12.put("Date", startDate);
+                            newSchedule12.put("Start_time", startTime);
+                            newSchedule12.put("End_time", endTime);
+                            newSchedule12.saveInBackground();
+
                         }
-                        c.add(Calendar.DATE, 7);
-                        startDate = sdf.format(c.getTime());
-                        newSchedule3.put("User_ID", userName);
-                        newSchedule3.put("Subject", nameTxt);
-                        newSchedule3.put("Date", startDate);
-                        newSchedule3.put("Start_time", startTime);
-                        newSchedule3.put("End_time", endTime);
-                        newSchedule3.saveInBackground();
-                        //-----------------------------------------------
-                        ParseObject newSchedule4 = new ParseObject("Schedule");
-                        try {
-                            c.setTime(sdf.parse(startDate));
-                        } catch (ParseException e) {
-                            e.printStackTrace();
+                        if(wednesday.isChecked()){
+                            startDate = actualStartDate;
+                            if(startDate != wedDate){
+                                ParseObject newScheduleD = new ParseObject("Schedule");
+                                newScheduleD.put("User_ID", userName);
+                                newScheduleD.put("Subject", nameTxt);
+                                newScheduleD.put("Date", wedDate);
+                                newScheduleD.put("Start_time", startTime);
+                                newScheduleD.put("End_time", endTime);
+                                newScheduleD.saveInBackground();
+                            }
+                            startDate = wedDate;
+                            ParseObject newSchedule13 = new ParseObject("Schedule");
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                            Calendar c = Calendar.getInstance();
+                            try {
+                                c.setTime(sdf.parse(startDate));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            c.add(Calendar.DATE, 7);
+                            startDate = sdf.format(c.getTime());
+                            newSchedule13.put("User_ID", userName);
+                            newSchedule13.put("Subject", nameTxt);
+                            newSchedule13.put("Date", startDate);
+                            newSchedule13.put("Start_time", startTime);
+                            newSchedule13.put("End_time", endTime);
+                            newSchedule13.saveInBackground();
+                            //-----------------------------------------------
+                            ParseObject newSchedule14 = new ParseObject("Schedule");
+                            c.add(Calendar.DATE, 7);
+                            startDate = sdf.format(c.getTime());
+                            newSchedule14.put("User_ID", userName);
+                            newSchedule14.put("Subject", nameTxt);
+                            newSchedule14.put("Date", startDate);
+                            newSchedule14.put("Start_time", startTime);
+                            newSchedule14.put("End_time", endTime);
+                            newSchedule14.saveInBackground();
+                            //-----------------------------------------------
+                            ParseObject newSchedule15 = new ParseObject("Schedule");
+                            c.add(Calendar.DATE, 7);
+                            startDate = sdf.format(c.getTime());
+                            newSchedule15.put("User_ID", userName);
+                            newSchedule15.put("Subject", nameTxt);
+                            newSchedule15.put("Date", startDate);
+                            newSchedule15.put("Start_time", startTime);
+                            newSchedule15.put("End_time", endTime);
+                            newSchedule15.saveInBackground();
+                            //-----------------------------------------------
+                            ParseObject newSchedule16 = new ParseObject("Schedule");
+                            c.add(Calendar.DATE, 7);
+                            startDate = sdf.format(c.getTime());
+                            newSchedule16.put("User_ID", userName);
+                            newSchedule16.put("Subject", nameTxt);
+                            newSchedule16.put("Date", startDate);
+                            newSchedule16.put("Start_time", startTime);
+                            newSchedule16.put("End_time", endTime);
+                            newSchedule16.saveInBackground();
+
                         }
-                        c.add(Calendar.DATE, 7);
-                        startDate = sdf.format(c.getTime());
-                        newSchedule4.put("User_ID", userName);
-                        newSchedule4.put("Subject", nameTxt);
-                        newSchedule4.put("Date", startDate);
-                        newSchedule4.put("Start_time", startTime);
-                        newSchedule4.put("End_time", endTime);
-                        newSchedule4.saveInBackground();
+                        if(thursday.isChecked()){
+                            startDate = actualStartDate;
+                            if(startDate != thuDate){
+                                ParseObject newScheduleE = new ParseObject("Schedule");
+                                newScheduleE.put("User_ID", userName);
+                                newScheduleE.put("Subject", nameTxt);
+                                newScheduleE.put("Date", thuDate);
+                                newScheduleE.put("Start_time", startTime);
+                                newScheduleE.put("End_time", endTime);
+                                newScheduleE.saveInBackground();
+                            }
+                            startDate = thuDate;
+                            ParseObject newSchedule17 = new ParseObject("Schedule");
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                            Calendar c = Calendar.getInstance();
+                            try {
+                                c.setTime(sdf.parse(startDate));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            c.add(Calendar.DATE, 7);
+                            startDate = sdf.format(c.getTime());
+                            newSchedule17.put("User_ID", userName);
+                            newSchedule17.put("Subject", nameTxt);
+                            newSchedule17.put("Date", startDate);
+                            newSchedule17.put("Start_time", startTime);
+                            newSchedule17.put("End_time", endTime);
+                            newSchedule17.saveInBackground();
+                            //-----------------------------------------------
+                            ParseObject newSchedule18 = new ParseObject("Schedule");
+                            c.add(Calendar.DATE, 7);
+                            startDate = sdf.format(c.getTime());
+                            newSchedule18.put("User_ID", userName);
+                            newSchedule18.put("Subject", nameTxt);
+                            newSchedule18.put("Date", startDate);
+                            newSchedule18.put("Start_time", startTime);
+                            newSchedule18.put("End_time", endTime);
+                            newSchedule18.saveInBackground();
+                            //-----------------------------------------------
+                            ParseObject newSchedule19 = new ParseObject("Schedule");
+                            c.add(Calendar.DATE, 7);
+                            startDate = sdf.format(c.getTime());
+                            newSchedule19.put("User_ID", userName);
+                            newSchedule19.put("Subject", nameTxt);
+                            newSchedule19.put("Date", startDate);
+                            newSchedule19.put("Start_time", startTime);
+                            newSchedule19.put("End_time", endTime);
+                            newSchedule19.saveInBackground();
+                            //-----------------------------------------------
+                            ParseObject newSchedule20 = new ParseObject("Schedule");
+                            c.add(Calendar.DATE, 7);
+                            startDate = sdf.format(c.getTime());
+                            newSchedule20.put("User_ID", userName);
+                            newSchedule20.put("Subject", nameTxt);
+                            newSchedule20.put("Date", startDate);
+                            newSchedule20.put("Start_time", startTime);
+                            newSchedule20.put("End_time", endTime);
+                            newSchedule20.saveInBackground();
+
+                        }
+                        if(friday.isChecked()){
+                            startDate = actualStartDate;
+                            if(startDate != friDate){
+                                ParseObject newScheduleF = new ParseObject("Schedule");
+                                newScheduleF.put("User_ID", userName);
+                                newScheduleF.put("Subject", nameTxt);
+                                newScheduleF.put("Date", friDate);
+                                newScheduleF.put("Start_time", startTime);
+                                newScheduleF.put("End_time", endTime);
+                                newScheduleF.saveInBackground();
+                            }
+                            startDate = friDate;
+                            ParseObject newSchedule21 = new ParseObject("Schedule");
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                            Calendar c = Calendar.getInstance();
+                            try {
+                                c.setTime(sdf.parse(startDate));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            c.add(Calendar.DATE, 7);
+                            startDate = sdf.format(c.getTime());
+                            newSchedule21.put("User_ID", userName);
+                            newSchedule21.put("Subject", nameTxt);
+                            newSchedule21.put("Date", startDate);
+                            newSchedule21.put("Start_time", startTime);
+                            newSchedule21.put("End_time", endTime);
+                            newSchedule21.saveInBackground();
+                            //-----------------------------------------------
+                            ParseObject newSchedule22 = new ParseObject("Schedule");
+                            c.add(Calendar.DATE, 7);
+                            startDate = sdf.format(c.getTime());
+                            newSchedule22.put("User_ID", userName);
+                            newSchedule22.put("Subject", nameTxt);
+                            newSchedule22.put("Date", startDate);
+                            newSchedule22.put("Start_time", startTime);
+                            newSchedule22.put("End_time", endTime);
+                            newSchedule22.saveInBackground();
+                            //-----------------------------------------------
+                            ParseObject newSchedule23 = new ParseObject("Schedule");
+                            c.add(Calendar.DATE, 7);
+                            startDate = sdf.format(c.getTime());
+                            newSchedule23.put("User_ID", userName);
+                            newSchedule23.put("Subject", nameTxt);
+                            newSchedule23.put("Date", startDate);
+                            newSchedule23.put("Start_time", startTime);
+                            newSchedule23.put("End_time", endTime);
+                            newSchedule23.saveInBackground();
+                            //-----------------------------------------------
+                            ParseObject newSchedule24 = new ParseObject("Schedule");
+                            c.add(Calendar.DATE, 7);
+                            startDate = sdf.format(c.getTime());
+                            newSchedule24.put("User_ID", userName);
+                            newSchedule24.put("Subject", nameTxt);
+                            newSchedule24.put("Date", startDate);
+                            newSchedule24.put("Start_time", startTime);
+                            newSchedule24.put("End_time", endTime);
+                            newSchedule24.saveInBackground();
+
+                        }
+                        if(saturday.isChecked()){
+                            startDate = actualStartDate;
+                            if(startDate != satDate){
+                                ParseObject newScheduleG = new ParseObject("Schedule");
+                                newScheduleG.put("User_ID", userName);
+                                newScheduleG.put("Subject", nameTxt);
+                                newScheduleG.put("Date", satDate);
+                                newScheduleG.put("Start_time", startTime);
+                                newScheduleG.put("End_time", endTime);
+                                newScheduleG.saveInBackground();
+                            }
+                            startDate = satDate;
+                            ParseObject newSchedule25 = new ParseObject("Schedule");
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                            Calendar c = Calendar.getInstance();
+                            try {
+                                c.setTime(sdf.parse(startDate));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            c.add(Calendar.DATE, 7);
+                            startDate = sdf.format(c.getTime());
+                            newSchedule25.put("User_ID", userName);
+                            newSchedule25.put("Subject", nameTxt);
+                            newSchedule25.put("Date", startDate);
+                            newSchedule25.put("Start_time", startTime);
+                            newSchedule25.put("End_time", endTime);
+                            newSchedule25.saveInBackground();
+                            //-----------------------------------------------
+                            ParseObject newSchedule26 = new ParseObject("Schedule");
+                            c.add(Calendar.DATE, 7);
+                            startDate = sdf.format(c.getTime());
+                            newSchedule26.put("User_ID", userName);
+                            newSchedule26.put("Subject", nameTxt);
+                            newSchedule26.put("Date", startDate);
+                            newSchedule26.put("Start_time", startTime);
+                            newSchedule26.put("End_time", endTime);
+                            newSchedule26.saveInBackground();
+                            //-----------------------------------------------
+                            ParseObject newSchedule27 = new ParseObject("Schedule");
+                            c.add(Calendar.DATE, 7);
+                            startDate = sdf.format(c.getTime());
+                            newSchedule27.put("User_ID", userName);
+                            newSchedule27.put("Subject", nameTxt);
+                            newSchedule27.put("Date", startDate);
+                            newSchedule27.put("Start_time", startTime);
+                            newSchedule27.put("End_time", endTime);
+                            newSchedule27.saveInBackground();
+                            //-----------------------------------------------
+                            ParseObject newSchedule28 = new ParseObject("Schedule");
+                            c.add(Calendar.DATE, 7);
+                            startDate = sdf.format(c.getTime());
+                            newSchedule28.put("User_ID", userName);
+                            newSchedule28.put("Subject", nameTxt);
+                            newSchedule28.put("Date", startDate);
+                            newSchedule28.put("Start_time", startTime);
+                            newSchedule28.put("End_time", endTime);
+                            newSchedule28.saveInBackground();
+
+                        }
+
                     }
                     Intent intent = new Intent(AddScheduleActivity.this,
                             UserProfileActivity.class);
