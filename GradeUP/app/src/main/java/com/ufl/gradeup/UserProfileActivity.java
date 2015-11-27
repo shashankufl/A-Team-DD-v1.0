@@ -13,6 +13,8 @@ import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -84,6 +86,7 @@ public class UserProfileActivity extends AppCompatActivity {
         TextView phoneTextView = (TextView) findViewById(R.id.phone);
         universityTextView.setText(currentUser.getString("University"));
         emailTextView.setText(currentUser.getEmail());
+
         fieldOfStudyTextView.setText(currentUser.getString("StudyField") + "Department");
         if (currentUser.getString("phone") != "") {
             phoneTextView.setText(currentUser.getString("phone"));
@@ -129,6 +132,16 @@ public class UserProfileActivity extends AppCompatActivity {
         CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_profilePic);
         collapsingToolbar.setTitle(name);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UserProfileActivity.this,
+                        CreateGroupActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         NavigationDrawerFragment navDrawerFrag = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.nav_drawer_fragment);
@@ -415,7 +428,6 @@ public class UserProfileActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
         }
-
         if (id == R.id.updateProfilePicture) {
             onProfilePicClicked();
             return true;
@@ -425,12 +437,12 @@ public class UserProfileActivity extends AppCompatActivity {
             ParseUser.logOut();
             finish();
         }
-        if (id == R.id.creategroupMenuItem) {
-            Intent intent = new Intent(UserProfileActivity.this,
-                    CreateGroupActivity.class);
-            startActivity(intent);
-            return true;
-        }
+//        if (id == R.id.creategroupMenuItem) {
+//            Intent intent = new Intent(UserProfileActivity.this,
+//                    CreateGroupActivity.class);
+//            startActivity(intent);
+//            return true;
+//        }
         if (id == R.id.searchForGroups) {
             Intent intent = new Intent(UserProfileActivity.this,
                     SearchForGroupActivity.class);

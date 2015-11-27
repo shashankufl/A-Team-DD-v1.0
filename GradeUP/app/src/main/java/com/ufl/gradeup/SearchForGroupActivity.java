@@ -1,8 +1,8 @@
 package com.ufl.gradeup;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,13 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +57,7 @@ public class SearchForGroupActivity extends AppCompatActivity {
                                 }
                                 groupName = object.getString("groupName");
 
-//                                groupNameView.setText(groupName);
+                               // groupNameView.setText(groupName);
                             }
                             adapter.notifyDataSetChanged();
                         }

@@ -1,23 +1,19 @@
 package com.ufl.gradeup;
 
-import android.app.ListActivity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
@@ -46,6 +42,7 @@ public class CreateGroupActivity extends AppCompatActivity {
     EditText addGroupMembers;
     ListView groupMembersListView;
     List<String> groupMemebers = new ArrayList<String>();
+
     List<String> groupMemebersUsername = new ArrayList<String>();
     String groupNameString;
     ParseFile grouppictureFile;
@@ -65,6 +62,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         groupMembersListView = (ListView)findViewById(R.id.memberListView);
         createGroupButton= (Button) findViewById(R.id.gotoGroupHome);
         currentUser = ParseUser.getCurrentUser();
+
         userName = currentUser.getUsername();
         setDefaultGroupImage();
         final CreateGroupCustomAdapter adapter =  new CreateGroupCustomAdapter(groupMemebers,this);
@@ -85,6 +83,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                                 if (e == null) {
                                     for (ParseUser object : objects
                                             ) {
+
 
                                         if (!groupMemebersUsername.contains(object.getUsername()) && !(currentUser.getUsername() == object.getUsername())) {
                                             groupMemebers.add(object.getString("Name"));
@@ -146,6 +145,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         if(id == R.id.gotoGroupHome){
 
             String nameOfGroup= groupName.getText().toString();
+
             String usernameOfUser= userName;
             ParseObject group = new ParseObject("Groups");
             group.put("groupName", nameOfGroup);
@@ -168,9 +168,11 @@ public class CreateGroupActivity extends AppCompatActivity {
             {
                 group = new ParseObject("Groups");
                 group.put("groupName", nameOfGroup);
+
                 group.put("userName", groupMemebersUsername.get(i));
                 group.put("memberName", groupMemebers.get(i));
                 group.put("isAdmin",0);
+                group.setACL(acl);
                 group.saveInBackground();
             }
             Toast.makeText(
@@ -179,6 +181,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
             Intent intent = new Intent(CreateGroupActivity.this,
                     GroupHomeActivity.class);
+
             intent.putExtra("groupName",groupNameString);
             startActivity(intent);
             finish();
@@ -187,6 +190,7 @@ public class CreateGroupActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 
     public void setDefaultGroupImage(){
         Resources res = getResources();

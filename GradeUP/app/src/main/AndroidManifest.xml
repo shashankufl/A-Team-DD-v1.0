@@ -89,16 +89,39 @@
             android:name=".GroupHomeActivity"
             android:label="@string/title_activity_group_home" >
         </activity>
-        <activity android:name=".SearchForGroupActivity"
-            android:label="@string/title_activity_search_group">
+        <activity
+            android:name=".SearchForGroupActivity"
+            android:label="@string/title_activity_search_group" >
+        </activity>
+        <activity
+            android:name=".ViewScheduleActivity"
+            android:label="@string/title_activity_view_schedule" >
         </activity>
         <activity
             android:name=".ApproveRequestActivity"
             android:label="@string/title_activity_approve_request" >
         </activity>
+        <activity
+
+            android:name=".UpdateUserScheduleActivity"
+            android:label="@string/title_activity_update_user_schedule" >
+        </activity>
+        <activity
+            android:name=".CreateGroupMeetingActivity"
+            android:label="@string/title_activity_create_group_meeting" >
+        </activity>
+
 	<activity
-            android:name=".ViewScheduleActivity"
-            android:label="@string/title_activity_view_schedule" >
+            android:name=".ForgotPassActivity"
+            android:label="@string/title_forgot_pass_activity" >
+    </activity>
+        <activity
+            android:name=".PublicDiscussionActivity"
+            android:label="Discussion Forum"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity android:name=".NewDiscussionActivity"
+            android:label="New Discussion Post">
         </activity>
         <activity
             android:name=".ForgotPassActivity"

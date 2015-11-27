@@ -1,0 +1,17 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/public_discussion_heading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="12dp"
+        android:textSize="20sp"
+        android:textColor="#000000"
+        android:text="Headings"
+        android:layout_gravity="center_horizontal" />
+
+
+
+</LinearLayout>
