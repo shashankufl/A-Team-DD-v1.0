@@ -100,6 +100,10 @@
             android:name=".ViewScheduleActivity"
             android:label="@string/title_activity_view_schedule" >
         </activity>
+        <activity
+            android:name=".ForgotPassActivity"
+            android:label="@string/title_forgot_pass_activity" >
+        </activity>
     </application>
 
 </manifest>
