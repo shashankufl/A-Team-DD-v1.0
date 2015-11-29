@@ -13,9 +13,11 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,6 +51,8 @@ public class GroupHomeActivity extends AppCompatActivity {
     private ArrayList<String> groupMembersList = new ArrayList<String>();
     private ArrayList<String> groupUserNameList = new ArrayList<String>();
     private ArrayList<String> joinRequests = new ArrayList<String>();
+    ArrayList<String> todayMeetingTitleList = new ArrayList<String>();
+    ArrayList<String> todayMeetingTimeList = new ArrayList<String>();
     public static final int PICTURE_REQUEST = 20;
     byte[] ProfilePic;
     ParseFile pictureFile;
@@ -72,7 +76,18 @@ public class GroupHomeActivity extends AppCompatActivity {
 //        ParseUser parseUser = ParseUser.getCurrentUser();
 //        memberName = parseUser.get("Name").toString();
         name = groupName;
-
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingCreateMeetingBtn);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(GroupHomeActivity.this,
+                        CreateGroupMeetingActivity.class);
+                intent.putExtra("groupName", groupName);
+                intent.putExtra("memberList", groupUserNameList);
+                startActivity(intent);
+            }
+        });
+        getTodayGroupSchedule();
         getGroupMembersList();
         try {
             isAdmin();
@@ -247,15 +262,15 @@ public class GroupHomeActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.new_meeting) {
-            Intent intent = new Intent(
-                    GroupHomeActivity.this,
-                    CreateGroupMeetingActivity.class);
-            intent.putExtra("groupName", groupName);
-            intent.putExtra("memberList", groupUserNameList);
-            startActivity(intent);
-            return true;
-        }
+//        if (id == R.id.new_meeting) {
+//            Intent intent = new Intent(
+//                    GroupHomeActivity.this,
+//                    CreateGroupMeetingActivity.class);
+//            intent.putExtra("groupName", groupName);
+//            intent.putExtra("memberList", groupUserNameList);
+//            startActivity(intent);
+//            return true;
+//        }
 
         if (id == R.id.joinGroupListItem) {
             ParseUser parseUser = ParseUser.getCurrentUser();
@@ -527,7 +542,7 @@ public class GroupHomeActivity extends AppCompatActivity {
         final ParseUser requestingUser = ParseUser.getCurrentUser();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Groups");
         query.whereEqualTo("groupName",groupName);
-        query.whereEqualTo("userName",requestingUser.getUsername());
+        query.whereEqualTo("userName", requestingUser.getUsername());
         try {
             query.getFirst().deleteInBackground();
         } catch (ParseException e) {
@@ -543,6 +558,93 @@ public class GroupHomeActivity extends AppCompatActivity {
 
     }
 
+    //Create dynamic UI from today's Group schedule
+    public void bindTodaySchedule() {
+        LinearLayout scheduleLayout = (LinearLayout) findViewById(R.id.todayMeetingCard);
+        if (todayMeetingTitleList.size() == 0) {
+            TextView textView = new TextView(this);
+            textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            textView.setTypeface(textView.getTypeface(), Typeface.ITALIC);
+            textView.setText("Nothing to Show...");
+            if (Build.VERSION.SDK_INT < 23) {
+                textView.setTextAppearance(this, android.R.style.TextAppearance_Material_Small);
+            } else {
+                textView.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Small);
+            }
+            scheduleLayout.addView(textView);
+        } else {
+            for (int i = 0; i < todayMeetingTitleList.size(); i++) {
+                TextView titletextView = new TextView(this);
+                TextView timeTextView = new TextView(this);
+
+                titletextView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                titletextView.setText(todayMeetingTitleList.get(i));
+                titletextView.setFocusable(true);
+                titletextView.setClickable(true);
+
+                timeTextView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                timeTextView.setText(todayMeetingTimeList.get(i));
+                timeTextView.setFocusable(true);
+                timeTextView.setClickable(true);
+
+
+                if (Build.VERSION.SDK_INT < 23) {
+                    titletextView.setTextAppearance(this, android.R.style.TextAppearance_DeviceDefault_Medium);
+                    timeTextView.setTextAppearance(this, android.R.style.TextAppearance_DeviceDefault_Small);
+                } else {
+                    titletextView.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Medium);
+                    timeTextView.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Small);
+                }
+
+                scheduleLayout.addView(titletextView);
+                scheduleLayout.addView(timeTextView);
+
+                if (i < todayMeetingTitleList.size() - 1) {
+                    View view = new View(this);
+                    TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, 1);
+                    params.setMargins(0, 15, 0, 15);
+                    view.setLayoutParams(params);
+                    view.setBackgroundColor(Color.rgb(169, 169, 169));
+                    scheduleLayout.addView(view);
+                }
+            }
+        }
+
+
+    }
+
+    //Retrieve today's group Schedule from Parse
+    public void getTodayGroupSchedule() {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("MemberSchedule");
+        query.whereEqualTo("groupName",groupName);
+        final ProgressDialog scheduleLoadProgress = new ProgressDialog(this);
+        scheduleLoadProgress.setTitle("Loading Schedule...");
+        scheduleLoadProgress.show();
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> nameList, ParseException e) {
+                if (e == null) {
+                    for (ParseObject object : nameList) {
+                        if (new String(object.getString("Date")).equals("2015-11-28")) {
+                            String schName = "" + object.getString("meetingTitle");
+                            String schTime = object.getString("meetingStartTime") +
+                                    " to " + object.getString("meetingEndTime");
+                            todayMeetingTitleList.add(schName);
+                            todayMeetingTimeList.add(schTime);
+                        }
+                    }
+                    scheduleLoadProgress.dismiss();
+                    bindTodaySchedule();
+
+                } else {
+                    Log.d("error", "Error: " + e.getMessage());
+                }
+            }
+        });
+    }
     private void setNewAdmin(){
         final ParseUser requestingUser = ParseUser.getCurrentUser();
 

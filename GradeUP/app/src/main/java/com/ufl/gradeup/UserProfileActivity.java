@@ -94,27 +94,30 @@ public class UserProfileActivity extends AppCompatActivity {
         userProfilePic = (ImageView) findViewById(R.id.ProfileImage);
 
         ParseFile profilePictureFile = currentUser.getParseFile("ProfilePic");
-        final ProgressDialog pictureUploadProgress = new ProgressDialog(this);
-        pictureUploadProgress.setTitle("Loading Profile...");
-        pictureUploadProgress.show();
-        profilePictureFile.getDataInBackground(new GetDataCallback() {
-            @Override
-            public void done(byte[] data, ParseException e) {
+        TextView navTitle = (TextView) findViewById(R.id.navTitleText);
+        navTitle.setText(name);
+        if(profilePictureFile!=null){
+            final ProgressDialog pictureUploadProgress = new ProgressDialog(this);
+            pictureUploadProgress.setTitle("Loading Profile...");
+            pictureUploadProgress.show();
+            profilePictureFile.getDataInBackground(new GetDataCallback() {
+                @Override
+                public void done(byte[] data, ParseException e) {
 
-                if (e == null) {
-                    Bitmap profilePicBmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                    if (e == null) {
+                        Bitmap profilePicBmp = BitmapFactory.decodeByteArray(data, 0, data.length);
 //                    userProfilePic = (ImageView) findViewById(R.id.ProfileImage);
-                    userProfilePic.setImageBitmap(profilePicBmp);
-                    ImageView navProfilePic = (ImageView) findViewById(R.id.navImage);
-                    navProfilePic.setImageBitmap(profilePicBmp);
-                    TextView navTitle = (TextView) findViewById(R.id.navTitleText);
-                    navTitle.setText(name);
-                    pictureUploadProgress.dismiss();
-                } else {
-                    //userProfilePic.setImageBitmap(R.mipmap.xyz);
+                        userProfilePic.setImageBitmap(profilePicBmp);
+                        ImageView navProfilePic = (ImageView) findViewById(R.id.navImage);
+                        navProfilePic.setImageBitmap(profilePicBmp);
+                        pictureUploadProgress.dismiss();
+                    } else {
+                        //userProfilePic.setImageBitmap(R.mipmap.xyz);
+                    }
                 }
-            }
-        });
+            });
+        }
+
 
         try {
             getGroups();
@@ -277,6 +280,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 titletextView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
                         LayoutParams.WRAP_CONTENT));
                 titletextView.setText(todayScheduleTitleList.get(i));
+                titletextView.setCompoundDrawablePadding(R.mipmap.todaysch_icon);
                 titletextView.setFocusable(true);
                 titletextView.setClickable(true);
 

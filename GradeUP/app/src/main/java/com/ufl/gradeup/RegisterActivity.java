@@ -212,6 +212,7 @@ public class RegisterActivity extends AppCompatActivity {
                     user.put("Name", nameTxt);
                     user.put("University", universityTxt);
                     user.put("StudyField",fieldOfStudy);
+                    if(pictureFile!=null)
                     user.put("ProfilePic", pictureFile);
 
                     user.signUpInBackground(new SignUpCallback() {
