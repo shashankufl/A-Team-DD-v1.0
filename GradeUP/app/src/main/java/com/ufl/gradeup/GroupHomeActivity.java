@@ -39,8 +39,10 @@ import com.parse.ParseUser;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class GroupHomeActivity extends AppCompatActivity {
@@ -619,16 +621,18 @@ public class GroupHomeActivity extends AppCompatActivity {
     //Retrieve today's group Schedule from Parse
     public void getTodayGroupSchedule() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("MemberSchedule");
-        query.whereEqualTo("groupName",groupName);
+        query.whereEqualTo("groupName", groupName);
         final ProgressDialog scheduleLoadProgress = new ProgressDialog(this);
         scheduleLoadProgress.setTitle("Loading Schedule...");
         scheduleLoadProgress.show();
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        final String today = simpleDateFormat.format(new Date());
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> nameList, ParseException e) {
                 if (e == null) {
                     for (ParseObject object : nameList) {
-                        if (new String(object.getString("Date")).equals("2015-11-28")) {
+                        if (new String(object.getString("Date")).equals(today)) {
                             String schName = "" + object.getString("meetingTitle");
                             String schTime = object.getString("meetingStartTime") +
                                     " to " + object.getString("meetingEndTime");
