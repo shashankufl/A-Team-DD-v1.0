@@ -39,11 +39,13 @@ import com.parse.ParseUser;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 public class GroupHomeActivity extends AppCompatActivity {
     String append;
@@ -447,6 +449,7 @@ public class GroupHomeActivity extends AppCompatActivity {
     public void bindGroupMembers() {
 
         LinearLayout groupLayout = (LinearLayout) findViewById(R.id.membersCard);
+        int[] icons = {R.mipmap.male_icon,R.mipmap.male1_icon,R.mipmap.female_icon,R.mipmap.boy_icon,R.mipmap.girl_icon};
         if (groupMembersList.size() == 0) {
             TextView textView = new TextView(this);
             textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
@@ -464,9 +467,12 @@ public class GroupHomeActivity extends AppCompatActivity {
                 TextView textView = new TextView(this);
                 textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT));
-                textView.setText("* " + groupMembersList.get(i));
+
+                textView.setText("  " + groupMembersList.get(i));
                 textView.setFocusable(true);
                 textView.setClickable(true);
+                textView.setCompoundDrawablesWithIntrinsicBounds(icons[new Random().nextInt(icons.length)], 0, 0, 0);
+                textView.setPadding(0,20,0,20);
                 if (Build.VERSION.SDK_INT < 23) {
                     textView.setTextAppearance(this, android.R.style.TextAppearance_DeviceDefault_Medium);
                 } else {

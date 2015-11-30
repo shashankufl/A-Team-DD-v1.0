@@ -52,8 +52,11 @@ import com.parse.SaveCallback;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 public class UserProfileActivity extends AppCompatActivity {
 
@@ -216,6 +219,7 @@ public class UserProfileActivity extends AppCompatActivity {
     //Create dynamic UI from groups
     public void bindGroups() {
         LinearLayout groupLayout = (LinearLayout) findViewById(R.id.groupsCard);
+        int[] icons = {R.mipmap.group1_icon,R.mipmap.group2_icon,R.mipmap.group3_icon,R.mipmap.group4_icon,R.mipmap.group5_icon};
         if (groupNamesList.size() == 0) {
             TextView textView = new TextView(this);
             textView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
@@ -233,9 +237,11 @@ public class UserProfileActivity extends AppCompatActivity {
                 TextView textView = new TextView(this);
                 textView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
                         LayoutParams.WRAP_CONTENT));
-                textView.setText(groupNamesList.get(i));
+                textView.setText("   " + groupNamesList.get(i));
                 textView.setFocusable(true);
                 textView.setClickable(true);
+                textView.setPadding(0, 20, 0, 20);
+                textView.setCompoundDrawablesWithIntrinsicBounds(icons[new Random().nextInt(icons.length)], 0, 0, 0);
                 if (Build.VERSION.SDK_INT < 23) {
                     textView.setTextAppearance(this, android.R.style.TextAppearance_DeviceDefault_Medium);
                 } else {
@@ -276,17 +282,16 @@ public class UserProfileActivity extends AppCompatActivity {
             for (int i = 0; i < todayScheduleTitleList.size(); i++) {
                 TextView titletextView = new TextView(this);
                 TextView timeTextView = new TextView(this);
-
                 titletextView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
                         LayoutParams.WRAP_CONTENT));
-                titletextView.setText(todayScheduleTitleList.get(i));
+                titletextView.setText("  " + todayScheduleTitleList.get(i));
                 titletextView.setCompoundDrawablePadding(R.mipmap.todaysch_icon);
                 titletextView.setFocusable(true);
                 titletextView.setClickable(true);
 
                 timeTextView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
                         LayoutParams.WRAP_CONTENT));
-                timeTextView.setText(todayScheduleTimeList.get(i));
+                timeTextView.setText("  " + todayScheduleTimeList.get(i));
                 timeTextView.setFocusable(true);
                 timeTextView.setClickable(true);
 
@@ -323,12 +328,14 @@ public class UserProfileActivity extends AppCompatActivity {
         final ProgressDialog scheduleLoadProgress = new ProgressDialog(this);
         scheduleLoadProgress.setTitle("Loading Schedule...");
         scheduleLoadProgress.show();
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        final String today = simpleDateFormat.format(new Date());
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> nameList, ParseException e) {
                 if (e == null) {
                     for (ParseObject object : nameList) {
-                        if (new String(object.getString("Date")).equals("2015-11-13")) {
+                        if (new String(object.getString("Date")).equals(today)) {
                             String schName = "" + object.getString("Subject");
                             String schTime = object.getString("Start_time") +
                                     " to " + object.getString("End_time");
