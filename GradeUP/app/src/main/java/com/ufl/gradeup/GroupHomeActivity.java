@@ -563,7 +563,7 @@ public class GroupHomeActivity extends AppCompatActivity {
                 GroupHomeActivity.this,
                 UserProfileActivity.class);
         startActivity(intent);
-
+        finish();
     }
 
     //Create dynamic UI from today's Group schedule
@@ -659,26 +659,37 @@ public class GroupHomeActivity extends AppCompatActivity {
         final ParseUser requestingUser = ParseUser.getCurrentUser();
 
         ParseQuery<ParseObject> queryAdmin = ParseQuery.getQuery("Groups");
-        queryAdmin.whereEqualTo("groupName",groupName);
-        queryAdmin.whereEqualTo("isAdmin",1);
+        queryAdmin.whereEqualTo("groupName", groupName);
+        queryAdmin.whereEqualTo("isAdmin", 1);
+
+
 
         queryAdmin.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject parseObject, ParseException e) {
-                 groupPicture = parseObject.getParseFile("ProfilePic");
+                groupPicture = parseObject.getParseFile("ProfilePic");
+                joinRequests = (ArrayList<String>) parseObject.get("joinRequests");
             }
         });
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Groups");
-        query.whereEqualTo("groupName",groupName);
-       query.getFirstInBackground(new GetCallback<ParseObject>() {
-           @Override
-           public void done(ParseObject parseObject, ParseException e) {
-               parseObject.put("isAdmin",1);
-               parseObject.put("ProfilePic",groupPicture);
-               parseObject.put("joinRequests",joinRequests);
-               parseObject.saveInBackground();
-           }
-       });
+        query.whereEqualTo("groupName", groupName);
+        query.whereEqualTo("isAdmin", 0);
+        try {
+            if (!(query.count() == 0)) {
+                query.getFirstInBackground(new GetCallback<ParseObject>() {
+                    @Override
+                    public void done(ParseObject parseObject, ParseException e) {
+                        parseObject.put("isAdmin",1);
+                        parseObject.put("ProfilePic",groupPicture);
+                        parseObject.put("joinRequests",joinRequests);
+                        parseObject.saveInBackground();
+                    }
+                });
+
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
 
     }
