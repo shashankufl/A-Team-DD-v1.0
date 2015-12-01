@@ -72,6 +72,7 @@ public class CreateGroupMeetingActivity extends AppCompatActivity {
     public static TextView StartTimeView;
     public static TextView EndTimeView;
     String groupName;
+    boolean flag = true;
 
     public static class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
@@ -118,7 +119,7 @@ public class CreateGroupMeetingActivity extends AppCompatActivity {
         EndTimeView = (TextView) findViewById(R.id.meetingEndTimeButton);
         groupUserNameList = getIntent().getStringArrayListExtra("memberList");
         groupName = getIntent().getStringExtra("groupName");
-
+        this.setTitle("New Meeting for "+groupName);
         freeSlotCard.setVisibility(View.GONE);
         timeCard.setVisibility(View.GONE);
         meetingStartTimeBtn.setOnClickListener(new View.OnClickListener() {
@@ -135,8 +136,10 @@ public class CreateGroupMeetingActivity extends AppCompatActivity {
             }
         });
 
-
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        selectedDate = simpleDateFormat.format(new Date());
         SelectedDateView = (TextView) findViewById(R.id.selectedDateTxt);
+        SelectedDateView.setText(selectedDate);
         groupMembersList = getIntent().getStringArrayListExtra("memberList");
 
         for (int i = 0; i < 48; i++) {
@@ -242,7 +245,7 @@ public class CreateGroupMeetingActivity extends AppCompatActivity {
         final ProgressDialog freeSlotProgress = new ProgressDialog(this);
         freeSlotProgress.setTitle("Searching for Free time slots...");
         freeSlotProgress.show();
-        int n = query.count();
+        //int n = query.count();
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> nameList, ParseException e) {
@@ -254,7 +257,11 @@ public class CreateGroupMeetingActivity extends AppCompatActivity {
                         }
                     }
                     //SelectedDateView.setText(startTimeList.toString());
-                    normalizeTime();
+                    if(flag){
+                        flag =false;
+                        normalizeTime();
+                    }
+
                     freeSlotProgress.dismiss();
                 }
             }

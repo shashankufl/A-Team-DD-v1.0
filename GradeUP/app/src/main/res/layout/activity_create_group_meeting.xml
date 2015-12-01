@@ -176,6 +176,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@mipmap/timepicker_icon"
+                        android:drawableRight="@mipmap/ic_listarrow"
                         android:gravity="center_vertical"
                         android:text="Start Time" />
 
@@ -183,7 +184,8 @@
                         android:id="@+id/meetingEndTimeButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="80dp"
+                        android:layout_marginLeft="10dp"
+                        android:drawableRight="@mipmap/ic_listarrow"
                         android:drawableLeft="@mipmap/timepicker_icon"
                         android:gravity="center_vertical|right"
                         android:text="End Time" />
