@@ -3,6 +3,7 @@ package com.ufl.gradeup;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -219,6 +220,9 @@ public class UserProfileActivity extends AppCompatActivity {
     //Create dynamic UI from groups
     public void bindGroups() {
         LinearLayout groupLayout = (LinearLayout) findViewById(R.id.groupsCard);
+        int[] attrs = new int[]{R.attr.selectableItemBackground};
+        TypedArray typedArray = obtainStyledAttributes(attrs);
+        int backgroundResource = typedArray.getResourceId(0, 0);
         int[] icons = {R.mipmap.group1_icon,R.mipmap.group2_icon,R.mipmap.group3_icon,R.mipmap.group4_icon,R.mipmap.group5_icon};
         if (groupNamesList.size() == 0) {
             TextView textView = new TextView(this);
@@ -240,6 +244,21 @@ public class UserProfileActivity extends AppCompatActivity {
                 textView.setText("   " + groupNamesList.get(i));
                 textView.setFocusable(true);
                 textView.setClickable(true);
+                textView.setBackgroundResource(backgroundResource);
+                textView.setOnClickListener(new View.OnClickListener()
+                {
+                    public void onClick(View v)
+                    {
+                        String groupNameSelected = ((TextView)v).getText().toString();
+                        groupNameSelected =groupNameSelected.replaceAll("^\\s+", "");
+                        Intent intent = new Intent(UserProfileActivity.this,
+                                GroupHomeActivity.class);
+                        intent.putExtra("groupName",groupNameSelected);
+                        startActivity(intent);
+
+                    }
+                }
+            );
                 textView.setPadding(0, 20, 0, 20);
                 textView.setCompoundDrawablesWithIntrinsicBounds(icons[new Random().nextInt(icons.length)], 0, 0, 0);
                 if (Build.VERSION.SDK_INT < 23) {
@@ -415,6 +434,15 @@ public class UserProfileActivity extends AppCompatActivity {
             }
 
         }
+
+    }
+
+    public void onGroupNameClicked(View v){
+        String groupNameSelected = ((TextView)v).getText().toString();
+        Intent intent = new Intent(UserProfileActivity.this,
+                GroupHomeActivity.class);
+        intent.putExtra("groupName",groupNameSelected);
+        startActivity(intent);
 
     }
 

@@ -6,7 +6,8 @@
 
     <item
         android:id="@+id/createMeeting"
-        android:title="Create Meeting"
+        android:title="Create"
+        android:icon="@mipmap/checkmark_icon"
         android:orderInCategory="200"
-        app:showAsAction="always"/>
+        app:showAsAction="always|withText"/>
 </menu>

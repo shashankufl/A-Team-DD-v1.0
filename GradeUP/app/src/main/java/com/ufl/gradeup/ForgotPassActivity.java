@@ -60,6 +60,7 @@ public class ForgotPassActivity extends AppCompatActivity{
             public void onClick(View v) {
                 Intent i = new Intent(ForgotPassActivity.this, LoginActivity.class);
                 startActivity(i);
+                finish();
             }
         });
 
