@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -70,6 +71,7 @@ public class CreateGroupMeetingActivity extends AppCompatActivity {
     public static TextView SelectedDateView;
     public static TextView StartTimeView;
     public static TextView EndTimeView;
+    String groupName;
 
     public static class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
@@ -115,6 +117,7 @@ public class CreateGroupMeetingActivity extends AppCompatActivity {
         StartTimeView = (TextView) findViewById(R.id.meetingStartTimeButton);
         EndTimeView = (TextView) findViewById(R.id.meetingEndTimeButton);
         groupUserNameList = getIntent().getStringArrayListExtra("memberList");
+        groupName = getIntent().getStringExtra("groupName");
 
         freeSlotCard.setVisibility(View.GONE);
         timeCard.setVisibility(View.GONE);
@@ -216,6 +219,13 @@ public class CreateGroupMeetingActivity extends AppCompatActivity {
             if (isWithinFreeSlot()) {
                 createMeeting();
                 addMeetingToSchedule();
+                Intent intent = new Intent(CreateGroupMeetingActivity.this,
+                        GroupHomeActivity.class);
+                intent.putExtra("groupName", groupName);
+                startActivity(intent);
+
+                finish();
+
             } else {
                 Toast.makeText(getApplicationContext(),
                         "Please enter a time between the free slot",
