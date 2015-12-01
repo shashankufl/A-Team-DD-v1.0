@@ -93,11 +93,13 @@ public class GroupHomeActivity extends AppCompatActivity {
         });
         getTodayGroupSchedule();
         getGroupMembersList();
-        try {
-            isAdmin();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            isAdmin();
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+
+
 //        ParseQuery<ParseObject> query = ParseQuery.getQuery("Groups");
 //        query.whereEqualTo("groupName", groupName);
 //        query.whereEqualTo("isAdmin", 1);
@@ -432,7 +434,23 @@ public class GroupHomeActivity extends AppCompatActivity {
                                 }
                                 Bitmap profilePicBmp = BitmapFactory.decodeByteArray(profilepictureByteArray, 0, profilepictureByteArray.length);
                                 groupProfilePic.setImageBitmap(profilePicBmp);
-                            }
+
+                                ArrayList<String> requestArray = null;
+                                requestArray = (ArrayList<String>)object.get("joinRequests");
+                                if(requestArray.contains(requestingUser.getUsername()+","+groupName+","+requestingUser.get("Name").toString())){
+                                    isRequestSent = true;
+                                }else{
+                                    isRequestSent = false;
+                                }
+
+
+                                if (object.getString("userName") == requestingUser.getUsername()) {
+//            return true;
+                                    isAdmin = true;
+                                }else {
+//        return false;
+                                    isAdmin = false;
+                            }}
                         }
                     }
                     pictureLoadProgress.dismiss();
