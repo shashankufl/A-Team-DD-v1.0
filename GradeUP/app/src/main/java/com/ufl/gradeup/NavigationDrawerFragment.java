@@ -68,8 +68,8 @@ public class NavigationDrawerFragment extends android.support.v4.app.Fragment im
     public static List<NavigationDrawerInformation> getNavData(){
         List<NavigationDrawerInformation> navData = new ArrayList<>();
 
-        int[] navIcons ={R.mipmap.navmyprofile,R.mipmap.navupdateprofile,R.mipmap.navaddschedule,R.mipmap.navaddschedule,R.mipmap.navcreategroup,R.mipmap.navjoingroup,R.mipmap.discussion_post_icon,R.mipmap.navhelp,R.mipmap.navaboutus,R.mipmap.navlogout};
-        String[] navText = {"My Profile", "Update Profile","Add Schedule","View my Schedule", "Create Study Group", "Search Study Group","Discussion Forum","Help","About us", "Log Out"};
+        int[] navIcons ={R.mipmap.navmyprofile,R.mipmap.navupdateprofile,R.mipmap.navaddschedule,R.mipmap.navaddschedule,R.mipmap.navcreategroup,R.mipmap.navjoingroup,R.mipmap.discussion_post_icon,R.mipmap.navhelp,R.mipmap.navaboutus};
+        String[] navText = {"My Profile", "Update Profile","Add Schedule","View my Schedule", "Create Study Group", "Search Study Group","Discussion Forum","Help","About us"};
 
         for(int i= 0;i<navIcons.length&&i<navText.length;i++){
             NavigationDrawerInformation current = new NavigationDrawerInformation();
