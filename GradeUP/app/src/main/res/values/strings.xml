@@ -7,7 +7,7 @@
     <string name="Email">E-mail Address</string>
     <string name="Password">Password</string>
     <string name="Login">Login</string>
-    <string name="Retrieve">Retrieve</string>
+    <string name="Retrieve">Reset Password</string>
     <string name="Register">"Register"</string>
     <string name="ConfirmPassword">Confirm Password</string>
     <string name="title_activity_register">Register</string>

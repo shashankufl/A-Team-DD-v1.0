@@ -85,6 +85,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:clickable="true"
+                android:background="?android:attr/selectableItemBackground"
+                android:focusable="true"
                 android:onClick="onClick"
                 android:text="Don't have an account? Sign UP" />
             <TextView
@@ -94,6 +96,8 @@
                 android:clickable="true"
                 android:layout_below="@+id/signup"
                 android:layout_centerHorizontal="true"
+                android:background="?android:attr/selectableItemBackground"
+                android:focusable="true"
                 android:onClick="onClick"
                 android:text="Forgot Password"/>
 

@@ -81,6 +81,11 @@ public class CreateGroupActivity extends AppCompatActivity {
                         query.findInBackground(new FindCallback<ParseUser>() {
                             public void done(List<ParseUser> objects, ParseException e) {
                                 if (e == null) {
+                                    if(objects.isEmpty()){
+                                        Toast.makeText(getApplicationContext(),
+                                                "Member does not exist", Toast.LENGTH_SHORT)
+                                                .show();
+                                    }
                                     for (ParseUser object : objects
                                             ) {
 
@@ -90,7 +95,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                                             groupMemebersUsername.add(object.getUsername());
                                         }else{
                                             Toast.makeText(getApplicationContext(),
-                                                    "Member does not exist please try again", Toast.LENGTH_SHORT)
+                                                    "Member already added", Toast.LENGTH_SHORT)
                                                     .show();
                                         }
                                     }
@@ -101,6 +106,7 @@ public class CreateGroupActivity extends AppCompatActivity {
 //                                            Toast.LENGTH_LONG).show();
                                 } else {
                                     // Something went wrong.
+
                                 }
                             }
                         });
