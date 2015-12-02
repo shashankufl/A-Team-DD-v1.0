@@ -359,6 +359,13 @@ public class GroupHomeActivity extends AppCompatActivity {
             leaveGroup();
         }
 
+        if (id == R.id.viewGroupSchedule) {
+            Intent intentNewA = new Intent(GroupHomeActivity.this,
+                    ActivityViewGroupSchedule.class);
+            intentNewA.putExtra("groupName", groupName);
+            startActivity(intentNewA);
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

@@ -1,0 +1,79 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fdffffff"
+    android:clickable="true"
+    android:focusable="true"
+    android:descendantFocusability="blocksDescendants"
+    tools:context="com.ufl.gradeup.ActivityViewGroupSchedule"
+    android:theme="@style/CardView">
+
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar"></include>
+
+    <TextView
+        android:id="@+id/maintxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/app_bar"
+        android:text="              Select Date to view schedule"
+        android:textSize="15dp"
+        android:ems="15"
+        android:layout_alignParentLeft="true"
+        android:textAlignment="center"
+        />
+
+    <CalendarView
+        android:id="@+id/calendarDisplay"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/maintxt"
+        android:focusedMonthDateColor="#e60f2347"
+        android:dateTextAppearance="@style/Base.TextAppearance.AppCompat.Widget.TextView.SpinnerItem"
+        ></CalendarView>
+
+    <View
+        android:id="@+id/horizontalLine"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/calendarDisplay"
+        android:layout_height="1dp"
+        android:background="#e60f2347"        />
+
+    <ScrollView
+        android:layout_below="@+id/calendarDisplay"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ListView
+                android:id="@+id/scheduleList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:dividerHeight="2dp"
+                android:drawSelectorOnTop="false"
+                android:divider="@color/cardview_shadow_start_color"
+                android:fastScrollStyle="@color/cardview_shadow_start_color"
+                android:theme="@style/CardView.Light"
+                android:visibility="visible"
+                android:background="@color/cardview_light_background"
+                style="@style/CardView"
+                android:focusable="true"
+                android:touchscreenBlocksFocus="false" />
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

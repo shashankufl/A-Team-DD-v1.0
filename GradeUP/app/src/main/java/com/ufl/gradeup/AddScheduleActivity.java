@@ -975,13 +975,20 @@ public class AddScheduleActivity extends AppCompatActivity {
                  int id = item.getItemId();
 
                  //noinspection SimplifiableIfStatement
-                 if (id == R.id.action_settings) {
-                     return true;
+                 if (id == R.id.resetOption) {
+                     onResetOptionClicked();
                  }
 
                  return super.onOptionsItemSelected(item);
              }
 
+    //To refresh the current page
+    public void onResetOptionClicked() {
+        Intent intent = new Intent(AddScheduleActivity.this,
+                AddScheduleActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
              public void showDatePickerDialog(View v) {
                  DialogFragment newFragment = new DatePickerFragment();

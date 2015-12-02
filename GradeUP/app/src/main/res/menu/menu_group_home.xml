@@ -28,4 +28,10 @@
         android:title="Leave Group"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/viewGroupSchedule"
+        android:orderInCategory="600"
+        android:title="Group Schedule"
+        app:showAsAction="never" />
+
 </menu>

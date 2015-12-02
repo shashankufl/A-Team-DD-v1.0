@@ -3,4 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.ufl.gradeup.AddScheduleActivity">
 
+    <item
+        android:id="@+id/resetOption"
+        android:orderInCategory="200"
+        android:title="Reset"
+        app:showAsAction="never" />
+
 </menu>

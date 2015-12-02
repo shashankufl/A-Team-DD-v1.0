@@ -102,7 +102,6 @@
             android:label="@string/title_activity_approve_request" >
         </activity>
         <activity
-
             android:name=".UpdateUserScheduleActivity"
             android:label="@string/title_activity_update_user_schedule" >
         </activity>
@@ -110,18 +109,26 @@
             android:name=".CreateGroupMeetingActivity"
             android:label="@string/title_activity_create_group_meeting" >
         </activity>
-
-	<activity
+        <activity
             android:name=".ForgotPassActivity"
             android:label="@string/title_forgot_pass_activity" >
-    </activity>
+        </activity>
         <activity
             android:name=".PublicDiscussionActivity"
             android:label="Discussion Forum"
             android:windowSoftInputMode="adjustPan" >
         </activity>
-        <activity android:name=".NewDiscussionActivity"
-            android:label="New Discussion Post">
+        <activity
+            android:name=".NewDiscussionActivity"
+            android:label="New Discussion Post" >
+        </activity>
+        <activity
+            android:name=".ActivityViewGroupSchedule"
+            android:label="@string/title_activity_activity_view_group_schedule" >
+        </activity>
+        <activity
+            android:name=".UpdateGroupScheduleActivity"
+            android:label="@string/title_activity_update_group_schedule" >
         </activity>
     </application>
 
