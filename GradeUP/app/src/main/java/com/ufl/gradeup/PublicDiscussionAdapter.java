@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
@@ -26,11 +27,12 @@ public class PublicDiscussionAdapter extends BaseExpandableListAdapter {
     private List<String> headers= new ArrayList<>();
     private HashMap<String,List<String>> comments= new HashMap<String,List<String>>();
     private Context context;
-    String c="xyz";
-    public PublicDiscussionAdapter(Context context,List<String> headers,HashMap<String,List<String>> comments){
+    private List<String> postedBy= new ArrayList<>();
+    public PublicDiscussionAdapter(Context context,List<String> headers,HashMap<String,List<String>> comments,List<String> postedBy){
         this.context = context;
         this.headers = headers;
         this.comments = comments;
+        this.postedBy = postedBy;
     }
     @Override
     public int getGroupCount() {
@@ -42,6 +44,9 @@ public class PublicDiscussionAdapter extends BaseExpandableListAdapter {
         return comments.get(headers.get(groupPosition)).size();
     }
 
+    public Object getPostedBy(int groupPosition) {
+        return postedBy.get(groupPosition);
+    }
     @Override
     public Object getGroup(int groupPosition) {
         return headers.get(groupPosition);
@@ -77,6 +82,9 @@ public class PublicDiscussionAdapter extends BaseExpandableListAdapter {
         TextView headingView= (TextView) convertView.findViewById(R.id.public_discussion_heading);
         headingView.setTypeface(null, Typeface.BOLD); //to make headings bold
         headingView.setText(title);
+        TextView postedByView= (TextView) convertView.findViewById(R.id.public_discussion_postedBy);
+        String thisCommentPostedBy= (String) this.getPostedBy(groupPosition);
+        postedByView.setText(thisCommentPostedBy);
         return convertView;
     }
 
@@ -89,13 +97,20 @@ public class PublicDiscussionAdapter extends BaseExpandableListAdapter {
         }
         final TextView commentView= (TextView) convertView.findViewById(R.id.public_discussion_comment);
         commentView.setText(title);
-        Button button = (Button)convertView.findViewById(R.id.postCommentButton);
-        final EditText newComment=(EditText)convertView.findViewById(R.id.newComment);
-        button.setOnClickListener(new View.OnClickListener() {
+        final EditText addComment= (EditText) convertView.findViewById(R.id.newComment);
+        addComment.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-               ((PublicDiscussionActivity)context).appendTheComment(groupPosition, newComment.getText().toString());
-//               Toast.makeText(context,newComment.getText().toString(),Toast.LENGTH_LONG).show();
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_RIGHT = 2;
+
+
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getRawX() >= (addComment.getRight() - addComment.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        ((PublicDiscussionActivity)context).appendTheComment(groupPosition, addComment.getText().toString());
+                        return true;
+                    }
+                }
+                return false;
             }
         });
         return convertView;

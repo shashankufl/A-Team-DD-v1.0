@@ -39,11 +39,12 @@ public class NewDiscussionActivity extends AppCompatActivity {
                 discussion.setACL(acl);
                 discussion.put("Topic", newDiscussionTopic);
                 discussion.put("Thread", "");
+                discussion.put("PostedBy","Posted by "+ParseUser.getCurrentUser().getString("Name"));
                 discussion.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
-                        if(e==null){
-                            Toast.makeText(getApplicationContext(),"Discussion Post Created",Toast.LENGTH_LONG).show();
+                        if (e == null) {
+                            Toast.makeText(getApplicationContext(), "Discussion Post Created", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(NewDiscussionActivity.this,
                                     PublicDiscussionActivity.class);
                             startActivity(intent);

@@ -7,8 +7,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnGroupClickListener;
+import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.Toast;
 
 import com.parse.DeleteCallback;
@@ -22,19 +25,17 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-public class PublicDiscussionActivity extends AppCompatActivity{
+public class PublicDiscussionActivity extends AppCompatActivity {
     private android.support.v7.widget.Toolbar toolbar;
     ExpandableListView expandableListView;
-    Button postCommentButton;
     List<String> headers= new ArrayList<>();
-    List<String> L1= new ArrayList<>();
-    List<String> L2= new ArrayList<>();
-    List<String> L3= new ArrayList<>();
+    List<String> postedBy= new ArrayList<>();
     HashMap<String,List<String>> comments= new HashMap<String,List<String>>();
-    final PublicDiscussionAdapter adapter= new PublicDiscussionAdapter(this,headers,comments);
+    final PublicDiscussionAdapter adapter= new PublicDiscussionAdapter(this,headers,comments,postedBy);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +43,6 @@ public class PublicDiscussionActivity extends AppCompatActivity{
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
         expandableListView= (ExpandableListView)findViewById(R.id.publicDiscussionListView);
-        postCommentButton= (Button) findViewById(R.id.postCommentButton);
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Discussion");
         query.findInBackground(new FindCallback<ParseObject>(){
             public void done(List<ParseObject> objects, ParseException e) {
@@ -50,11 +50,14 @@ public class PublicDiscussionActivity extends AppCompatActivity{
                     for (ParseObject object : objects) {
                         if(!headers.contains(object.getString("Topic"))){
                             headers.add(object.getString("Topic"));
+                            postedBy.add(object.getString("PostedBy"));
                             List<String> temp=new ArrayList<String>();
                             temp.add(object.getString("Thread"));
                             comments.put(object.getString("Topic"),temp);
                         }
                     }
+                    Collections.reverse(headers);
+                    Collections.reverse(postedBy);
                     adapter.notifyDataSetChanged();
 
                 }
@@ -71,13 +74,24 @@ public class PublicDiscussionActivity extends AppCompatActivity{
                 Intent intent = new Intent(PublicDiscussionActivity.this,
                         NewDiscussionActivity.class);
                 startActivity(intent);
+                finish();
+            }
+        });
+        expandableListView.setOnGroupExpandListener(new OnGroupExpandListener() {
+            int previousGroup = -1;
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                if(groupPosition != previousGroup)
+                    expandableListView.collapseGroup(previousGroup);
+                previousGroup = groupPosition;
             }
         });
     }
-    public void appendTheComment(final int groupPosition,String latestComment){
+
+    public void appendTheComment(final int groupPosition, String latestComment) {
         List<String> listOfComments=comments.get(headers.get(groupPosition));
         String updatedComments=listOfComments.get(0);
-        updatedComments+= "\n"+latestComment;
+        updatedComments+= "\n"+ParseUser.getCurrentUser().getString("Name")+": "+latestComment;
         final String commentString=updatedComments;
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Discussion");
         query.whereEqualTo("Topic", headers.get(groupPosition));
@@ -90,8 +104,10 @@ public class PublicDiscussionActivity extends AppCompatActivity{
         });
         listOfComments.set(0, updatedComments);
         comments.put(headers.get(groupPosition),listOfComments);
-        final PublicDiscussionAdapter adapter= new PublicDiscussionAdapter(this,headers,comments);
+        final PublicDiscussionAdapter adapter= new PublicDiscussionAdapter(this,headers,comments,postedBy);
         expandableListView.setAdapter(adapter);
+        expandableListView.expandGroup(groupPosition);
+        expandableListView.smoothScrollToPosition(groupPosition+1);
     }
 
 }
