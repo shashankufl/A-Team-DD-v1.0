@@ -476,8 +476,8 @@ public class CreateGroupMeetingActivity extends AppCompatActivity {
             endHourTxt = "0"+endHourTxt;
         }
 
-        String meetingStartTime = startHour + ":" + startMinute;
-        String meetingEndTime = endHour + ":" + endMinute;
+        String meetingStartTime = startHourTxt + ":" + startMinuteTxt;
+        String meetingEndTime = endHourTxt + ":" + endMinuteTxt;
         String Agenda = meetingAgendaTxt.getText().toString();
         String MeetingTitle = meetingTitleTxt.getText().toString();
 
