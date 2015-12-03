@@ -82,8 +82,8 @@ public class ActivityViewGroupSchedule extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(CalendarView view,int year,int month,int day){
                 if(day/10 == 0){
-//                    sDate = "" + year + "-" + (month + 1) + "-0" + day; #Flag #ToBeCorrected
-                    sDate = "" + year + "-" + (month + 1) + "-" + day;
+                    sDate = "" + year + "-" + (month + 1) + "-0" + day;
+//                    sDate = "" + year + "-" + (month + 1) + "-" + day;
                 }
                 else{
                     sDate = "" + year + "-" + (month + 1) + "-" + day;
