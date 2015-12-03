@@ -24,6 +24,12 @@
         android:icon="@mipmap/search_icon"
         android:title="@string/title_activity_search_group"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/refreshPage"
+        android:orderInCategory="500"
+        android:title="Refresh"
+        app:showAsAction="never" />
     <!--<item-->
         <!--android:id="@+id/creategroupMenuItem"-->
         <!--android:icon="@mipmap/creategroup_white"-->

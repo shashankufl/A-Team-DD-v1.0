@@ -489,6 +489,13 @@ public class UserProfileActivity extends AppCompatActivity {
             return true;
         }
 
+        if(id == R.id.refreshPage){
+            Intent intentNewA = new Intent(UserProfileActivity.this,
+                    UserProfileActivity.class);
+            startActivity(intentNewA);
+            finish();
+        }
+
         return super.onOptionsItemSelected(item);
     }
 }

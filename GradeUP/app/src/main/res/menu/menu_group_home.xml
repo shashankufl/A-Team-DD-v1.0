@@ -34,4 +34,10 @@
         android:title="Group Schedule"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/refreshPage"
+        android:orderInCategory="700"
+        android:title="Refresh"
+        app:showAsAction="never" />
+
 </menu>
