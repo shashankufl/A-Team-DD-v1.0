@@ -90,7 +90,15 @@ public class CreateGroupMeetingActivity extends AppCompatActivity {
         }
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            selectedDate = "" + year + "-" + (month + 1) + "-" + day;
+            String monthTxt = Integer.toString(month+1);
+            String dayTxt = Integer.toString(day);
+            if(day<10){
+                dayTxt = "0"+dayTxt;
+            }
+            if(month<10){
+                monthTxt = "0"+monthTxt;
+            }
+            selectedDate = "" + year + "-" + monthTxt + "-" + dayTxt;
             SelectedDateView.setText(selectedDate);
         }
 
