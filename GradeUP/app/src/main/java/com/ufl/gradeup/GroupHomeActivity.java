@@ -68,6 +68,7 @@ public class GroupHomeActivity extends AppCompatActivity {
     private String memberName;
     private boolean isAdmin ;
     private boolean isRequestSent ;
+    FloatingActionButton fab;
 
     ImageView groupProfilePic;
 
@@ -81,7 +82,7 @@ public class GroupHomeActivity extends AppCompatActivity {
 //        ParseUser parseUser = ParseUser.getCurrentUser();
 //        memberName = parseUser.get("Name").toString();
         name = groupName;
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingCreateMeetingBtn);
+        fab = (FloatingActionButton) findViewById(R.id.floatingCreateMeetingBtn);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,10 +95,8 @@ public class GroupHomeActivity extends AppCompatActivity {
         });
         getTodayGroupSchedule();
         getGroupMembersList();
-        ParseUser parseUser = ParseUser.getCurrentUser();
-        if(!isAdmin && !groupUserNameList.contains(parseUser.getUsername())) {
-            fab.setVisibility(View.GONE);
-        }
+
+
 //        try {
 //            isAdmin();
 //        } catch (ParseException e) {
@@ -596,6 +595,10 @@ public class GroupHomeActivity extends AppCompatActivity {
                                 }
                             }
                         }
+                    }
+                    ParseUser parseUser = ParseUser.getCurrentUser();
+                    if(!groupUserNameList.contains(parseUser.getUsername())) {
+                        fab.setVisibility(View.GONE);
                     }
                     bindGroupMembers();
                     pictureLoadProgress.dismiss();
