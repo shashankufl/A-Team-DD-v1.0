@@ -36,7 +36,7 @@
     <string name="title_activity_create_group_meeting">New Meeting</string>
     <string name="title_forgot_pass_activity">Retrieve Password</string>
     <string name="action_public_discussion">Public Discussion Forum</string>
-    <string name="title_activity_activity_view_group_schedule">ActivityViewGroupSchedule</string>
+    <string name="title_activity_activity_view_group_schedule">View Group Meetings</string>
     <string name="title_activity_update_group_schedule">UpdateGroupScheduleActivity</string>
 
 

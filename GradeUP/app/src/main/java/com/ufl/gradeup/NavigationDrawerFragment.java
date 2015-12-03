@@ -148,10 +148,12 @@ public class NavigationDrawerFragment extends android.support.v4.app.Fragment im
         }else if(position==3){
             startActivity(new Intent(getActivity(),ViewScheduleActivity.class));
         }else if(position==8){
-            ParseUser.logOut();
+            startActivity(new Intent(getActivity(), AboutUsActivity.class));
         }
         else if(position==6) {
             startActivity(new Intent(getActivity(), PublicDiscussionActivity.class));
+        }else if(position==7) {
+            startActivity(new Intent(getActivity(), HelpActivity.class));
         }
         navDrawerLayout.closeDrawers();
 
