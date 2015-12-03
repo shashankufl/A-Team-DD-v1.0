@@ -130,7 +130,8 @@
             android:name=".UpdateGroupScheduleActivity"
             android:label="@string/title_activity_update_group_schedule" >
         </activity>
-        <activity android:name=".HelpActivity" >
+        <activity android:name=".HelpActivity"
+            android:label="Help">
         </activity>
         <activity android:name=".AboutUsActivity" >
         </activity>
