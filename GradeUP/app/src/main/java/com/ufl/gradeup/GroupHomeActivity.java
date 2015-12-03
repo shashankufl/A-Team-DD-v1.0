@@ -377,6 +377,14 @@ public class GroupHomeActivity extends AppCompatActivity {
             startActivity(intentNewA);
         }
 
+        if(id == R.id.refreshPage){
+            Intent intentNewA = new Intent(GroupHomeActivity.this,
+                    GroupHomeActivity.class);
+            intentNewA.putExtra("groupName", groupName);
+            startActivity(intentNewA);
+            finish();
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
