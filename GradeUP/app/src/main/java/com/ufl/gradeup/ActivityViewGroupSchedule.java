@@ -42,7 +42,7 @@ public class ActivityViewGroupSchedule extends AppCompatActivity {
         Intent intentGet= getIntent();
         groupName = intentGet.getStringExtra("groupName");
 
-        final SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-d" );
+        final SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd" );
         sDate = sdf.format(new Date());
         ScheduleListView = (ListView) findViewById(R.id.scheduleList);
         final ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,schedule);
@@ -82,8 +82,8 @@ public class ActivityViewGroupSchedule extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(CalendarView view,int year,int month,int day){
                 if(day/10 == 0){
-//                    sDate = "" + year + "-" + (month + 1) + "-0" + day; #Flag #ToBeCorrected
-                    sDate = "" + year + "-" + (month + 1) + "-" + day;
+                    sDate = "" + year + "-" + (month + 1) + "-0" + day;
+//                    sDate = "" + year + "-" + (month + 1) + "-" + day;
                 }
                 else{
                     sDate = "" + year + "-" + (month + 1) + "-" + day;
