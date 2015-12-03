@@ -46,7 +46,7 @@ public class AddScheduleActivity extends AppCompatActivity {
     String sunDate,monDate,tueDate,wedDate,thuDate,friDate,satDate;
     String regexSName = "[a-zA-Z0-9.-_@,/':()!#$%&*+\\s]{3,50}";
     int dayCheck, monthCheck, yearCheck;
-    String dayofWeek;
+    String dayofWeek,currentDate;
     public static String startDate = "";
     private Switch weeklyRepeatToggle,monthlyRepeatToggle;
 
@@ -183,6 +183,7 @@ public class AddScheduleActivity extends AppCompatActivity {
         final SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd" );
         editText.setText("Date: " + sdf.format(new Date()));
         startDate = sdf.format(new Date());
+        currentDate = startDate;
 
         SimpleDateFormat formatDay = new SimpleDateFormat("EEEE", Locale.US);
         Calendar newInstance = Calendar.getInstance();
@@ -472,10 +473,14 @@ public class AddScheduleActivity extends AppCompatActivity {
                          } else if (startTime == endTime) {
                              Toast.makeText(getApplicationContext(), "Start time & End time cannot be same",
                                      Toast.LENGTH_LONG).show();
-                         } else if ((startTimeInt >= endTimeInt) || (endTimeInt < currentTimeInt) || ((startTimeInt > currentTimeInt) && (endTimeInt == 0))) {
+                         } else if ((startDate == currentDate) && ((startTimeInt >= endTimeInt) || (endTimeInt < currentTimeInt) || ((startTimeInt > currentTimeInt) && (endTimeInt == 0)))) {
                              Toast.makeText(getApplicationContext(), "End time should be after start time",
                                      Toast.LENGTH_LONG).show();
-                         } else {
+                         } else if ((startDate != currentDate) && ((startTimeInt >= endTimeInt) || (endTimeInt == 0))) {
+                             Toast.makeText(getApplicationContext(), "End time should be after start time",
+                                     Toast.LENGTH_LONG).show();
+                         }
+                         else {
                              // Save new user data into Parse.com Data Storage
                              ParseObject newSchedule = new ParseObject("Schedule");
                              newSchedule.put("User_ID", userName);
