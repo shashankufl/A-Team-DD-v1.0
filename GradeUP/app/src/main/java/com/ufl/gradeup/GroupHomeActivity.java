@@ -30,6 +30,7 @@ import android.widget.Toast;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.GetDataCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -93,6 +94,10 @@ public class GroupHomeActivity extends AppCompatActivity {
         });
         getTodayGroupSchedule();
         getGroupMembersList();
+        ParseUser parseUser = ParseUser.getCurrentUser();
+        if(!isAdmin && !groupUserNameList.contains(parseUser.getUsername())) {
+            fab.setVisibility(View.GONE);
+        }
 //        try {
 //            isAdmin();
 //        } catch (ParseException e) {
@@ -238,6 +243,9 @@ public class GroupHomeActivity extends AppCompatActivity {
 
         MenuItem approveRequestMenuItem = menu.findItem(R.id.approveRequestListItem);
         MenuItem joinGroupListItem = menu.findItem(R.id.joinGroupListItem);
+        MenuItem viewGroupSchedule = menu.findItem(R.id.viewGroupSchedule);
+        MenuItem leaveGroup = menu.findItem(R.id.leaveGroup);
+        MenuItem updateGroupProfilePicture = menu.findItem(R.id.updateGroupProfilePicture);
 
         approveRequestMenuItem.setVisible(isAdmin);
 
@@ -253,6 +261,9 @@ public class GroupHomeActivity extends AppCompatActivity {
         }else{
             joinGroupListItem.setTitle("Join Group");
             joinGroupListItem.setVisible(!isAdmin && !groupUserNameList.contains(parseUser.getUsername()));
+            viewGroupSchedule.setVisible(groupUserNameList.contains(parseUser.getUsername()));
+            leaveGroup.setVisible(groupUserNameList.contains(parseUser.getUsername()));
+            updateGroupProfilePicture.setVisible(groupUserNameList.contains(parseUser.getUsername()));
         }
         int a = 1;
 
@@ -419,52 +430,107 @@ public class GroupHomeActivity extends AppCompatActivity {
         final ProgressDialog pictureLoadProgress = new ProgressDialog(this);
         pictureLoadProgress.setTitle("Loading Group Profile...");
         pictureLoadProgress.show();
-        query.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> list, ParseException e) {
-                if (e == null) {
-                    for (ParseObject object : list
-                            ) {
-                        if (!groupMembersList.contains(object.getString("memberName"))) {
-                            groupMembersList.add(object.getString("memberName"));
-                            groupUserNameList.add(object.getString("userName"));
+
+        try {
+            for(ParseObject object :query.find()){
+                if (!groupMembersList.contains(object.getString("memberName"))) {
+                    groupMembersList.add(object.getString("memberName"));
+                    groupUserNameList.add(object.getString("userName"));
 
 
-                            if (object.getNumber("isAdmin") == 1) {
+                    if (object.getNumber("isAdmin") == 1) {
 
 
-                                ParseFile profilePictureFile = object.getParseFile("ProfilePic");
-                                try {
-                                    profilepictureByteArray = profilePictureFile.getData();
-                                } catch (ParseException e1) {
-                                    e1.printStackTrace();
-                                }
-                                Bitmap profilePicBmp = BitmapFactory.decodeByteArray(profilepictureByteArray, 0, profilepictureByteArray.length);
-                                groupProfilePic.setImageBitmap(profilePicBmp);
-
-                                ArrayList<String> requestArray = null;
-                                requestArray = (ArrayList<String>)object.get("joinRequests");
-                                if(requestArray.contains(requestingUser.getUsername()+","+groupName+","+requestingUser.get("Name").toString())){
-                                    isRequestSent = true;
-                                }else{
-                                    isRequestSent = false;
-                                }
-
-
-                                if (object.getString("userName") == requestingUser.getUsername()) {
-//            return true;
-                                    isAdmin = true;
-                                }else {
-//        return false;
-                                    isAdmin = false;
-                            }}
+                        ParseFile profilePictureFile = object.getParseFile("ProfilePic");
+                        try {
+                            profilepictureByteArray = profilePictureFile.getData();
+                        } catch (ParseException e1) {
+                            e1.printStackTrace();
                         }
+                        Bitmap profilePicBmp = BitmapFactory.decodeByteArray(profilepictureByteArray, 0, profilepictureByteArray.length);
+                        groupProfilePic.setImageBitmap(profilePicBmp);
+
+                        ArrayList<String> requestArray = null;
+                        requestArray = (ArrayList<String>) object.get("joinRequests");
+                        if (requestArray.contains(requestingUser.getUsername() + "," + groupName + "," + requestingUser.get("Name").toString())) {
+                            isRequestSent = true;
+                        } else {
+                            isRequestSent = false;
+                        }
+
+
+//                        if (object.getString("userName") == requestingUser.getUsername()) {
+////            return true;
+//                            isAdmin = true;
+//                        } else {
+////        return false;
+//                            isAdmin = false;
+//                        }
                     }
-                    pictureLoadProgress.dismiss();
-                    bindGroupMembers();
                 }
             }
-        });
+            query.whereEqualTo("isAdmin",1);
+            query.whereEqualTo("userName", requestingUser.getUsername());
+            if (query.count() == 1) {
+//            return true;
+                isAdmin = true;
+            }else {
+//        return false;
+                isAdmin = false;
+            }
+
+            pictureLoadProgress.dismiss();
+            bindGroupMembers();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+//        query.findInBackground(new FindCallback<ParseObject>() {
+//            @Override
+//            public void done(List<ParseObject> list, ParseException e) {
+//                if (e == null) {
+//                    for (ParseObject object : list
+//                            ) {
+//                        if (!groupMembersList.contains(object.getString("memberName"))) {
+//                            groupMembersList.add(object.getString("memberName"));
+//                            groupUserNameList.add(object.getString("userName"));
+//
+//
+//                            if (object.getNumber("isAdmin") == 1) {
+//
+//
+//                                ParseFile profilePictureFile = object.getParseFile("ProfilePic");
+//                                try {
+//                                    profilepictureByteArray = profilePictureFile.getData();
+//                                } catch (ParseException e1) {
+//                                    e1.printStackTrace();
+//                                }
+//                                Bitmap profilePicBmp = BitmapFactory.decodeByteArray(profilepictureByteArray, 0, profilepictureByteArray.length);
+//                                groupProfilePic.setImageBitmap(profilePicBmp);
+//
+//                                ArrayList<String> requestArray = null;
+//                                requestArray = (ArrayList<String>) object.get("joinRequests");
+//                                if (requestArray.contains(requestingUser.getUsername() + "," + groupName + "," + requestingUser.get("Name").toString())) {
+//                                    isRequestSent = true;
+//                                } else {
+//                                    isRequestSent = false;
+//                                }
+//
+//
+//                                if (object.getString("userName") == requestingUser.getUsername()) {
+////            return true;
+//                                    isAdmin = true;
+//                                } else {
+////        return false;
+//                                    isAdmin = false;
+//                                }
+//                            }
+//                        }
+//                    }
+//                    pictureLoadProgress.dismiss();
+//                    bindGroupMembers();
+//                }
+//            }
+//        });
 
 
 

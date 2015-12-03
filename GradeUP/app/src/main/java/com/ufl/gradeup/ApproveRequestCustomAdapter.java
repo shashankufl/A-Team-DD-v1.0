@@ -11,6 +11,7 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.parse.FindCallback;
+import com.parse.ParseACL;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -107,6 +108,10 @@ public class ApproveRequestCustomAdapter extends BaseAdapter implements ListAdap
                 group.put("userName", userName);
                 group.put("isAdmin",0);
                 group.put("memberName", memberNameString);
+                ParseACL acl = new ParseACL(ParseUser.getCurrentUser());
+                acl.setPublicWriteAccess(true);
+                acl.setPublicReadAccess(true);
+                group.setACL(acl);
 
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("Groups");
                 query.whereEqualTo("groupName", groupName);
