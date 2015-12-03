@@ -11,7 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.parse.CountCallback;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -19,6 +21,8 @@ import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import bolts.Task;
 
 public class SearchForGroupActivity extends AppCompatActivity {
 
@@ -44,7 +48,7 @@ public class SearchForGroupActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View arg0) {
-                ParseQuery<ParseObject> query = ParseQuery.getQuery("Groups");
+                final ParseQuery<ParseObject> query = ParseQuery.getQuery("Groups");
                 query.whereEqualTo("groupName", searchStringText.getText().toString());
                 query.findInBackground(new FindCallback<ParseObject>() {
                     public void done(List<ParseObject> objects, ParseException e) {
@@ -53,13 +57,38 @@ public class SearchForGroupActivity extends AppCompatActivity {
                                     ) {
 
                                 if (!groupNamesList.contains(object.getString("groupName"))) {
+                                    if(groupNamesList.size() > 0){
+                                        groupNamesList.clear();
+                                    }
                                     groupNamesList.add(object.getString("groupName"));
                                 }
                                 groupName = object.getString("groupName");
 
                                // groupNameView.setText(groupName);
                             }
+
+                            query.countInBackground(new CountCallback() {
+                                @Override
+                                public void done(int i, ParseException e) {
+                                    if(i == 0){
+                                        Toast.makeText(getApplicationContext(),
+                                            "Group does not exist", Toast.LENGTH_SHORT)
+                                            .show();
+                                    }
+                                }
+                            });
+//                            try {
+//                                if(query.count() == 0){
+//                                    Toast.makeText(getApplicationContext(),
+//                                            "Group does not exist", Toast.LENGTH_SHORT)
+//                                            .show();
+//                                }
+//                            } catch (ParseException e1) {
+//                                e1.printStackTrace();
+//                            }
+
                             adapter.notifyDataSetChanged();
+                            searchStringText.setText("");
                         }
                     }
                 });
