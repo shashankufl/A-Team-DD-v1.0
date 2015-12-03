@@ -615,7 +615,7 @@ public class GroupHomeActivity extends AppCompatActivity {
     public void bindGroupMembers() {
 
         LinearLayout groupLayout = (LinearLayout) findViewById(R.id.membersCard);
-        int[] icons = {R.mipmap.male_icon,R.mipmap.male1_icon,R.mipmap.female_icon,R.mipmap.boy_icon,R.mipmap.girl_icon};
+        int[] icons = {R.mipmap.male_icon,R.mipmap.male1_icon,R.mipmap.boy_icon};
         if (groupMembersList.size() == 0) {
             TextView textView = new TextView(this);
             textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
