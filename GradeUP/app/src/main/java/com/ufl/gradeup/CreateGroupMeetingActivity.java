@@ -438,7 +438,7 @@ public class CreateGroupMeetingActivity extends AppCompatActivity {
         if(endHour<10){
             endHourTxt = "0"+endHourTxt;
         }
-        
+
         String meetingStartTime = startHourTxt + ":" + startMinuteTxt;
         String meetingEndTime = endHourTxt + ":" + endMinuteTxt;
         ParseObject groupMeeting = new ParseObject("MemberSchedule");
@@ -459,6 +459,23 @@ public class CreateGroupMeetingActivity extends AppCompatActivity {
 
     private void addMeetingToSchedule() {
         ParseObject schedule;
+        String startMinuteTxt = Integer.toString(startMinute);
+        String endMinuteTxt = Integer.toString(endMinute);
+        String startHourTxt = Integer.toString(startHour);
+        String endHourTxt = Integer.toString(endHour);
+        if(startMinute<10){
+            startMinuteTxt = "0"+startMinuteTxt;
+        }
+        if(endMinute<10){
+            endMinuteTxt = "0"+endMinuteTxt;
+        }
+        if(startHour<10){
+            startHourTxt = "0"+startHourTxt;
+        }
+        if(endHour<10){
+            endHourTxt = "0"+endHourTxt;
+        }
+
         String meetingStartTime = startHour + ":" + startMinute;
         String meetingEndTime = endHour + ":" + endMinute;
         String Agenda = meetingAgendaTxt.getText().toString();
